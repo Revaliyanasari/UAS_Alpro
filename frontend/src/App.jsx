@@ -1,0 +1,29 @@
+import { Routes, Route } from 'react-router-dom';
+import { ToastProvider } from './components/ui/Toast.jsx';
+import { useApplySettings } from './hooks/useApplySettings.js';
+import WelcomePage from './features/welcome/WelcomePage.jsx';
+import OnboardingPage from './features/onboarding/OnboardingPage.jsx';
+import MapPage from './features/map/MapPage.jsx';
+import LessonPage from './features/lesson/LessonPage.jsx';
+import NotFoundPage from './features/home/NotFoundPage.jsx';
+import CheckerLabPage from './features/lab/CheckerLabPage.jsx';
+import CatalogPage from './features/catalog/CatalogPage.jsx';
+import SettingsPage from './features/settings/SettingsPage.jsx';
+
+export default function App() {
+  useApplySettings();
+  return (
+    <ToastProvider>
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/mulai" element={<OnboardingPage />} />
+        <Route path="/peta" element={<MapPage />} />
+        <Route path="/belajar/:worldId" element={<LessonPage />} />
+        <Route path="/pengaturan" element={<SettingsPage />} />
+        <Route path="/lab" element={<CheckerLabPage />} />
+        <Route path="/katalog" element={<CatalogPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </ToastProvider>
+  );
+}

@@ -1,0 +1,181 @@
+/* Ukuran ubin: x tidak sama dengan kelipatan 1 (x adalah bilangan yang belum diketahui). */
+.activity {
+  --x: 92px;
+  --u: 26px;
+  display: grid;
+  gap: var(--space-4);
+}
+.frames {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius-board);
+  background: var(--cream-50);
+  border: 2px solid var(--cream-100);
+}
+.frameWrap {
+  display: grid;
+  justify-items: end;
+}
+.frameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.sideTop,
+.sideLeft {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+.sideTop {
+  justify-self: end;
+  padding-bottom: 2px;
+}
+.frame {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 3px dashed var(--beige-500);
+  border-radius: var(--radius-tile);
+  background: var(--white);
+  cursor: pointer;
+  transition: background-color var(--dur-micro), border-color var(--dur-micro);
+}
+.frame-x2 {
+  width: var(--x);
+  height: var(--x);
+}
+.frame-x {
+  width: var(--u);
+  height: var(--x);
+}
+.frame-one {
+  width: var(--u);
+  height: var(--u);
+}
+/* bingkai kecil tetap mudah disentuh: area sentuh diperbesar tanpa mengubah ukurannya */
+.frame-x,
+.frame-one {
+  position: relative;
+}
+.frame-x::after,
+.frame-one::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+}
+.over {
+  border-color: var(--teal-700);
+  background: var(--mint-100);
+}
+.filled {
+  border-style: solid;
+  border-color: var(--sage-500);
+  cursor: default;
+}
+.shake {
+  animation: shake 0.4s;
+}
+
+.tray {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--space-5);
+  min-height: calc(var(--x) + 16px);
+  padding: var(--space-2);
+  border-radius: var(--radius-board);
+  background: var(--mint-100);
+}
+.dragHandle {
+  padding: 4px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: none;
+  cursor: grab;
+  touch-action: none; /* jari menyeret ubin, bukan menggulir halaman */
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  display: grid;
+  place-items: center;
+}
+.selected {
+  border-color: var(--teal-700);
+  background: var(--white);
+}
+.dragging {
+  cursor: grabbing;
+  position: relative;
+  z-index: 5;
+  filter: drop-shadow(0 8px 10px rgba(46, 58, 56, 0.25));
+}
+
+.tile {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-tile);
+  border: 2px solid rgba(46, 58, 56, 0.18);
+  font-weight: 700;
+  font-size: var(--fs-small);
+}
+.tile-x2 {
+  width: var(--x);
+  height: var(--x);
+  background: var(--tile-x2);
+}
+.tile-x {
+  width: var(--u);
+  height: var(--x);
+  background: var(--tile-x);
+}
+.tile-one {
+  width: var(--u);
+  height: var(--u);
+  background: var(--tile-1);
+}
+/* ubin yang terpasang mengisi bingkai dengan pas (tepi bingkai tidak menggeser ubin) */
+.filled {
+  overflow: hidden;
+}
+.frame .tile {
+  border: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.message {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  font-weight: 700;
+  text-align: center;
+}
+.happy {
+  background: var(--color-ok-bg);
+  color: var(--color-ok);
+}
+.confused {
+  background: var(--color-hint-bg);
+  color: var(--color-hint);
+}
+.tapHint {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+@keyframes shake {
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}

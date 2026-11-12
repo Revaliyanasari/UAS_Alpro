@@ -1,0 +1,68 @@
+.screen {
+  position: relative;
+  min-height: 100dvh;
+}
+.bar,
+.map,
+.guide {
+  position: relative;
+  z-index: 1;
+  max-width: var(--reading-max);
+  margin: 0 auto;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: calc(var(--space-3) + env(safe-area-inset-top)) var(--gutter) var(--space-2);
+}
+.hello {
+  flex: 1;
+  display: grid;
+}
+.hello strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+}
+.stats {
+  display: flex;
+  gap: var(--space-3);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+.settings {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 3px 0 var(--color-border);
+}
+.map {
+  padding: var(--space-2) var(--gutter) var(--space-4);
+}
+.path {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  /* jalan setapak putus-putus di tengah peta */
+  background: linear-gradient(var(--beige-300), var(--beige-300)) center / 4px 100% no-repeat;
+}
+.left {
+  justify-self: start;
+  margin-left: 4%;
+}
+.right {
+  justify-self: end;
+  margin-right: 4%;
+}
+.guide {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  padding: 0 var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+}

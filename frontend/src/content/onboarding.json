@@ -1,0 +1,48 @@
+{
+  "welcome": {
+    "greeting": "Halo! Aku TATA, teman asyikmu menemukan aljabar.",
+    "greetingReturning": "Selamat datang kembali, {name}! Lanjut petualangan?"
+  },
+  "steps": [
+    {
+      "id": "intro",
+      "title": "Kenalan dengan TATA",
+      "tata": "waving",
+      "text": "Halo, teman-teman! Kenalin, nama aku TATA. Aku akan menemani kalian menjelajahi dunia aljabar. Siap memulai petualangan kita?"
+    },
+    {
+      "id": "how",
+      "title": "Cara belajar di sini",
+      "tata": "talking",
+      "points": [
+        { "icon": "▶", "text": "Ketuk Lanjut sesuai kecepatanmu. Tidak ada yang berjalan sendiri." },
+        { "icon": "💡", "text": "Bingung? Minta petunjuk kecil. Petunjuk tidak mengurangi poin." },
+        { "icon": "✔", "text": "Cek jawabanmu dengan mengalikan kembali." }
+      ]
+    },
+    {
+      "id": "tiles",
+      "title": "Kenalan dengan ubin",
+      "tata": "talking",
+      "text": "Seret setiap ubin ke bingkai yang ukuran sisinya cocok.",
+      "tapHint": "Bisa juga: ketuk ubin, lalu ketuk bingkainya.",
+      "wrong": "Belum muat. Bandingkan panjang sisi ubin dan bingkainya.",
+      "match": "Cocok! Lanjutkan ubin berikutnya.",
+      "done": "Hebat! Nama ubin adalah luasnya: x · x = x², x · 1 = x, dan 1 · 1 = 1."
+    },
+    {
+      "id": "name",
+      "title": "Siapa nama panggilanmu?",
+      "tata": "happy",
+      "text": "Cukup nama panggilan, tidak perlu nama lengkap.",
+      "placeholder": "contoh: Dimas"
+    }
+  ],
+  "map": {
+    "hello": "Halo, {name}!",
+    "helloAnon": "Halo, penjelajah!",
+    "tataStart": "Ayo mulai dari {world}!",
+    "comingSoon": "Materi pulau ini sedang disiapkan. Segera hadir!",
+    "locked": "Selesaikan {world} dulu untuk membuka pulau ini."
+  }
+}

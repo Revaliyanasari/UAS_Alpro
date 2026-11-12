@@ -1,0 +1,26 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.track {
+  flex: 1;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  background: var(--cream-100);
+  border: 2px solid var(--color-border);
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: repeating-linear-gradient(90deg, var(--sage-500) 0 14px, var(--teal-400) 14px 18px);
+  transition: width var(--dur-screen) var(--ease-soft);
+}
+.count {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  min-width: 3.5ch;
+  text-align: right;
+}

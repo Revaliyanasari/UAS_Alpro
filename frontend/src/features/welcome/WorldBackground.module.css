@@ -1,0 +1,50 @@
+.bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.floatA,
+.floatB,
+.floatC {
+  animation: float 7s ease-in-out infinite;
+}
+.floatB {
+  animation-duration: 9s;
+  animation-delay: -3s;
+}
+.floatC {
+  animation-duration: 11s;
+  animation-delay: -5s;
+}
+.cloudSlow {
+  animation: drift 26s ease-in-out infinite;
+}
+.twinkle {
+  animation: bob 8s ease-in-out infinite;
+}
+.twinkleSlow {
+  animation: fade 4s ease-in-out infinite;
+}
+@keyframes float {
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes drift {
+  50% {
+    transform: translateX(14px);
+  }
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes fade {
+  50% {
+    opacity: 0.4;
+  }
+}

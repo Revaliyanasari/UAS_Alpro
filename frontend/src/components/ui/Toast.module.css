@@ -1,0 +1,45 @@
+.region {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+  z-index: 50;
+}
+.toast {
+  pointer-events: auto;
+  max-width: var(--reading-max);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lift);
+  text-align: left;
+  cursor: pointer;
+  animation: rise var(--dur-screen) var(--ease-soft);
+}
+.happy {
+  background: var(--color-ok-bg);
+  border-color: var(--sage-500);
+  color: var(--color-ok);
+}
+.confused {
+  background: var(--color-hint-bg);
+  border-color: var(--butter-300);
+  color: var(--color-hint);
+}
+@keyframes rise {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}

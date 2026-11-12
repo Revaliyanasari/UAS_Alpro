@@ -1,0 +1,13 @@
+.tata {
+  flex: none;
+  aspect-ratio: 200 / 240;
+}
+.lg {
+  width: min(56vw, 230px);
+}
+.md {
+  width: 112px;
+}
+.sm {
+  width: 64px;
+}

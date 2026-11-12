@@ -1,0 +1,113 @@
+.tata {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.shadow {
+  fill: var(--ink-900);
+  opacity: 0.1;
+}
+.figure,
+.armLeft,
+.armRight,
+.head,
+.eyes {
+  transform-box: fill-box;
+}
+
+/* idle: bernapas pelan + berkedip */
+.idle .figure {
+  animation: breathe 3.2s ease-in-out infinite;
+}
+.eyes {
+  transform-origin: center;
+  animation: blink 4.5s infinite;
+}
+
+/* waving: lengan kanan melambai */
+.waving .armRight {
+  transform-origin: 0% 50%;
+  animation: wave 0.9s ease-in-out infinite;
+}
+.waving .figure {
+  animation: breathe 3.2s ease-in-out infinite;
+}
+
+/* talking: mulut membuka-menutup */
+.mouthTalk {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: talk 0.36s ease-in-out infinite alternate;
+}
+
+/* happy: lompatan kecil */
+.happy .figure {
+  animation: hop 0.9s ease-in-out 2;
+}
+
+/* confused: kepala miring */
+.confused .head {
+  transform-origin: 50% 100%;
+  transform: rotate(-7deg);
+}
+.question {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  fill: var(--color-hint);
+}
+
+/* celebrating: kedua lengan ke atas + lompat */
+.celebrating .armLeft {
+  transform-origin: 100% 50%;
+  transform: rotate(48deg) translate(4px, -10px);
+}
+.celebrating .armRight {
+  transform-origin: 0% 50%;
+  transform: rotate(-48deg) translate(-4px, -10px);
+}
+.celebrating .figure {
+  animation: hop 0.7s ease-in-out infinite;
+}
+.sparks {
+  animation: twinkle 1.2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes wave {
+  50% {
+    transform: rotate(-38deg);
+  }
+}
+@keyframes talk {
+  to {
+    transform: scaleY(0.35);
+  }
+}
+@keyframes hop {
+  40% {
+    transform: translateY(-12px);
+  }
+  70% {
+    transform: translateY(0);
+  }
+}
+@keyframes twinkle {
+  50% {
+    opacity: 0.35;
+  }
+}

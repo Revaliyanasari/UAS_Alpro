@@ -1,0 +1,120 @@
+.intro {
+  color: var(--color-text-muted);
+}
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.tab {
+  min-height: var(--touch-min);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-weight: 700;
+  cursor: pointer;
+}
+.tabActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary-shadow);
+  color: var(--color-primary-on);
+}
+.field {
+  display: grid;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+.field span {
+  font-weight: 700;
+  font-size: var(--fs-small);
+}
+.field input {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-size: var(--fs-h3);
+}
+.field input:focus {
+  border-color: var(--teal-700);
+  outline: none;
+}
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+.op {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  padding-bottom: var(--space-2);
+}
+.preview {
+  margin: var(--space-3) 0 0;
+  text-align: center;
+}
+.answerForm {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-size: var(--fs-small);
+}
+.chip {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+.result {
+  display: grid;
+  gap: var(--space-3);
+}
+.badge {
+  justify-self: start;
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+}
+.badge-correct {
+  background: var(--color-ok-bg);
+  color: var(--color-ok);
+}
+.badge-partial,
+.badge-not-factored,
+.badge-wrong,
+.badge-invalid {
+  background: var(--color-hint-bg);
+  color: var(--color-hint);
+}
+.code {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+.multiply {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+.multiply p:last-child {
+  margin: 0;
+}
+.warn {
+  color: var(--color-hint);
+  font-weight: 700;
+}

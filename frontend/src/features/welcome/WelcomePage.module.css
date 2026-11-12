@@ -1,0 +1,45 @@
+.screen {
+  position: relative;
+  min-height: 100dvh;
+}
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: calc(var(--space-6) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+.brand {
+  text-align: center;
+}
+.title {
+  font-size: calc(var(--fs-h1) * 1.25);
+  color: var(--teal-700);
+  margin-bottom: var(--space-1);
+  text-shadow: 0 2px 0 var(--cream-50);
+}
+.tagline {
+  margin: 0;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+.actions {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  min-height: 112px;
+}

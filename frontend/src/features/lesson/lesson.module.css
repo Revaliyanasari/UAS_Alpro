@@ -1,0 +1,210 @@
+.lesson,
+.finish {
+  min-height: 100dvh;
+  max-width: var(--reading-max);
+  margin: 0 auto;
+  padding: calc(var(--space-3) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-4) + env(safe-area-inset-bottom));
+}
+.lesson {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.top > :last-child {
+  flex: 1;
+}
+.close {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  box-shadow: 0 3px 0 var(--color-border);
+  font-size: 18px;
+  cursor: pointer;
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.title {
+  margin: 0;
+}
+.introTata {
+  display: flex;
+  justify-content: center;
+}
+.bottom {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+}
+.screenBody {
+  display: grid;
+  gap: var(--space-3);
+}
+.bigMath {
+  margin: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-soft);
+  text-align: center;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+.text,
+.prompt {
+  margin: 0;
+}
+.prompt {
+  font-weight: 700;
+  font-size: var(--fs-h3);
+}
+.steps {
+  margin: 0;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-6);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  display: grid;
+  gap: var(--space-2);
+}
+.options {
+  display: grid;
+  gap: var(--space-2);
+}
+.option {
+  min-height: 56px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  cursor: pointer;
+}
+.optionRight {
+  border-color: var(--sage-500);
+  background: var(--color-ok-bg);
+}
+.coach {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+.coachBody {
+  flex: 1;
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+.hint {
+  display: block;
+  margin-top: var(--space-1);
+  font-weight: 700;
+}
+.hintBtn,
+.solutionBtn,
+.miniBtn {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 2px solid var(--butter-300);
+  border-radius: var(--radius-pill);
+  background: var(--butter-200);
+  font-weight: 700;
+  cursor: pointer;
+}
+.hintBtn:disabled,
+.miniBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.solutionBtn {
+  justify-self: start;
+  background: var(--color-surface);
+}
+.machine {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-board);
+  background: var(--cream-100);
+}
+.machineRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+}
+.smallInput {
+  width: 72px;
+  min-height: var(--touch-min);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  text-align: center;
+  font-size: var(--fs-h3);
+}
+.varChoices {
+  display: flex;
+  gap: var(--space-2);
+}
+.machineResult {
+  margin: 0;
+  font-weight: 700;
+}
+.slot {
+  display: inline-block;
+  min-width: 2ch;
+  padding: 0 4px;
+  border-bottom: 3px solid var(--teal-400);
+}
+.slotPick {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+.slotPick button {
+  min-height: var(--touch-min);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-weight: 700;
+  cursor: pointer;
+}
+.slotPick button[aria-pressed='true'] {
+  border-color: var(--teal-700);
+  background: var(--mint-100);
+}
+.area {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.area td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--cream-100);
+}
+.finish {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+.stars {
+  font-size: 40px;
+  margin: 0;
+}
+.dim {
+  opacity: 0.25;
+}

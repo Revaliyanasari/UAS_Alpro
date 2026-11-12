@@ -1,0 +1,25 @@
+{
+  "worldId": 1,
+  "screens": [
+    { "type": "info", "title": "Misi Lembah Aljabar", "tata": "waving", "text": "Kita kenali bagian bentuk aljabar dan cara membaginya. Ini bekal untuk memfaktorkan nanti." },
+    { "type": "info", "title": "Bagian bentuk aljabar", "math": "3x + 5", "text": "Pada 3x + 5: angka 3 disebut koefisien, x disebut variabel, dan 5 disebut konstanta." },
+    { "type": "choice", "title": "Coba tebak", "prompt": "Berapa koefisien dari 7x?", "options": ["7", "x", "7x"], "answer": "7",
+      "hints": ["Koefisien adalah angka di depan variabel.", "Lihat 7x. Mana yang angka, mana yang huruf?", "Angkanya 7, hurufnya x."] },
+    { "type": "choice", "title": "Suku sejenis", "prompt": "Mana yang sejenis dengan 4x?", "options": ["4x^2", "-x", "4"], "answer": "-x",
+      "hints": ["Suku sejenis punya variabel dan pangkat yang sama.", "4x punya x berpangkat 1.", "Cari pilihan yang hanya punya x, tanpa pangkat 2."] },
+    { "type": "example", "title": "Contoh TATA: FPB", "math": "FPB dari 8x^2 dan 12x",
+      "steps": ["Angka: FPB dari 8 dan 12 adalah 4.", "Variabel: x² dan x sama-sama punya x. Ambil pangkat terkecil: x.", "Gabungkan: FPB = 4x."] },
+    { "type": "input", "title": "Giliranmu", "prompt": "Tentukan FPB dari 6x^2 dan 9x.", "check": { "kind": "equivalent", "target": "3x" },
+      "hints": ["Cari dulu FPB angkanya: 6 dan 9.", "FPB dari 6 dan 9 adalah 3. Sekarang variabelnya: x² dan x.", "Ambil x berpangkat terkecil, lalu gabungkan dengan 3."],
+      "solution": ["FPB dari 6 dan 9 = 3", "Variabel bersama dengan pangkat terkecil = x", "FPB = 3x"] },
+    { "type": "info", "title": "Pembagian = kebalikan perkalian", "math": "4x × 2x = 8x^2", "text": "Karena 4x × 2x = 8x², maka 8x² : 4x = 2x. Bagi angkanya, lalu bagi variabelnya." },
+    { "type": "divider", "title": "Mesin Pembagi", "dividend": "8x^2", "divisor": "4x" },
+    { "type": "divider", "title": "Mesin Pembagi", "dividend": "12x", "divisor": "4x" },
+    { "type": "input", "title": "Latihan pembagian", "prompt": "Hitung 15x^2 : 3x", "check": { "kind": "division", "dividend": "15x^2", "divisor": "3x" },
+      "hints": ["Bagi angkanya dulu: 15 : 3.", "15 : 3 = 5. Sekarang x² : x.", "x² : x = x. Gabungkan 5 dan x."],
+      "solution": ["15 : 3 = 5", "x² : x = x", "15x² : 3x = 5x"] },
+    { "type": "input", "title": "Tantangan terakhir", "prompt": "Tentukan FPB dari 16x^2 dan 24x.", "check": { "kind": "equivalent", "target": "8x" },
+      "hints": ["FPB angka: 16 dan 24.", "FPB 16 dan 24 adalah 8.", "Gabungkan 8 dengan x berpangkat terkecil."],
+      "solution": ["FPB dari 16 dan 24 = 8", "Variabel bersama = x", "FPB = 8x"] }
+  ]
+}

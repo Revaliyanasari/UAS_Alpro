@@ -1,0 +1,84 @@
+.screen {
+  min-height: 100dvh;
+  max-width: var(--reading-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--space-3) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-4) + env(safe-area-inset-bottom));
+  gap: var(--space-4);
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.top > :first-child {
+  flex: 1;
+}
+.skip {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: none;
+  background: none;
+  color: var(--color-primary-text);
+  font-weight: 700;
+  cursor: pointer;
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.title {
+  margin: 0;
+}
+.guide {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.points li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+.icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--mint-100);
+  font-size: 20px;
+}
+.nameField input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-size: var(--fs-h3);
+}
+.nameField input:focus {
+  outline: none;
+  border-color: var(--teal-700);
+}
+.bottom {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+}

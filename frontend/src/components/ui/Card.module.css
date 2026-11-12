@@ -1,0 +1,21 @@
+.card {
+  border-radius: var(--radius-card);
+  padding: var(--space-5) var(--space-4);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--space-4);
+}
+.plain {
+  background: var(--color-surface);
+}
+.mint {
+  background: var(--color-surface-soft);
+}
+.cream {
+  background: var(--cream-100);
+}
+.title {
+  font-size: var(--fs-h3);
+}
+.card > :last-child {
+  margin-bottom: 0;
+}

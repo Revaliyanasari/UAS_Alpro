@@ -1,0 +1,86 @@
+{
+  "worlds": [
+    {
+      "id": 1,
+      "name": "Lembah Aljabar",
+      "subtitle": "Mengenal Dunia Aljabar",
+      "mission": "Kenali bagian-bagian bentuk aljabar dan temukan FPB-nya.",
+      "why": "Ini bekal untuk memfaktorkan nanti.",
+      "topics": [
+        "Variabel, koefisien, dan konstanta",
+        "Suku dan suku sejenis",
+        "Perkalian suku",
+        "FPB bilangan dan bentuk aljabar",
+        "Pembagian suku tunggal"
+      ],
+      "indicators": ["Formulating", "Employing"],
+      "tile": "x"
+    },
+    {
+      "id": 2,
+      "name": "Gua Rahasia Pemfaktoran",
+      "subtitle": "Rahasia Pemfaktoran",
+      "mission": "Ubah penjumlahan menjadi perkalian dengan FPB.",
+      "why": "Pemfaktoran adalah kebalikan perkalian.",
+      "topics": [
+        "Faktor dan sifat distributif",
+        "Pemfaktoran sebagai kebalikan perkalian",
+        "Pemfaktoran dengan FPB",
+        "Cek dengan mengalikan kembali"
+      ],
+      "indicators": ["Reasoning", "Employing"],
+      "tile": "x2"
+    },
+    {
+      "id": 3,
+      "name": "Kepulauan Kuadrat",
+      "subtitle": "Misi Selisih Dua Kuadrat",
+      "mission": "Potong, geser, dan temukan rahasia a² − b².",
+      "why": "Bentuk luas bisa disusun ulang menjadi perkalian.",
+      "topics": [
+        "Bilangan kuadrat",
+        "Persegi dikurangi persegi",
+        "Potong dan geser menjadi persegi panjang",
+        "a² − b² = (a + b)(a − b)"
+      ],
+      "indicators": ["Reasoning", "Formulating", "Employing"],
+      "tile": "x2"
+    },
+    {
+      "id": 4,
+      "name": "Menara Tantangan",
+      "subtitle": "Tantangan Pemfaktoran",
+      "mission": "Naiki empat lantai soal, dari dasar sampai soal cerita.",
+      "why": "Latihan bertahap membuatmu makin percaya diri.",
+      "topics": [
+        "Lantai 1: pemahaman dasar",
+        "Lantai 2: penerapan konsep",
+        "Lantai 3: pemecahan masalah",
+        "Lantai 4: soal kontekstual"
+      ],
+      "indicators": ["Employing", "Formulating", "Interpreting"],
+      "tile": "1"
+    },
+    {
+      "id": 5,
+      "name": "Petualangan Literasi",
+      "subtitle": "Mathematical Literacy Adventure",
+      "mission": "Pakai pemfaktoran untuk menyelesaikan masalah sehari-hari.",
+      "why": "Matematika membantu mengambil keputusan yang masuk akal.",
+      "topics": [
+        "Menalar: siapa yang benar?",
+        "Merumuskan model dari situasi",
+        "Menerapkan konsep dan prosedur",
+        "Menilai kewajaran hasil"
+      ],
+      "indicators": ["Reasoning", "Formulating", "Employing", "Interpreting"],
+      "tile": "x"
+    }
+  ],
+  "indicatorNames": {
+    "Reasoning": "Menalar",
+    "Formulating": "Merumuskan",
+    "Employing": "Menerapkan",
+    "Interpreting": "Menafsirkan & menilai"
+  }
+}

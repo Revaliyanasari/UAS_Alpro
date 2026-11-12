@@ -1,0 +1,26 @@
+{
+  "worldId": 2,
+  "screens": [
+    { "type": "info", "title": "Misi Gua Rahasia", "tata": "waving", "text": "Kita ubah penjumlahan menjadi perkalian. Itulah pemfaktoran!" },
+    { "type": "info", "title": "Kebalikan perkalian", "math": "3(x + 2) = 3x + 6", "text": "Mengalikan: 3(x + 2) menjadi 3x + 6. Memfaktorkan: 3x + 6 kembali menjadi 3(x + 2)." },
+    { "type": "tiles", "mode": "groups", "title": "Bagi sama rata", "x2": 8, "x": 12, "count": 4,
+      "prompt": "Bagi semua ubin 8x² + 12x ke 4 kotak sama rata.",
+      "done": "Setiap kotak berisi {inner}. Jadi 8x² + 12x = 4({inner}). Tapi lihat, setiap kotak masih punya x!" },
+    { "type": "tiles", "mode": "rows", "title": "Bangun persegi panjang", "x2": 8, "x": 12, "count": 4,
+      "prompt": "Susun semua ubin menjadi 4 baris yang sama. Setiap baris tingginya x.",
+      "done": "Tingginya 4 baris × x = 4x, panjangnya {inner}. Jadi 8x² + 12x = 4x({inner})!" },
+    { "type": "example", "title": "Langkah Jitu memfaktorkan", "math": "8x^2 + 12x",
+      "steps": ["Koefisien: FPB dari 8 dan 12 adalah 4.", "Variabel: pangkat terkecil yang sama adalah x.", "Gabung: FPB = 4x.", "Bagi setiap suku: 8x² : 4x = 2x dan 12x : 4x = 3.", "Tulis: 4x(2x + 3).", "Cek: 4x · 2x + 4x · 3 = 8x² + 12x ✔"] },
+    { "type": "board", "title": "Papan Matematika", "target": "6x^2+9x",
+      "prompt": "Isi faktor luar dan isi kurung, lalu lihat hasil perkaliannya." },
+    { "type": "input", "title": "Faktorkan", "prompt": "Faktorkan 10y^2 - 15y", "check": { "kind": "factor", "target": "10y^2-15y", "key": "5y(2y-3)" },
+      "hints": ["Cari FPB dari 10y² dan 15y.", "FPB angka 10 dan 15 adalah 5, variabelnya y.", "FPB = 5y. Bagi: 10y² : 5y = … dan 15y : 5y = …"],
+      "solution": ["FPB = 5y", "10y² : 5y = 2y", "15y : 5y = 3", "10y² − 15y = 5y(2y − 3)"] },
+    { "type": "choice", "title": "Siapa yang benar?", "prompt": "Faktorkan 10x^2 + 5x. Ani: 5x(2x + 1). Budi: 5x(2x).", "options": ["Ani", "Budi"], "answer": "Ani",
+      "hints": ["Kalikan kembali kedua jawaban.", "5x(2x) = 10x². Apakah 5x ikut muncul?", "5x : 5x = 1, jadi di dalam kurung harus ada + 1."],
+      "explain": "Ani benar. Budi lupa bahwa 5x : 5x = 1." },
+    { "type": "input", "title": "Tantangan terakhir", "prompt": "Faktorkan 12x^2 + 18x", "check": { "kind": "factor", "target": "12x^2+18x", "key": "6x(2x+3)" },
+      "hints": ["Cari FPB dari 12x² dan 18x.", "FPB angka 12 dan 18 adalah 6, variabelnya x.", "FPB = 6x. Bagi setiap suku dengan 6x."],
+      "solution": ["FPB = 6x", "12x² : 6x = 2x", "18x : 6x = 3", "12x² + 18x = 6x(2x + 3)"] }
+  ]
+}

@@ -1,0 +1,21 @@
+.math {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.math i {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 1.12em;
+  padding: 0 0.04em;
+}
+.math sup {
+  font-size: 0.65em;
+  line-height: 0;
+}
+.normal {
+  font-size: inherit;
+}
+.large {
+  font-size: var(--fs-math);
+  font-weight: 700;
+}

@@ -1,0 +1,44 @@
+.group {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+.choice input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--teal-700);
+  flex: none;
+}
+.choice span {
+  display: grid;
+}
+.choice small {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+.active {
+  border-color: var(--teal-400);
+  background: var(--mint-100);
+}
+.links {
+  display: grid;
+  gap: var(--space-3);
+}
+.note {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  text-align: center;
+}

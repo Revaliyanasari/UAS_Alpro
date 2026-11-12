@@ -1,0 +1,18 @@
+# Dependensi & hasil build
+node_modules/
+dist/
+dev-dist/
+coverage/
+**/e2e/.results/
+**/test-results/
+**/playwright-report/
+
+# Rahasia — JANGAN di-commit
+.env
+.env.*
+!.env.example
+
+# Sistem / editor
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,100 @@
+/* Design tokens Algebra Adventure — satu-satunya sumber warna, huruf, jarak, dan bentuk.
+   Komponen TIDAK boleh menulis warna hex langsung; gunakan var(--...). Lihat docs/UI_UX_DESIGN.md. */
+:root {
+  /* Palet pastel */
+  --sage-500: #8fb996;
+  --sage-700: #4e7a5a;
+  --mint-100: #e6f4ec;
+  --mint-200: #cfebdd;
+  --teal-300: #a6dad8;
+  --teal-400: #7cc6c4;
+  --teal-500: #5faeac;
+  --teal-700: #28706e; /* ≥ 4.5:1 di atas cream */
+  --cream-50: #fff8ea;
+  --cream-100: #fbefd8;
+  --beige-300: #e2c9a6;
+  --beige-500: #c9a77c;
+  --butter-200: #faeab8;
+  --butter-300: #f5dc8b;
+  --peach-200: #f8d3c5;
+  --peach-300: #f2b5a0;
+  --terra-500: #c8694b;
+  --ink-900: #2e3a38;
+  --ink-600: #55635f;
+  --white: #ffffff;
+
+  /* Peran warna (dipakai komponen) */
+  --color-bg: var(--cream-50);
+  --color-surface: var(--white);
+  --color-surface-soft: var(--mint-100);
+  --color-text: var(--ink-900);
+  --color-text-muted: var(--ink-600);
+  --color-primary: var(--teal-400);
+  --color-primary-shadow: var(--teal-500);
+  --color-primary-text: var(--teal-700);
+  --color-border: var(--beige-300);
+  --color-primary-on: var(--ink-900); /* teks di atas tombol toska (putih hanya 1.96:1) */
+  --color-ok: #2f6f48; /* 5.2:1 di atas ok-bg */
+  --color-ok-bg: #e3f2e7;
+  --color-hint: #8a5222; /* 5.5:1 di atas hint-bg — bukan merah, tidak menghukum */
+  --color-hint-bg: #fbecd9;
+  --color-focus: var(--teal-700);
+
+  /* Warna ubin aljabar — tetap di seluruh aplikasi */
+  --tile-x2: var(--teal-400);
+  --tile-x: var(--butter-300);
+  --tile-1: var(--peach-300);
+
+  /* Tipografi */
+  --font-display: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text-scale: 1;
+  --fs-body: calc(17px * var(--text-scale));
+  --fs-small: calc(15px * var(--text-scale));
+  --fs-h3: calc(19px * var(--text-scale));
+  --fs-h2: calc(22px * var(--text-scale));
+  --fs-h1: calc(28px * var(--text-scale));
+  --fs-math: calc(22px * var(--text-scale));
+  --lh-body: 1.5;
+
+  /* Jarak (kelipatan 4 px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --gutter: 16px;
+  --content-max: 1040px;
+  --reading-max: 560px;
+
+  /* Bentuk */
+  --radius-tile: 6px;
+  --radius-button: 16px;
+  --radius-card: 20px;
+  --radius-board: 24px;
+  --radius-pill: 999px;
+  --touch-min: 48px;
+
+  /* Bayangan */
+  --shadow-toy: 0 4px 0 var(--color-primary-shadow);
+  --shadow-card: 0 8px 24px rgba(46, 58, 56, 0.08);
+  --shadow-lift: 0 10px 20px rgba(46, 58, 56, 0.18);
+
+  /* Gerak */
+  --dur-micro: 160ms;
+  --dur-screen: 280ms;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Pengaturan "Teks besar" */
+:root[data-text='large'] {
+  --text-scale: 1.2;
+}
+
+/* Pengaturan "Kurangi animasi" (atau preferensi sistem) */
+:root[data-motion='reduced'] {
+  --dur-micro: 0ms;
+  --dur-screen: 0ms;
+}

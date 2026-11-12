@@ -1,0 +1,35 @@
+.bubble {
+  position: relative;
+  background: var(--cream-50);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-3) var(--space-4);
+  max-width: 34ch;
+  box-shadow: var(--shadow-card);
+}
+.bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  width: 18px;
+  height: 18px;
+  background: inherit;
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  border-color: inherit;
+  transform: rotate(45deg);
+}
+.tail-left::after {
+  left: 28px;
+}
+.tail-right::after {
+  right: 28px;
+}
+.happy {
+  border-color: var(--sage-500);
+  background: var(--color-ok-bg);
+}
+.confused {
+  border-color: var(--butter-300);
+  background: var(--color-hint-bg);
+}
