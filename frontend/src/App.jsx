@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastProvider } from './components/ui/Toast.jsx';
 import { useApplySettings } from './hooks/useApplySettings.js';
@@ -12,6 +13,9 @@ import CatalogPage from './features/catalog/CatalogPage.jsx';
 import SettingsPage from './features/settings/SettingsPage.jsx';
 import TataGalleryPage from './features/tata-gallery/TataGalleryPage.jsx';
 
+// Modul Guru dimuat terpisah agar tidak menambah muatan awal untuk siswa.
+const TeacherPage = lazy(() => import('./features/teacher/TeacherPage.jsx'));
+
 export default function App() {
   useApplySettings();
   return (
@@ -24,6 +28,14 @@ export default function App() {
         <Route path="/kuis/:worldId" element={<QuizPage />} />
         <Route path="/pengaturan" element={<SettingsPage />} />
         <Route path="/tata" element={<TataGalleryPage />} />
+        <Route
+          path="/guru"
+          element={
+            <Suspense fallback={null}>
+              <TeacherPage />
+            </Suspense>
+          }
+        />
         <Route path="/lab" element={<CheckerLabPage />} />
         <Route path="/katalog" element={<CatalogPage />} />
         <Route path="*" element={<NotFoundPage />} />

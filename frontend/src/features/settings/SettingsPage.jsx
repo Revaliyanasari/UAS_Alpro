@@ -67,6 +67,9 @@ export default function SettingsPage() {
       </Card>
       <Card title="Untuk guru" tone="cream">
         <div className={styles.links}>
+          <Button to="/guru" block>
+            Modul Guru: instrumen, penilaian, laporan
+          </Button>
           <Button to="/lab" variant="secondary" block>
             Lab Pemeriksa Aljabar
           </Button>
