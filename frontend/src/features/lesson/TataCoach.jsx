@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import Tata from '../../components/tata/Tata.jsx';
+import { sfx } from '../../audio/index.js';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import { pretty } from '../../components/ui/prettyMath.js';
 import { moodFromTone } from '../../components/tata/tataMood.js';
@@ -13,6 +15,12 @@ export default function TataCoach({ message, tone = 'neutral', mood, focus, hint
   const shown = hintLevel > 0 ? hints[hintLevel - 1] : null;
   // Ekspresi dari situasi belajar (mood); bila tidak ada, diturunkan dari nada umpan balik.
   const tataState = mood ?? moodFromTone(tone, Boolean(shown));
+  // Suara mengikuti respons TATA: ceria saat benar, lembut saat belum tepat (tidak menghukum).
+  useEffect(() => {
+    if (!message) return;
+    if (tone === 'happy') sfx('correct');
+    else if (tone === 'confused') sfx('tryAgain');
+  }, [message, tone]);
   return (
     <div className={styles.coach}>
       <Tata state={tataState} size="sm" />

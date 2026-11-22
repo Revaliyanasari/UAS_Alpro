@@ -4,6 +4,7 @@ import Button from '../../components/ui/Button.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import Tata from '../../components/tata/Tata.jsx';
 import { moodFor } from '../../components/tata/tataMood.js';
+import { sfx } from '../../audio/index.js';
 import WorldBackground from '../welcome/WorldBackground.jsx';
 import { useStudents } from '../../store/studentStore.js';
 import { useProfile } from '../../store/profileStore.js';
@@ -82,6 +83,7 @@ function IdentityForm() {
     else await createStudent(r.value);
     setBusy(false);
     setSaved(r.value.nickname);
+    sfx('tataHello'); // TATA menyapa siswa
   };
 
   if (saved) {

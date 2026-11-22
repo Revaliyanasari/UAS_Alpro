@@ -20,6 +20,8 @@ import ReflectScreen from './ReflectScreen.jsx';
 import CutSlideScreen from './CutSlideScreen.jsx';
 import { phaseOf, phaseInfo } from './rmt.js';
 import AskTata from '../ai/AskTata.jsx';
+import AudioButton from '../../audio/AudioButton.jsx';
+import { sfx } from '../../audio/index.js';
 import NotFoundPage from '../home/NotFoundPage.jsx';
 import { lessons, lessonCopy } from '../../content/lessons/index.js';
 import worldsContent from '../../content/worlds.json';
@@ -77,6 +79,9 @@ export default function LessonPage() {
     const xp = Object.values(results).filter((r) => r.graded).length * XP_PER_TASK;
     completeLesson(world.id, xp);
     setFinished({ xp });
+    // Misi selesai: lagu kemenangan singkat, lalu bunyi XP
+    sfx('victory');
+    setTimeout(() => sfx('xp'), 1300);
   };
 
   if (finished) {
@@ -102,6 +107,7 @@ export default function LessonPage() {
         <button type="button" className={styles.close} onClick={() => navigate('/peta')} aria-label="Keluar ke peta">
           ✕
         </button>
+        <AudioButton className={styles.close} />
         <ProgressPath value={index + 1} max={screens.length} label={`Langkah pelajaran ${world.name}`} />
       </header>
       <main className={styles.main}>

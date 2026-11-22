@@ -6,6 +6,8 @@ import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import MathText from '../../components/ui/MathText.jsx';
 import Tata from '../../components/tata/Tata.jsx';
 import { moodFor } from '../../components/tata/tataMood.js';
+import AudioButton from '../../audio/AudioButton.jsx';
+import { sfx } from '../../audio/index.js';
 import { pretty } from '../../components/ui/prettyMath.js';
 import NotFoundPage from '../home/NotFoundPage.jsx';
 import QuizQuestion from './QuizQuestion.jsx';
@@ -153,8 +155,17 @@ export default function QuizPage() {
   const goNext = () => {
     if (!last) return setIndex(index + 1);
     const { correct, total } = summarize(answers);
+    const wasCompleted = Boolean(useProfile.getState().worlds[world.id]?.completed);
     const r = recordQuiz(world.id, correct, total, correct * XP_PER_CORRECT);
     setResult({ ...r, correct, total });
+    // Suara hasil: kemenangan + bintang; bunyi khusus bila pulau baru terbuka; lembut bila belum lulus.
+    if (r.passed) {
+      sfx('victory');
+      if (r.stars > 0) setTimeout(() => sfx('star'), 1400);
+      if (!wasCompleted && worldsContent.worlds.some((w) => w.id === world.id + 1)) setTimeout(() => sfx('unlock'), 2200);
+    } else {
+      sfx('tataSoft');
+    }
   };
 
   return (
@@ -163,6 +174,7 @@ export default function QuizPage() {
         <button type="button" className={lessonStyles.close} onClick={() => navigate('/peta')} aria-label="Keluar ke peta">
           ✕
         </button>
+        <AudioButton className={lessonStyles.close} />
         <ProgressPath value={index + 1} max={questions.length} label={`Soal kuis ${world.name}`} />
       </header>
       <main className={lessonStyles.main}>

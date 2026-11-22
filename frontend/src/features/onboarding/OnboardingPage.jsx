@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/ui/Button.jsx';
 import ProgressPath from '../../components/ui/ProgressPath.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import Tata from '../../components/tata/Tata.jsx';
 import { moodFor } from '../../components/tata/tataMood.js';
+import { sfx } from '../../audio/index.js';
 import TileMatchActivity from './TileMatchActivity.jsx';
 import { useProfile } from '../../store/profileStore.js';
 import copy from '../../content/onboarding.json';
@@ -26,6 +27,11 @@ export default function OnboardingPage() {
     completeOnboarding();
     navigate('/peta');
   };
+
+  // TATA menyapa saat perkenalan dibuka (siswa baru saja menekan tombol, jadi browser mengizinkan suara)
+  useEffect(() => {
+    if (step.id === 'intro') sfx('tataHello');
+  }, [step.id]);
 
   const tataState = step.id === 'tiles' && tilesDone ? moodFor('correct', { firstTry: true }) : step.tata;
 

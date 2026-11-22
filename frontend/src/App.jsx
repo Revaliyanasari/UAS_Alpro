@@ -16,6 +16,7 @@ import IdentityPage from './features/student/IdentityPage.jsx';
 import StudentSwitchPage from './features/student/StudentSwitchPage.jsx';
 import ProfilePage from './features/student/ProfilePage.jsx';
 import { useStudentSession, RequireStudent } from './features/student/session.jsx';
+import { useAudioSync } from './audio/index.js';
 
 // Modul Guru dimuat terpisah agar tidak menambah muatan awal untuk siswa.
 const TeacherPage = lazy(() => import('./features/teacher/TeacherPage.jsx'));
@@ -23,6 +24,7 @@ const TeacherPage = lazy(() => import('./features/teacher/TeacherPage.jsx'));
 export default function App() {
   useApplySettings();
   useStudentSession(); // muat progres siswa aktif (progres terpisah per siswa)
+  useAudioSync(); // musik per halaman + efek suara (aktif setelah interaksi pertama)
   return (
     <ToastProvider>
       <Routes>

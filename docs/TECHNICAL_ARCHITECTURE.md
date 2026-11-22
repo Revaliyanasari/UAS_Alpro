@@ -161,6 +161,8 @@ Target cakupan uji ≥ 95% — inilah penjamin kebenaran matematis aplikasi.
 
 ## 10. Audio
 
+> **Terlaksana (Fase 7):** `frontend/src/audio/engine.js` (AudioManager tunggal: kanal musik & efek, crossfade, ducking, jeda saat tab tersembunyi, gagal-aman), `music.js` (4 lagu orisinal sebagai data nada), `index.js` (`useAudioSync`, `sfx`, `trackForPath`), `AudioButton`/`AudioControls` (pengaturan). Narasi belum dibuat.
+
 - `AudioManager` tunggal: kanal musik, efek, narasi; volume per kanal; pengaturan tersimpan.
 - Tidak ada suara sebelum interaksi pertama; musik mengecil saat narasi; berhenti saat tab tersembunyi.
 - **Narasi:** Web Speech API (`id-ID`). Ketersediaan suara Indonesia bergantung perangkat — jika tidak ada, tombol 🔊 disembunyikan. Narasi rekaman menyusul (fitur lanjutan).

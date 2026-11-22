@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { moodFor } from '../../components/tata/tataMood.js';
+import AudioButton from '../../audio/AudioButton.jsx';
 import { Link } from 'react-router-dom';
 import Tata from '../../components/tata/Tata.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
@@ -56,6 +57,7 @@ export default function MapPage() {
             <span aria-label={`${xp} poin pengalaman`}>XP {xp}</span>
           </span>
         </div>
+        <AudioButton className={styles.settings} />
         <Link to="/profil" className={styles.settings} aria-label="Profil belajarku">
           <span aria-hidden="true">👤</span>
         </Link>

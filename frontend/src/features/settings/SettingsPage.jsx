@@ -4,6 +4,7 @@ import Button from '../../components/ui/Button.jsx';
 import { useSettings } from '../../store/settingsStore.js';
 import { useAiStatus } from '../ai/useAiStatus.js';
 import aiCopy from '../../content/ai.json';
+import AudioControls from '../../audio/AudioControls.jsx';
 import styles from './SettingsPage.module.css';
 
 function Choice({ name, value, current, onChange, label, hint }) {
@@ -44,6 +45,9 @@ export default function SettingsPage() {
           <Choice name="motion" value="reduced" current={motion} onChange={setMotion} label="Kurangi animasi" hint="Lebih tenang dan hemat baterai" />
           <Choice name="motion" value="full" current={motion} onChange={setMotion} label="Animasi penuh" />
         </fieldset>
+      </Card>
+      <Card title="Suara">
+        <AudioControls />
       </Card>
       <p className={styles.note}>Pengaturan tersimpan otomatis di perangkat ini.</p>
       <Card title={aiCopy.settings.title}>

@@ -39,6 +39,9 @@ Versi 2D (SVG) TATA dibuat dari pose yang sama agar identitas konsisten.
 
 ## 3. Musik
 
+> **Keputusan 22 Nov 2026 (Fase 7):** dipakai **musik prosedural buatan sendiri** dengan Web Audio API (`frontend/src/audio/`). Empat lagu orisinal (pembuka, peta, pelajaran, kuis) + jingle kemenangan, ditulis sebagai data nada. Tanpa file audio, jadi tidak ada masalah lisensi. Jika nanti ingin trek rekaman, tetap ikuti aturan lisensi di bawah.
+
+
 | Trek | Suasana | Durasi | Format |
 |------|---------|--------|--------|
 | `explore` | Ceria lembut, untuk welcome & peta | 60–120 dtk, loop mulus | OGG + MP3, ≤ 1,5 MB |
@@ -52,6 +55,9 @@ Sumber yang boleh dipakai (pilih salah satu, catat lisensinya):
 Tidak boleh: lagu populer, musik dari video YouTube, atau trek "free" tanpa lisensi tertulis.
 
 ## 4. Efek suara
+
+> **Fase 7:** semua efek dibuat dengan Web Audio API (`engine.js` → `SFX`): tap, correct, tryAgain (lembut), xp, star, unlock, victory, tataHello, tataSoft. Ukuran file 0 KB.
+
 
 `tap`, `drop` (ubin menempel), `correct`, `try-again` (lembut, tidak menyakitkan), `star`, `level-complete`. Masing-masing ≤ 30 KB, sumber CC0 atau dibuat dengan Web Audio API.
 

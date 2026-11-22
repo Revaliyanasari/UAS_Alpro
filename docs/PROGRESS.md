@@ -1,6 +1,6 @@
 # Progres Proyek — Algebra Adventure (MVP)
 
-> Diperbarui: 22 November 2026 (Fase 6: identitas siswa) · Status: **World 1–3 lengkap dengan desain RMT, Galeri Ekspresi TATA, AI Assistant (siap, belum diberi API key), Modul Guru; dapat dijalankan secara lokal** · Belum di-deploy online.
+> Diperbarui: 22 November 2026 (Fase 7: musik & efek suara) · Status: **World 1–3 lengkap dengan desain RMT, Galeri Ekspresi TATA, AI Assistant (siap, belum diberi API key), Modul Guru; dapat dijalankan secara lokal** · Belum di-deploy online.
 
 ## 1. Cara menjalankan
 
@@ -52,15 +52,18 @@ AI Assistant (opsional): isi `backend/.env` (salin dari `.env.example`), jalanka
 | 5 | **AI Learning Assistant** "Tanya TATA" (DeepSeek): proxy aman `backend/` (Node bawaan), API key hanya di `backend/.env`, prompt berbasis MLE/RMT, batas laju, batas waktu, penyamaran data pribadi, pesan error ramah. Tersembunyi bila belum dikonfigurasi, tidak ada di kuis | 10 uji backend + 7 uji UI + uji rantai dengan server DeepSeek tiruan. **Belum diuji dengan API key asli** |
 | 5 | **Modul Guru** (`/guru`, dimuat malas): instrumen (materi, indikator, kunci, rubrik bertahap, catatan revisi, draf/disetujui, impor/ekspor JSON); penilaian per tahap rubrik + transkrip jawaban + catatan; laporan per siswa, per soal (penuh/sebagian/nol), ketercapaian indikator, pretest–posttest + N-gain; ekspor CSV, cetak/PDF, cadangan JSON | 7 uji UI/logika + e2e (unduh CSV sungguhan, data bertahan setelah muat ulang) |
 | 5 | Google Drive: **belum terhubung** (sengaja, perlu OAuth resmi). Tersedia unduh berkas + langkah unggah manual; rancangan di `docs/GOOGLE_DRIVE_INTEGRATION.md` | — |
+| 7 | **Musik latar orisinal** (Web Audio, tanpa file): 4 lagu sesuai suasana — pembuka (ceria), peta (petualangan), pelajaran (pad tenang tanpa melodi, lebih pelan), kuis (ringan) — dengan crossfade, satu lagu saja, mulai setelah interaksi pertama, berhenti saat tab disembunyikan | Uji mesin (AudioContext tiruan) + e2e Edge (AudioContext asli) |
+| 7 | **Efek suara**: ketuk tombol, benar, belum tepat (lembut), XP, bintang, pulau terbuka, kemenangan misi; suara TATA "bip-bup" (menyapa / lembut). Benar/salah dipicu dari respons TATA di semua aktivitas | Uji komponen |
+| 7 | **Pengaturan suara**: tombol 🔊 di peta, pelajaran, kuis + kartu Suara di Pengaturan — musik & efek on/off, volume masing-masing, opsi "musik lembut saat belajar & kuis" (hening bila dimatikan); tersimpan di perangkat | Uji komponen + e2e (tersimpan setelah muat ulang) |
 | 6 | **Identitas siswa** (`/identitas`): nama lengkap, nama panggilan, kelas (pilihan VII A–F atau tulis sendiri), asal sekolah, no. absen opsional; validasi ramah anak; TATA menyapa; sapaan personal "Halo, {nama}! Siap memulai petualangan matematika hari ini?" | Uji validasi + komponen + e2e (360 & 1440 px) |
 | 6 | **Beberapa siswa per perangkat**: progres terpisah per siswa, halaman Ganti siswa (`/siswa`), Profil belajar (`/profil`: identitas + XP, bintang, status pulau, riwayat kuis), ubah identitas tanpa menghapus progres, keluar, hapus siswa | Uji pemisahan progres, migrasi, ganti siswa + e2e setelah muat ulang |
 | 6 | Penjaga rute: peta, perkenalan, pelajaran, kuis, profil hanya untuk siswa yang sudah mengisi identitas. Langkah "nama panggilan" di perkenalan dihapus (sudah dari identitas) | Uji komponen |
 | 6 | Tanya TATA menyapa dengan nama panggilan **di perangkat**; nama & identitas lain tidak dikirim ke AI | Uji UI (isi permintaan diperiksa) |
 | 5 | **World 3 Kepulauan Kuadrat (23 layar)**: bilangan kuadrat (16 ubin), aktivitas **Potong & Geser** a² − b² (ketuk potong, ketuk potongan untuk memutar-menggeser, siswa menentukan panjang & lebar), sortir selisih dua kuadrat, contoh rumpang, 4 latihan, B/S, siapa benar (M4), hitung cepat 51² − 49², soal cerita + kewajaran, refleksi. **Kuis Dunia 3** (5 soal × 2 varian) | Uji kunci (sortir diperiksa `isDifferenceOfSquares`) + komponen + e2e (geometri posisi akhir) |
 
-Ukuran: muatan awal ±150 KB JS + 9,5 KB CSS (gzip; batas 250 KB); Modul Guru ±8 KB dan TATA 3D ±252 KB dimuat terpisah.
+Ukuran: muatan awal ±161 KB JS + 9,5 KB CSS (gzip; batas 250 KB; audio menambah ±4 KB kode, 0 KB file audio); Modul Guru ±8 KB dan TATA 3D ±252 KB dimuat terpisah.
 
-Hasil uji terakhir (22 Nov 2026, Fase 6): lint bersih · 202 uji mesin & kunci konten lulus · 88 uji komponen lulus · 10 uji proxy AI lulus · 40 uji e2e (Edge, 360 & 1440 px) lulus.
+Hasil uji terakhir (22 Nov 2026, Fase 7): lint bersih · 202 uji mesin & kunci konten lulus · 102 uji komponen lulus · 10 uji proxy AI lulus · 44 uji e2e (Edge, 360 & 1440 px) lulus.
 
 ## 3. Belum selesai
 
@@ -132,3 +135,11 @@ Siswa yang kembali langsung disapa di halaman pembuka ("Selamat datang kembali, 
 - Kode: `src/store/studentStore.js`, `src/store/scopedStorage.js`, `src/features/student/`.
 
 **Privasi:** nama lengkap dan sekolah hanya tampil di halaman Profil. Tanya TATA hanya memakai nama panggilan untuk sapaan di layar, dan nama tidak ikut permintaan ke server AI. Siapa pun yang memakai perangkat yang sama dapat membuka daftar siswa (belum ada PIN).
+
+## 9. Audio (Fase 7)
+
+- **Sumber:** semua musik & efek suara **digubah sendiri sebagai kode** (`src/audio/music.js` berisi nada, `src/audio/engine.js` mensintesis dengan Web Audio API). Tidak ada file MP3/OGG, tidak memakai lagu atau sampel milik orang lain → orisinal, bebas hak cipta, 0 KB aset, berjalan offline.
+- **Lagu per halaman:** pembuka/identitas/perkenalan → *welcome*; peta & profil → *map*; pelajaran → *lesson*; kuis → *quiz*; Pengaturan & Galeri TATA → lagu sebelumnya berlanjut; Modul Guru/Lab/Katalog → tanpa musik.
+- **Aturan:** tidak berbunyi sebelum ketukan/tombol pertama; hanya satu lagu (lagu lama berhenti menjadwalkan nada, lalu memudar 0,8 dtk; lagu baru muncul 1,2 dtk); lagu kemenangan menurunkan musik sementara; tab tersembunyi → audio dijeda; jika Web Audio tidak didukung, semua suara diam dan aplikasi tetap berjalan.
+- **Pengaturan** (`aa-settings`): `musicOn`, `sfxOn`, `musicVolume`, `sfxVolume`, `focusMusic`.
+- **Batasan:** musik sintetis terdengar sederhana dibanding rekaman studio; belum ada narasi suara.

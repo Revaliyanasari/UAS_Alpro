@@ -1,0 +1,94 @@
+.controls {
+  display: grid;
+  gap: var(--space-3);
+}
+.note {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-card);
+  background: var(--color-hint-bg);
+  color: var(--color-hint);
+  font-weight: 700;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-weight: 700;
+  cursor: pointer;
+}
+.row input {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  accent-color: var(--teal-700);
+}
+.row span {
+  display: grid;
+}
+.row small {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+.slider {
+  display: grid;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.slider input {
+  width: 100%;
+  min-height: 32px;
+  accent-color: var(--teal-700);
+}
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(46, 58, 56, 0.35);
+}
+.panel {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-4) var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  border-radius: var(--radius-board) var(--radius-board) 0 0;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lift);
+}
+@media (min-width: 600px) {
+  .backdrop {
+    align-items: center;
+  }
+  .panel {
+    border-radius: var(--radius-board);
+  }
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+.head h2 {
+  margin: 0;
+}
+.close {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-size: 18px;
+  cursor: pointer;
+}

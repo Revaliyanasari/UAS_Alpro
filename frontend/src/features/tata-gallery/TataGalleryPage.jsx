@@ -3,7 +3,11 @@ import PageShell from '../../components/ui/PageShell.jsx';
 import Tata2D from '../../components/tata/Tata2D.jsx';
 import { EXPRESSION_ORDER } from '../../components/tata/tataExpressions.js';
 import copy from '../../content/tata-expressions.json';
+import { sfx } from '../../audio/index.js';
 import styles from './TataGalleryPage.module.css';
+
+// Ekspresi tenang/sedih memakai bunyi TATA yang lembut.
+const SOFT = new Set(['sad', 'disappointed', 'sleepy', 'confused', 'shy', 'calm', 'focused', 'thinking']);
 
 /**
  * Galeri Ekspresi TATA: 18 ekspresi orisinal (SVG). Ketuk kartu untuk melihat versi besar yang bergerak,
@@ -34,7 +38,10 @@ export default function TataGalleryPage() {
             <button
               type="button"
               className={[styles.card, id === selected ? styles.active : ''].join(' ')}
-              onClick={() => setSelected(id)}
+              onClick={() => {
+                setSelected(id);
+                sfx(SOFT.has(id) ? 'tataSoft' : 'tataHello');
+              }}
               aria-pressed={id === selected}
               aria-label={`${i + 1}. ${copy.expressions[id].name}`}
             >
