@@ -208,3 +208,7 @@
 .dim {
   opacity: 0.25;
 }
+.optionPicked {
+  border-color: var(--teal-700);
+  background: var(--mint-100);
+}

@@ -3,15 +3,10 @@ import MathKeypad from '../../components/ui/MathKeypad.jsx';
 import { pretty } from '../../components/ui/prettyMath.js';
 import TataCoach from './TataCoach.jsx';
 import { useTask } from './useTask.js';
-import { checkFactorization, checkEquivalent, checkDivision } from '../../math/index.js';
+import StoryCard from './StoryCard.jsx';
+import { runCheck } from './runCheck.js';
 import { feedbackFor } from '../../content/feedback.js';
 import styles from './lesson.module.css';
-
-function runCheck(check, answer) {
-  if (check.kind === 'factor') return checkFactorization(answer, check.target);
-  if (check.kind === 'division') return checkDivision(answer, check.dividend, check.divisor);
-  return checkEquivalent(answer, check.target);
-}
 
 /** Soal isian dengan papan ketik matematika, diperiksa mesin aljabar (umpan balik M1–M11). */
 export default function InputScreen({ screen, onDone }) {
@@ -28,6 +23,7 @@ export default function InputScreen({ screen, onDone }) {
 
   return (
     <div className={styles.screenBody}>
+      <StoryCard story={screen.story} known={screen.known} asked={screen.asked} />
       <p className={styles.prompt}>{pretty(screen.prompt)}</p>
       <MathKeypad value={value} onChange={setValue} onSubmit={submit} disabled={task.solved} />
       <TataCoach

@@ -20,6 +20,7 @@ export const feedback = {
   M8: { tone: 'confused', text: 'Angkanya sudah benar. Ingat, x² itu x · x. Kalau dibagi x, tinggal berapa x?' },
   M9: { tone: 'confused', text: 'Angkanya sudah benar. x dibagi x hasilnya 1. Jadi, masih ada x atau tidak?' },
   M10: { tone: 'confused', text: 'Angkanya sudah benar. Cek variabelnya: x² dibagi x masih menyisakan x.' },
+  NOT_SIMPLE: { tone: 'happy', text: 'Nilainya sudah benar! Sekarang sederhanakan jadi satu bentuk: kalikan angkanya, lalu variabelnya.' },
   M11: { tone: 'happy', text: 'Isi kurungnya sudah benar! Tapi faktor di depan kurung belum ditulis.' },
 };
 

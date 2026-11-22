@@ -6,7 +6,7 @@ import styles from './WorldSheet.module.css';
  * Kartu informasi pulau: misi, alasan, daftar materi, indikator literasi, dan status.
  * Tombol "Masuk" baru muncul bila materi pulau sudah tersedia (Fase 3) — tidak ada tombol palsu.
  */
-export default function WorldSheet({ world, unlocked, hasLesson, previous, indicatorNames, copy, onClose }) {
+export default function WorldSheet({ world, unlocked, hasLesson, hasQuiz = false, progress = {}, history = [], previous, indicatorNames, copy, onClose }) {
   const closeRef = useRef(null);
 
   useEffect(() => {
@@ -49,6 +49,33 @@ export default function WorldSheet({ world, unlocked, hasLesson, previous, indic
             <li key={i}>{indicatorNames[i]}</li>
           ))}
         </ul>
+
+        {unlocked && hasQuiz && (progress.lessonDone || progress.completed) && (
+          <div className={styles.quizBox}>
+            <p className={styles.quizStatus}>
+              {progress.completed ? '✔ Kuis lulus' : 'Kuis belum lulus (minimal 60%)'}
+              {progress.bestPercent !== undefined && <> · Nilai terbaik {progress.bestPercent}%</>}
+            </p>
+            <Button to={`/kuis/${world.id}`} block>
+              🏁 Kuis Dunia {world.id}
+            </Button>
+            {history.length > 0 && (
+              <>
+                <h3 className={styles.listTitle}>Riwayat kuis</h3>
+                <ul className={styles.history}>
+                  {history.slice(0, 5).map((h) => (
+                    <li key={h.date}>
+                      <span>{new Date(h.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                      <strong>
+                        {h.percent}% ({h.correct}/{h.total})
+                      </strong>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        )}
 
         {unlocked && hasLesson ? (
           <Button to={`/belajar/${world.id}`} block className={styles.enter}>

@@ -10,6 +10,11 @@ import InputScreen from './InputScreen.jsx';
 import DividerScreen from './DividerScreen.jsx';
 import TilesScreen from './TilesScreen.jsx';
 import BoardScreen from './BoardScreen.jsx';
+import SortScreen from './SortScreen.jsx';
+import FactorPairsScreen from './FactorPairsScreen.jsx';
+import CommonFactorsScreen from './CommonFactorsScreen.jsx';
+import OrderScreen from './OrderScreen.jsx';
+import FadedScreen from './FadedScreen.jsx';
 import NotFoundPage from '../home/NotFoundPage.jsx';
 import { lessons, lessonCopy } from '../../content/lessons/index.js';
 import worldsContent from '../../content/worlds.json';
@@ -17,23 +22,28 @@ import { useProfile } from '../../store/profileStore.js';
 import { useHydrated } from '../../hooks/useHydrated.js';
 import styles from './lesson.module.css';
 
-const SCREENS = { info: InfoScreen, example: InfoScreen, choice: ChoiceScreen, input: InputScreen, divider: DividerScreen, tiles: TilesScreen, board: BoardScreen };
+const SCREENS = {
+  info: InfoScreen,
+  example: InfoScreen,
+  choice: ChoiceScreen,
+  input: InputScreen,
+  divider: DividerScreen,
+  tiles: TilesScreen,
+  board: BoardScreen,
+  sort: SortScreen,
+  factorPairs: FactorPairsScreen,
+  commonFactors: CommonFactorsScreen,
+  order: OrderScreen,
+  faded: FadedScreen,
+};
 const XP_PER_TASK = 10;
-
-/** Bintang dari proporsi soal yang benar pada percobaan pertama tanpa petunjuk (petunjuk tidak mengurangi XP). */
-export function starsFor(results) {
-  const tasks = Object.values(results).filter((r) => r.graded);
-  if (tasks.length === 0) return 3;
-  const ratio = tasks.filter((r) => r.firstTry).length / tasks.length;
-  return ratio >= 0.8 ? 3 : ratio >= 0.5 ? 2 : 1;
-}
 
 export default function LessonPage() {
   const { worldId } = useParams();
   const navigate = useNavigate();
   const lesson = lessons[worldId];
   const world = worldsContent.worlds.find((w) => String(w.id) === worldId);
-  const { isUnlocked, completeWorld } = useProfile();
+  const { isUnlocked, completeLesson } = useProfile();
   const [index, setIndex] = useState(0);
   const [results, setResults] = useState({});
   const [finished, setFinished] = useState(null);
@@ -52,10 +62,10 @@ export default function LessonPage() {
 
   const next = () => {
     if (index < screens.length - 1) return setIndex(index + 1);
-    const stars = starsFor(results);
+    // XP untuk setiap langkah belajar yang diselesaikan (petunjuk tidak mengurangi XP).
     const xp = Object.values(results).filter((r) => r.graded).length * XP_PER_TASK;
-    completeWorld(world.id, stars, xp);
-    setFinished({ stars, xp });
+    completeLesson(world.id, xp);
+    setFinished({ xp });
   };
 
   if (finished) {
@@ -63,13 +73,12 @@ export default function LessonPage() {
       <main className={styles.finish}>
         <Tata state="celebrating" size="md" />
         <h1>{lessonCopy.finishTitle}</h1>
-        <p className={styles.stars} aria-label={`${finished.stars} bintang`}>
-          {'⭐'.repeat(finished.stars)}
-          <span className={styles.dim}>{'⭐'.repeat(3 - finished.stars)}</span>
-        </p>
         <SpeechBubble tone="happy">{lessonCopy.finishText.replace('{world}', world.name)}</SpeechBubble>
         <p>+{finished.xp} XP</p>
-        <Button block onClick={() => navigate('/peta')}>
+        <Button block to={`/kuis/${world.id}`}>
+          {lessonCopy.startQuiz}
+        </Button>
+        <Button variant="secondary" block onClick={() => navigate('/peta')}>
           Kembali ke peta
         </Button>
       </main>

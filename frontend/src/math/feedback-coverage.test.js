@@ -7,7 +7,7 @@ import { feedback, feedbackFor } from '../content/feedback.js';
 
 test('semua kode di checker.js punya umpan balik', () => {
   const source = readFileSync(new URL('./checker.js', import.meta.url), 'utf8');
-  const codes = new Set([...source.matchAll(/'(M\d+|OK|INPUT|NOT_FACTORED|DOTS_LEFT)'/g)].map((m) => m[1]));
+  const codes = new Set([...source.matchAll(/'(M\d+|OK|INPUT|NOT_FACTORED|DOTS_LEFT|NOT_SIMPLE)'/g)].map((m) => m[1]));
   assert.ok(codes.size >= 12, `kode ditemukan: ${[...codes]}`);
   for (const code of codes) assert.ok(feedback[code], `umpan balik untuk ${code} belum ada`);
 });

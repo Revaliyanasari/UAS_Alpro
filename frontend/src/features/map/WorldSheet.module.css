@@ -96,3 +96,28 @@
     opacity: 0;
   }
 }
+.quizBox {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+.quizStatus {
+  margin: 0;
+  font-weight: 700;
+}
+.history {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-1);
+}
+.history li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}

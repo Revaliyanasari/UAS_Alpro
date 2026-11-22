@@ -5,7 +5,7 @@
 // Jawaban akhir TIDAK pernah dikembalikan di sini; yang menampilkan pembahasan adalah komponen pelajaran.
 
 import { Poly, contentOf, differenceOfSquares, sumOfSquares, fpbOfTerms } from './polynomial.js';
-import { parse, evaluate, toPoly, MathInputError } from './parser.js';
+import { parse, evaluate, toPoly, normalizeInput, MathInputError } from './parser.js';
 
 // ---------- Struktur bentuk faktor ----------
 
@@ -168,6 +168,22 @@ export function checkEquivalent(answer, target) {
   if (parsed.error) return { status: 'invalid', code: 'INPUT', message: parsed.error };
   const ok = parsed.poly.equals(toPoly(target));
   return { status: ok ? 'correct' : 'wrong', code: ok ? 'OK' : 'M7', expanded: parsed.poly.toString() };
+}
+
+/**
+ * Hasil perkalian/penyederhanaan yang harus ditulis sebagai bentuk paling sederhana,
+ * mis. 3x × 5x = 15x². Jawaban "3x·5x" nilainya sama tetapi belum disederhanakan → NOT_SIMPLE.
+ */
+export function checkSimplified(answer, target) {
+  const parsed = safeParse(answer);
+  if (parsed.error) return { status: 'invalid', code: 'INPUT', message: parsed.error };
+  const expected = toPoly(target);
+  if (!parsed.poly.equals(expected)) return { status: 'wrong', code: 'M7' };
+  // Bentuk sederhana = sama persis dengan tulisan baku mesin (mis. "15x^2", "2x+3").
+  if (normalizeInput(answer) !== normalizeInput(expected.toString())) {
+    return { status: 'partial', code: 'NOT_SIMPLE' };
+  }
+  return { status: 'correct', code: 'OK' };
 }
 
 /** Pembagian suku tunggal, mis. 8x² : 4x. */

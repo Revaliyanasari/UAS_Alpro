@@ -1,0 +1,54 @@
+{
+  "worldId": 2,
+  "title": "Kuis Gua Rahasia",
+  "summary": {
+    "title": "Langkah Jitu Memfaktorkan",
+    "steps": ["Koefisien: cari FPB angka", "Variabel: ambil pangkat terkecil yang sama", "Gabung menjadi FPB suku", "Bagi setiap suku dengan FPB", "Tulis FPB(hasil bagi)", "Cek dengan mengalikan kembali"]
+  },
+  "slots": [
+    { "variants": [
+      { "type": "choice", "prompt": "Bentuk faktor dari 7x + 14 adalah ...", "options": ["7(x + 14)", "7(x + 2)", "7x(1 + 2)"], "answer": "7(x + 2)",
+        "hints": ["FPB dari 7x dan 14 adalah 7.", "Bagi setiap suku dengan 7."],
+        "solution": ["FPB = 7", "7x : 7 = x dan 14 : 7 = 2", "7x + 14 = 7(x + 2)"] },
+      { "type": "choice", "prompt": "Bentuk faktor dari 9x + 12 adalah ...", "options": ["3(3x + 12)", "9(x + 3)", "3(3x + 4)"], "answer": "3(3x + 4)",
+        "hints": ["FPB dari 9 dan 12 adalah 3.", "Bagi setiap suku dengan 3."],
+        "solution": ["FPB = 3", "9x : 3 = 3x dan 12 : 3 = 4", "9x + 12 = 3(3x + 4)"] }
+    ] },
+    { "variants": [
+      { "type": "input", "prompt": "Faktorkan 9y^2 + 6y", "check": { "kind": "factor", "target": "9y^2+6y" }, "key": "3y(3y + 2)",
+        "hints": ["Cari FPB dari 9y² dan 6y.", "FPB angka 9 dan 6 adalah 3; variabel bersamanya y."],
+        "solution": ["FPB = 3y", "9y² : 3y = 3y dan 6y : 3y = 2", "9y² + 6y = 3y(3y + 2)"] },
+      { "type": "input", "prompt": "Faktorkan 8x^2 - 20x", "check": { "kind": "factor", "target": "8x^2-20x" }, "key": "4x(2x − 5)",
+        "hints": ["Cari FPB dari 8x² dan 20x.", "FPB angka 8 dan 20 adalah 4; variabel bersamanya x."],
+        "solution": ["FPB = 4x", "8x² : 4x = 2x dan 20x : 4x = 5", "8x² − 20x = 4x(2x − 5)"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "prompt": "Benar atau salah: 2x(3x + 4) = 6x^2 + 8x.", "options": ["Benar", "Salah"], "answer": "Benar",
+        "verify": { "lhs": "2x(3x+4)", "rhs": "6x^2+8x" },
+        "hints": ["Kalikan 2x dengan setiap suku di dalam kurung.", "2x · 3x = ... dan 2x · 4 = ..."],
+        "solution": ["2x · 3x = 6x²", "2x · 4 = 8x", "Hasilnya 6x² + 8x → Benar"] },
+      { "type": "choice", "prompt": "Benar atau salah: 3x(x + 5) = 3x^2 + 5x.", "options": ["Benar", "Salah"], "answer": "Salah",
+        "verify": { "lhs": "3x(x+5)", "rhs": "3x^2+5x" },
+        "hints": ["Kalikan 3x dengan setiap suku di dalam kurung.", "3x · 5 berapa?"],
+        "solution": ["3x · x = 3x²", "3x · 5 = 15x, bukan 5x", "3x(x + 5) = 3x² + 15x → Salah"] }
+    ] },
+    { "variants": [
+      { "type": "tiles", "mode": "rows", "x2": 6, "x": 4, "count": 2,
+        "prompt": "Susun ubin 6x² + 4x menjadi 2 baris yang sama.",
+        "done": "Tinggi 2 baris × x = 2x, panjangnya {inner}. Jadi 6x² + 4x = 2x({inner}).",
+        "solution": ["Setiap baris berisi 3 ubin x² dan 2 ubin x", "Tinggi = 2x, panjang = 3x + 2", "6x² + 4x = 2x(3x + 2)"] },
+      { "type": "tiles", "mode": "rows", "x2": 9, "x": 6, "count": 3,
+        "prompt": "Susun ubin 9x² + 6x menjadi 3 baris yang sama.",
+        "done": "Tinggi 3 baris × x = 3x, panjangnya {inner}. Jadi 9x² + 6x = 3x({inner}).",
+        "solution": ["Setiap baris berisi 3 ubin x² dan 2 ubin x", "Tinggi = 3x, panjang = 3x + 2", "9x² + 6x = 3x(3x + 2)"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "prompt": "Faktorkan 6x^2 + 9x. Sari: 3x(2x + 9). Dimas: 3x(2x + 3). Siapa yang benar?", "options": ["Sari", "Dimas"], "answer": "Dimas",
+        "hints": ["Kalikan kembali kedua jawaban.", "Apakah 3x · 9 = 9x?"],
+        "solution": ["FPB = 3x; 6x² : 3x = 2x; 9x : 3x = 3", "Dimas benar: 3x(2x + 3)", "Sari lupa membagi 9x dengan 3x (hasil kali kembali 6x² + 27x)"] },
+      { "type": "choice", "prompt": "Faktorkan 15y^2 + 10y. Lina: 5y(3y + 2). Toni: 5(3y^2 + 2y). Siapa yang memakai FPB terbesar?", "options": ["Lina", "Toni"], "answer": "Lina",
+        "hints": ["Kedua jawaban nilainya sama. Lihat isi kurungnya.", "Apakah 3y² + 2y masih punya faktor bersama y?"],
+        "solution": ["FPB dari 15y² dan 10y = 5y", "Lina benar: 5y(3y + 2)", "Toni hanya mengeluarkan angka 5; y masih tertinggal di kurung"] }
+    ] }
+  ]
+}

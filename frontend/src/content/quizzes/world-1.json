@@ -1,0 +1,55 @@
+{
+  "worldId": 1,
+  "title": "Kuis Lembah Aljabar",
+  "summary": {
+    "title": "Langkah Jitu Pembagian",
+    "steps": ["Bagi angkanya", "Bagi variabelnya (x² : x = x, x : x = 1)", "Gabungkan hasilnya", "Cek dengan mengalikan"]
+  },
+  "slots": [
+    { "variants": [
+      { "type": "choice", "prompt": "Berapa koefisien dari -5x^2?", "options": ["5", "-5", "x^2"], "answer": "-5",
+        "hints": ["Koefisien adalah angka di depan variabel.", "Tanda minus ikut menjadi bagian koefisien."],
+        "solution": ["Angka di depan x² adalah −5", "Koefisien = −5 (tanda ikut)"] },
+      { "type": "choice", "prompt": "Berapa koefisien dari y pada 4 + y?", "options": ["0", "1", "4"], "answer": "1",
+        "hints": ["Lihat suku y saja, bukan 4.", "y sama dengan 1y."],
+        "solution": ["4 adalah konstanta", "y = 1y, jadi koefisien y adalah 1"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "prompt": "Benar atau salah: 3x dan 3x^2 adalah suku sejenis.", "options": ["Benar", "Salah"], "answer": "Salah",
+        "hints": ["Suku sejenis: variabel dan pangkatnya sama.", "Bandingkan pangkat x pada kedua suku."],
+        "solution": ["3x punya x berpangkat 1", "3x² punya x berpangkat 2", "Pangkatnya berbeda → bukan suku sejenis (Salah)"] },
+      { "type": "choice", "prompt": "Benar atau salah: -2y dan 7y adalah suku sejenis.", "options": ["Benar", "Salah"], "answer": "Benar",
+        "hints": ["Abaikan angkanya, lihat variabel dan pangkatnya.", "Keduanya punya y berpangkat 1?"],
+        "solution": ["−2y dan 7y sama-sama punya y berpangkat 1", "Angka boleh berbeda → suku sejenis (Benar)"] }
+    ] },
+    { "variants": [
+      { "type": "input", "prompt": "Tentukan FPB dari 18x^2 dan 12x.", "check": { "kind": "equivalent", "target": "6x" }, "key": "6x",
+        "hints": ["Cari FPB angka 18 dan 12 dulu.", "Lalu ambil variabel bersama dengan pangkat terkecil."],
+        "solution": ["FPB dari 18 dan 12 = 6", "Variabel bersama dengan pangkat terkecil = x", "FPB = 6x"] },
+      { "type": "input", "prompt": "Tentukan FPB dari 20y^2 dan 30y.", "check": { "kind": "equivalent", "target": "10y" }, "key": "10y",
+        "hints": ["Cari FPB angka 20 dan 30 dulu.", "Lalu ambil variabel bersama dengan pangkat terkecil."],
+        "solution": ["FPB dari 20 dan 30 = 10", "Variabel bersama dengan pangkat terkecil = y", "FPB = 10y"] }
+    ] },
+    { "variants": [
+      { "type": "sort", "prompt": "Kelompokkan suku sejenis.", "rule": "like-terms",
+        "items": [{ "expr": "5x", "bin": "x" }, { "expr": "-2x^2", "bin": "x^2" }, { "expr": "7", "bin": "1" }, { "expr": "x^2", "bin": "x^2" }, { "expr": "-3x", "bin": "x" }, { "expr": "4", "bin": "1" }],
+        "bins": [{ "id": "x", "label": "Suku x" }, { "id": "x^2", "label": "Suku x^2" }, { "id": "1", "label": "Konstanta" }],
+        "hints": ["Lihat huruf dan pangkatnya, bukan angkanya.", "Bilangan tanpa huruf adalah konstanta."],
+        "solution": ["Suku x: 5x, −3x", "Suku x²: −2x², x²", "Konstanta: 7, 4"] },
+      { "type": "sort", "prompt": "Kelompokkan suku sejenis.", "rule": "like-terms",
+        "items": [{ "expr": "2y", "bin": "y" }, { "expr": "y^2", "bin": "y^2" }, { "expr": "-6", "bin": "1" }, { "expr": "3y^2", "bin": "y^2" }, { "expr": "-y", "bin": "y" }, { "expr": "1", "bin": "1" }],
+        "bins": [{ "id": "y", "label": "Suku y" }, { "id": "y^2", "label": "Suku y^2" }, { "id": "1", "label": "Konstanta" }],
+        "hints": ["Lihat huruf dan pangkatnya, bukan angkanya.", "Bilangan tanpa huruf adalah konstanta."],
+        "solution": ["Suku y: 2y, −y", "Suku y²: y², 3y²", "Konstanta: −6, 1"] }
+    ] },
+    { "variants": [
+      { "type": "input", "prompt": "Hitung 18x^2 : 6x", "check": { "kind": "division", "dividend": "18x^2", "divisor": "6x" }, "key": "3x",
+        "hints": ["Bagi angkanya dulu: 18 : 6.", "Lalu bagi variabelnya: x² : x."],
+        "solution": ["18 : 6 = 3", "x² : x = x", "18x² : 6x = 3x", "Cek: 6x × 3x = 18x² ✔"] },
+      { "type": "input", "story": "Lantai kamar Sinta berbentuk persegi panjang. Luasnya 21y² m² dan lebarnya 3y m.", "known": ["Luas = 21y² m²", "Lebar = 3y m"], "asked": "Panjang lantai",
+        "prompt": "Berapa panjang lantai kamar itu?", "check": { "kind": "division", "dividend": "21y^2", "divisor": "3y" }, "key": "7y",
+        "hints": ["Panjang = luas : lebar.", "Hitung 21 : 3, lalu y² : y."],
+        "solution": ["Panjang = 21y² : 3y", "21 : 3 = 7 dan y² : y = y", "Panjang = 7y m", "Cek: 7y × 3y = 21y² ✔"] }
+    ] }
+  ]
+}

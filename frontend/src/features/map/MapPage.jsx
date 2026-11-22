@@ -8,13 +8,14 @@ import WorldSheet from './WorldSheet.jsx';
 import { useProfile } from '../../store/profileStore.js';
 import content from '../../content/worlds.json';
 import { lessons } from '../../content/lessons/index.js';
+import { quizzes } from '../../content/quizzes/index.js';
 import copy from '../../content/onboarding.json';
 import styles from './MapPage.module.css';
 
 // Peta petualangan: 5 pulau berurutan dari prasyarat (World 1) sampai literasi matematis (World 5).
 // Pulau berikutnya terbuka setelah pulau sebelumnya selesai (profileStore.isUnlocked).
 export default function MapPage() {
-  const { nickname, xp, isUnlocked, totalStars, worlds: progress } = useProfile();
+  const { nickname, xp, isUnlocked, totalStars, worlds: progress, quizHistory } = useProfile();
   const [openId, setOpenId] = useState(null);
   const worlds = content.worlds;
   const current = worlds.find((w) => isUnlocked(w.id) && !progress[w.id]?.completed) ?? worlds[0];
@@ -72,6 +73,9 @@ export default function MapPage() {
           world={openWorld}
           unlocked={isUnlocked(openWorld.id)}
           hasLesson={Boolean(lessons[openWorld.id])}
+          hasQuiz={Boolean(quizzes[openWorld.id])}
+          progress={progress[openWorld.id]}
+          history={quizHistory.filter((h) => h.worldId === openWorld.id)}
           previous={worlds.find((w) => w.id === openWorld.id - 1)}
           indicatorNames={content.indicatorNames}
           copy={copy.map}

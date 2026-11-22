@@ -9,6 +9,7 @@ export const lessonCopy = {
   correct: 'Tepat sekali!',
   needAll: 'Masih ada ubin di nampan. Pasang semuanya, ya.',
   notEqual: 'Isi setiap kotak harus sama. Coba pindahkan beberapa ubin.',
-  finishTitle: 'Pulau selesai!',
-  finishText: 'Hebat! Kamu menyelesaikan {world}. Pulau berikutnya sudah terbuka.',
+  finishTitle: 'Pelajaran selesai!',
+  finishText: 'Hebat! Kamu menyelesaikan pelajaran {world}. Sekarang uji dirimu di Kuis Dunia. Nilai minimal 60% membuka pulau berikutnya.',
+  startQuiz: 'Mulai Kuis Dunia',
 };

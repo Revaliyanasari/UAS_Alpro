@@ -6,6 +6,7 @@ export {
   checkEquivalent,
   checkDivision,
   checkQuotient,
+  checkSimplified,
   fpb,
   fpbOfExpressions,
   expand,

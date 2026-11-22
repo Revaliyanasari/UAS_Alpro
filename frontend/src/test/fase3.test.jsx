@@ -6,7 +6,10 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App.jsx';
 import { useProfile } from '../store/profileStore.js';
-import { starsFor } from '../features/lesson/LessonPage.jsx';
+import InputScreen from '../features/lesson/InputScreen.jsx';
+import TilesScreen from '../features/lesson/TilesScreen.jsx';
+import { lessons } from '../content/lessons/index.js';
+import { quizStars } from '../store/profileStore.js';
 
 const renderAt = (path) =>
   render(
@@ -40,18 +43,9 @@ describe('Pemutar pelajaran World 1', () => {
 
   it('isian dengan papan ketik: diperiksa mesin aljabar; pembahasan setelah 3 petunjuk + 1 salah', async () => {
     const user = userEvent.setup();
-    renderAt('/belajar/1');
-    for (let i = 0; i < 4; i++) {
-      if (i === 2) await user.click(screen.getByRole('button', { name: '7' }));
-      if (i === 3) await user.click(screen.getByRole('button', { name: '-x' }));
-      await next(user);
-    }
-    // contoh bertahap
-    expect(screen.getByRole('button', { name: 'Lanjut' })).toBeDisabled();
-    await user.click(screen.getByRole('button', { name: /Langkah berikutnya/ }));
-    await user.click(screen.getByRole('button', { name: /Langkah berikutnya/ }));
-    await next(user);
-    // FPB 6x² dan 9x
+    const done = vi.fn();
+    const fpbScreen = lessons[1].screens.find((s) => s.prompt === 'Tentukan FPB dari 6x^2 dan 9x.');
+    render(<InputScreen screen={fpbScreen} onDone={done} />);
     await typeKeys(user, ['6', 'x']);
     await user.click(screen.getByRole('button', { name: 'Cek' }));
     expect(screen.queryByRole('button', { name: 'Lihat pembahasan' })).not.toBeInTheDocument();
@@ -59,7 +53,7 @@ describe('Pemutar pelajaran World 1', () => {
     await user.click(screen.getByRole('button', { name: 'Cek' }));
     await user.click(screen.getByRole('button', { name: 'Lihat pembahasan' }));
     expect(screen.getByLabelText('Pembahasan')).toHaveTextContent('FPB = 3x');
-    expect(screen.getByRole('button', { name: 'Lanjut' })).toBeEnabled();
+    expect(done).toHaveBeenCalledWith({ firstTry: false });
   });
 });
 
@@ -97,9 +91,7 @@ describe('Algebra Tiles & Papan Matematika (World 2)', () => {
 
   it('mode bagi sama: ketuk-taruh, susunan tidak sama ditolak, susunan benar → 4(2x² + 3x)', async () => {
     const user = userEvent.setup();
-    renderAt('/belajar/2');
-    await next(user);
-    await next(user);
+    render(<TilesScreen screen={lessons[2].screens.find((s) => s.mode === 'groups')} onDone={vi.fn()} />);
     const lane = (i) => screen.getByRole('button', { name: new RegExp(`^Kotak ${i}:`) });
     await user.click(screen.getByRole('button', { name: /Ubin x kuadrat, sisa 8/ }));
     for (let i = 0; i < 8; i++) await user.click(lane(1)); // semua x² ke kotak 1
@@ -133,11 +125,11 @@ describe('Algebra Tiles & Papan Matematika (World 2)', () => {
   });
 });
 
-describe('perhitungan bintang', () => {
-  it('bintang dari proporsi benar pertama kali', () => {
-    expect(starsFor({ 0: { graded: true, firstTry: true }, 1: { graded: true, firstTry: true } })).toBe(3);
-    expect(starsFor({ 0: { graded: true, firstTry: true }, 1: { graded: true, firstTry: false } })).toBe(2);
-    expect(starsFor({ 0: { graded: true, firstTry: false }, 1: { graded: true, firstTry: false } })).toBe(1);
-    expect(starsFor({ 0: { graded: false, firstTry: true } })).toBe(3);
+describe('perhitungan bintang kuis', () => {
+  it('≥ 60% = 1, ≥ 80% = 2, 100% = 3', () => {
+    expect(quizStars(100)).toBe(3);
+    expect(quizStars(80)).toBe(2);
+    expect(quizStars(60)).toBe(1);
+    expect(quizStars(40)).toBe(0);
   });
 });

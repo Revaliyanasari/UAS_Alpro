@@ -5,6 +5,7 @@ import WelcomePage from './features/welcome/WelcomePage.jsx';
 import OnboardingPage from './features/onboarding/OnboardingPage.jsx';
 import MapPage from './features/map/MapPage.jsx';
 import LessonPage from './features/lesson/LessonPage.jsx';
+import QuizPage from './features/quiz/QuizPage.jsx';
 import NotFoundPage from './features/home/NotFoundPage.jsx';
 import CheckerLabPage from './features/lab/CheckerLabPage.jsx';
 import CatalogPage from './features/catalog/CatalogPage.jsx';
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/mulai" element={<OnboardingPage />} />
         <Route path="/peta" element={<MapPage />} />
         <Route path="/belajar/:worldId" element={<LessonPage />} />
+        <Route path="/kuis/:worldId" element={<QuizPage />} />
         <Route path="/pengaturan" element={<SettingsPage />} />
         <Route path="/lab" element={<CheckerLabPage />} />
         <Route path="/katalog" element={<CatalogPage />} />

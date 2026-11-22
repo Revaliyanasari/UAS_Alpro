@@ -12,6 +12,7 @@ import styles from './Tiles.module.css';
  *  - 'rows'  : susun ubin menjadi baris-baris setinggi x → persegi panjang 4x × (2x + 3) = 4x(2x + 3).
  * Memindah ubin: seret dari nampan ke kotak/baris, ATAU ketuk jenis ubin lalu ketuk kotak.
  * Ketuk ubin yang sudah dipasang untuk mengembalikannya ke nampan.
+ * onCheck(benar) (opsional) dipanggil setiap kali susunan diperiksa — dipakai kuis untuk menilai percobaan pertama.
  */
 const KINDS = { x2: 'x^2', x: 'x' };
 
@@ -71,7 +72,7 @@ function Lane({ index, mode, content, onPlace, onRemove, locked }) {
   );
 }
 
-export default function TilesScreen({ screen, onDone }) {
+export default function TilesScreen({ screen, onDone, onCheck }) {
   const empty = () => Array.from({ length: screen.count }, () => ({ x2: 0, x: 0 }));
   const [lanes, setLanes] = useState(empty);
   const [selected, setSelected] = useState(null);
@@ -94,16 +95,19 @@ export default function TilesScreen({ screen, onDone }) {
   const check = () => {
     if (left.x2 + left.x > 0) {
       setFirstTry(false);
+      onCheck?.(false);
       return setMsg({ text: lessonCopy.needAll, tone: 'confused' });
     }
     const same = lanes.every((l) => l.x2 === lanes[0].x2 && l.x === lanes[0].x);
     if (!same) {
       setFirstTry(false);
+      onCheck?.(false);
       return setMsg({ text: lessonCopy.notEqual, tone: 'confused' });
     }
     const { x2, x } = lanes[0];
     const inner = `${x2 === 1 ? '' : x2}${screen.mode === 'rows' ? 'x' : 'x²'} + ${x}${screen.mode === 'rows' ? '' : 'x'}`;
     setDone(true);
+    onCheck?.(true);
     setMsg({ text: screen.done.replaceAll('{inner}', inner), tone: 'happy' });
     onDone({ firstTry });
   };

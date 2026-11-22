@@ -1,6 +1,7 @@
 import MathText from '../../components/ui/MathText.jsx';
 import { pretty } from '../../components/ui/prettyMath.js';
 import TataCoach from './TataCoach.jsx';
+import StoryCard from './StoryCard.jsx';
 import { useTask } from './useTask.js';
 import { lessonCopy } from '../../content/lessons/index.js';
 import styles from './lesson.module.css';
@@ -16,6 +17,7 @@ export default function ChoiceScreen({ screen, onDone }) {
 
   return (
     <div className={styles.screenBody}>
+      <StoryCard story={screen.story} known={screen.known} asked={screen.asked} />
       <p className={styles.prompt}>{pretty(screen.prompt)}</p>
       <div className={styles.options}>
         {screen.options.map((opt) => (
