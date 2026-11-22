@@ -3,6 +3,7 @@ import { DndContext, PointerSensor, useDraggable, useDroppable, useSensor, useSe
 import MathText from '../../components/ui/MathText.jsx';
 import Button from '../../components/ui/Button.jsx';
 import TataCoach from './TataCoach.jsx';
+import { moodFor } from '../../components/tata/tataMood.js';
 import { lessonCopy } from '../../content/lessons/index.js';
 import styles from './Tiles.module.css';
 
@@ -96,7 +97,7 @@ export default function TilesScreen({ screen, onDone, onCheck }) {
     if (left.x2 + left.x > 0) {
       setFirstTry(false);
       onCheck?.(false);
-      return setMsg({ text: lessonCopy.needAll, tone: 'confused' });
+      return setMsg({ text: lessonCopy.needAll, tone: 'confused', mood: moodFor('incomplete') });
     }
     const same = lanes.every((l) => l.x2 === lanes[0].x2 && l.x === lanes[0].x);
     if (!same) {
@@ -133,7 +134,7 @@ export default function TilesScreen({ screen, onDone, onCheck }) {
             <Button onClick={check}>Periksa susunan</Button>
           </div>
         )}
-        <TataCoach message={msg.text} tone={msg.tone} />
+        <TataCoach message={msg.text} tone={msg.tone} mood={msg.mood} />
       </div>
     </DndContext>
   );

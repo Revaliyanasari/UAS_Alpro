@@ -13,7 +13,7 @@
     {
       "id": "how",
       "title": "Cara belajar di sini",
-      "tata": "talking",
+      "tata": "wink",
       "points": [
         { "icon": "▶", "text": "Ketuk Lanjut sesuai kecepatanmu. Tidak ada yang berjalan sendiri." },
         { "icon": "💡", "text": "Bingung? Minta petunjuk kecil. Petunjuk tidak mengurangi poin." },
@@ -33,7 +33,7 @@
     {
       "id": "name",
       "title": "Siapa nama panggilanmu?",
-      "tata": "happy",
+      "tata": "shy",
       "text": "Cukup nama panggilan, tidak perlu nama lengkap.",
       "placeholder": "contoh: Dimas"
     }

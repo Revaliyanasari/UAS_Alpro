@@ -10,6 +10,7 @@ import NotFoundPage from './features/home/NotFoundPage.jsx';
 import CheckerLabPage from './features/lab/CheckerLabPage.jsx';
 import CatalogPage from './features/catalog/CatalogPage.jsx';
 import SettingsPage from './features/settings/SettingsPage.jsx';
+import TataGalleryPage from './features/tata-gallery/TataGalleryPage.jsx';
 
 export default function App() {
   useApplySettings();
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/belajar/:worldId" element={<LessonPage />} />
         <Route path="/kuis/:worldId" element={<QuizPage />} />
         <Route path="/pengaturan" element={<SettingsPage />} />
+        <Route path="/tata" element={<TataGalleryPage />} />
         <Route path="/lab" element={<CheckerLabPage />} />
         <Route path="/katalog" element={<CatalogPage />} />
         <Route path="*" element={<NotFoundPage />} />

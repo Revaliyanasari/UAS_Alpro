@@ -14,7 +14,7 @@ export default function SortScreen({ screen, onDone }) {
   const task = useTask(screen.hints.length, onDone);
 
   const check = () => {
-    if (placement.some((p) => p === null)) return task.wrong('Masih ada kartu di nampan. Pasang semuanya, ya.');
+    if (placement.some((p) => p === null)) return task.wrong('Masih ada kartu di nampan. Pasang semuanya, ya.', { incomplete: true });
     const wrong = screen.items.filter((it, i) => placement[i] !== it.bin).length;
     if (wrong === 0) return task.correct(screen.done);
     setPlacement(placement.map((p, i) => (p === screen.items[i].bin ? p : null)));
@@ -29,6 +29,7 @@ export default function SortScreen({ screen, onDone }) {
       <TataCoach
         message={task.feedback.text}
         tone={task.feedback.tone}
+        mood={task.feedback.mood}
         hints={task.solved ? [] : screen.hints}
         hintLevel={task.hintLevel}
         onHint={task.nextHint}

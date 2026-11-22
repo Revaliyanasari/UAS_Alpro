@@ -4,6 +4,7 @@ import Button from '../../components/ui/Button.jsx';
 import ProgressPath from '../../components/ui/ProgressPath.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import Tata from '../../components/tata/Tata.jsx';
+import { moodFor } from '../../components/tata/tataMood.js';
 import InfoScreen from './InfoScreen.jsx';
 import ChoiceScreen from './ChoiceScreen.jsx';
 import InputScreen from './InputScreen.jsx';
@@ -71,7 +72,7 @@ export default function LessonPage() {
   if (finished) {
     return (
       <main className={styles.finish}>
-        <Tata state="celebrating" size="md" />
+        <Tata state={moodFor('lessonDone')} size="md" />
         <h1>{lessonCopy.finishTitle}</h1>
         <SpeechBubble tone="happy">{lessonCopy.finishText.replace('{world}', world.name)}</SpeechBubble>
         <p>+{finished.xp} XP</p>

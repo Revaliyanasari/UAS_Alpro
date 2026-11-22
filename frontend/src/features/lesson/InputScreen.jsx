@@ -29,6 +29,7 @@ export default function InputScreen({ screen, onDone }) {
       <TataCoach
         message={task.feedback.text}
         tone={task.feedback.tone}
+        mood={task.feedback.mood}
         hints={task.solved ? [] : screen.hints}
         hintLevel={task.hintLevel}
         onHint={task.nextHint}

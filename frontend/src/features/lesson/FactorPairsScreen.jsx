@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from '../../components/ui/Button.jsx';
 import TataCoach from './TataCoach.jsx';
+import { moodFor } from '../../components/tata/tataMood.js';
 import styles from './Activities.module.css';
 
 /** Semua pasangan faktor n, mis. 12 → [[1,12],[2,6],[3,4]]. */
@@ -42,7 +43,7 @@ export default function FactorPairsScreen({ screen, onDone }) {
     const next = [...found, key].sort((a, b) => a - b);
     setFound(next);
     if (next.length === pairs.length) {
-      setMsg({ text: screen.done, tone: 'happy' });
+      setMsg({ text: screen.done, tone: 'happy', mood: moodFor('discover') });
       onDone({ firstTry });
     } else {
       setMsg({ text: `Bagus! ${n} = ${rows} × ${cols}. Masih ada ${pairs.length - next.length} ukuran lain.`, tone: 'happy' });
@@ -81,7 +82,7 @@ export default function FactorPairsScreen({ screen, onDone }) {
           </li>
         ))}
       </ul>
-      <TataCoach message={msg.text} tone={msg.tone} />
+      <TataCoach message={msg.text} tone={msg.tone} mood={msg.mood} />
     </div>
   );
 }

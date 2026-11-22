@@ -4,6 +4,7 @@ import MathKeypad from '../../components/ui/MathKeypad.jsx';
 import Button from '../../components/ui/Button.jsx';
 import { pretty } from '../../components/ui/prettyMath.js';
 import TataCoach from '../lesson/TataCoach.jsx';
+import { moodFor } from '../../components/tata/tataMood.js';
 import StoryCard from '../lesson/StoryCard.jsx';
 import SortBoard from '../lesson/SortBoard.jsx';
 import TilesScreen from '../lesson/TilesScreen.jsx';
@@ -97,7 +98,7 @@ export default function QuizQuestion({ question, onAnswer }) {
       )}
 
       {question.type !== 'tiles' && (
-        <TataCoach message={message} tone={tone} hints={answered ? [] : hints} hintLevel={hintLevel} onHint={() => setHintLevel((h) => Math.min(h + 1, hints.length))} />
+        <TataCoach message={message} tone={tone} mood={answered ? moodFor(answered.correct ? 'correct' : 'wrong', { firstTry: true, attempt: 1 }) : hintLevel > 0 ? moodFor('hint') : undefined} hints={answered ? [] : hints} hintLevel={hintLevel} onHint={() => setHintLevel((h) => Math.min(h + 1, hints.length))} />
       )}
       {question.type === 'tiles' && answered && (
         <p className={lessonStyles.text} role="status">

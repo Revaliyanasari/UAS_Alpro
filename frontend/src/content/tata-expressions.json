@@ -1,0 +1,25 @@
+{
+  "title": "Galeri Ekspresi TATA",
+  "intro": "TATA punya banyak ekspresi. Ekspresinya berubah sesuai apa yang sedang kamu kerjakan.",
+  "note": "TATA tidak pernah memarahimu. Saat jawabanmu belum tepat, TATA memberi semangat atau ikut berpikir bersamamu.",
+  "expressions": {
+    "happy": { "name": "Senang", "desc": "Gembira melihatmu belajar.", "when": "Jawaban benar setelah mencoba atau memakai petunjuk." },
+    "calm": { "name": "Tenang", "desc": "Santai dan siap menemani.", "when": "Saat menunggu di peta petualangan." },
+    "cheer": { "name": "Bersorak", "desc": "Melompat kegirangan!", "when": "Jawaban benar pada percobaan pertama, atau nilai kuis sempurna." },
+    "wave": { "name": "Menyapa", "desc": "Halo! Selamat datang.", "when": "Membuka aplikasi dan memulai misi pulau." },
+    "wink": { "name": "Kedip", "desc": "Psst, ada trik kecil.", "when": "Memberi kiat cara memakai aplikasi di awal petualangan." },
+    "love": { "name": "Memberi semangat", "desc": "Tidak apa-apa, ayo coba lagi!", "when": "Jawaban pertama belum tepat." },
+    "amazed": { "name": "Kagum", "desc": "Wah, hebat sekali!", "when": "Menemukan semua persegi panjang atau pola." },
+    "laugh": { "name": "Tertawa", "desc": "Belajar juga bisa seru.", "when": "Saat santai di galeri." },
+    "thinking": { "name": "Berpikir", "desc": "Hmm, mari kita pikirkan bersama.", "when": "Jawaban belum tepat untuk kedua kalinya." },
+    "idea": { "name": "Punya ide", "desc": "Aha! Begini caranya.", "when": "Saat kamu membuka pembahasan soal." },
+    "confused": { "name": "Bingung", "desc": "Ikut bingung? Kita urai pelan-pelan.", "when": "Sudah beberapa kali mencoba: saatnya minta petunjuk." },
+    "surprised": { "name": "Kaget", "desc": "Eh? Coba lihat lagi!", "when": "Ada bagian penting yang terlewat." },
+    "sad": { "name": "Sedih", "desc": "Perasaan yang wajar dimiliki.", "when": "Hanya di galeri. TATA tidak memakai wajah sedih untuk menilai jawabanmu." },
+    "sleepy": { "name": "Mengantuk", "desc": "Hoaam… istirahat sebentar yuk.", "when": "Peta dibiarkan lama tanpa aktivitas." },
+    "shy": { "name": "Malu-malu", "desc": "Senang berkenalan denganmu.", "when": "Saat kamu mengenalkan nama panggilanmu." },
+    "disappointed": { "name": "Kecewa", "desc": "Yah, sayang sekali.", "when": "Hanya di galeri. Kesalahan adalah bagian dari belajar." },
+    "focused": { "name": "Fokus", "desc": "Perhatikan bagian ini baik-baik.", "when": "Saat kamu meminta petunjuk." },
+    "proud": { "name": "Bangga", "desc": "Kamu berhasil menyelesaikannya!", "when": "Menyelesaikan pelajaran atau lulus kuis." }
+  }
+}

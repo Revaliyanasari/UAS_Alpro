@@ -11,44 +11,20 @@
 .armLeft,
 .armRight,
 .head,
-.eyes {
+.eyes,
+.sparks,
+.pulseItem,
+.floatItem {
   transform-box: fill-box;
-}
-
-/* idle: bernapas pelan + berkedip */
-.idle .figure {
-  animation: breathe 3.2s ease-in-out infinite;
 }
 .eyes {
   transform-origin: center;
   animation: blink 4.5s infinite;
 }
-
-/* waving: lengan kanan melambai */
-.waving .armRight {
-  transform-origin: 0% 50%;
-  animation: wave 0.9s ease-in-out infinite;
-}
-.waving .figure {
-  animation: breathe 3.2s ease-in-out infinite;
-}
-
-/* talking: mulut membuka-menutup */
 .mouthTalk {
   transform-box: fill-box;
   transform-origin: center;
   animation: talk 0.36s ease-in-out infinite alternate;
-}
-
-/* happy: lompatan kecil */
-.happy .figure {
-  animation: hop 0.9s ease-in-out 2;
-}
-
-/* confused: kepala miring */
-.confused .head {
-  transform-origin: 50% 100%;
-  transform: rotate(-7deg);
 }
 .question {
   font-family: var(--font-display);
@@ -56,21 +32,100 @@
   font-weight: 600;
   fill: var(--color-hint);
 }
-
-/* celebrating: kedua lengan ke atas + lompat */
-.celebrating .armLeft {
-  transform-origin: 100% 50%;
-  transform: rotate(48deg) translate(4px, -10px);
+.zzz,
+.zzzBig {
+  font-family: var(--font-display);
+  font-weight: 600;
 }
-.celebrating .armRight {
-  transform-origin: 0% 50%;
-  transform: rotate(-48deg) translate(-4px, -10px);
+.zzz {
+  font-size: 18px;
 }
-.celebrating .figure {
-  animation: hop 0.7s ease-in-out infinite;
+.zzzBig {
+  font-size: 26px;
 }
 .sparks {
   animation: twinkle 1.2s ease-in-out infinite;
+}
+.pulseItem {
+  transform-origin: center;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.floatItem {
+  animation: floatUp 2.4s ease-in-out infinite;
+}
+
+/* ---------- Animasi badan ---------- */
+.anim-breathe .figure {
+  animation: breathe 3.2s ease-in-out infinite;
+}
+.anim-hop .figure {
+  animation: hop 0.7s ease-in-out infinite;
+}
+.anim-hopOnce .figure {
+  animation: hop 0.9s ease-in-out 2;
+}
+.anim-bounce .figure {
+  animation: hop 1.4s ease-in-out infinite;
+}
+.anim-shake .figure {
+  transform-origin: 50% 100%;
+  animation: shake 0.5s ease-in-out infinite;
+}
+.anim-sway .figure {
+  transform-origin: 50% 100%;
+  animation: sway 2.6s ease-in-out infinite;
+}
+.anim-float .figure {
+  animation: breathe 2s ease-in-out infinite;
+}
+.anim-pulse .figure {
+  transform-origin: 50% 100%;
+  animation: grow 1.6s ease-in-out infinite;
+}
+.anim-tilt .head {
+  transform-origin: 50% 100%;
+  transform: rotate(-7deg);
+}
+.anim-droop .figure {
+  animation: breathe 5s ease-in-out infinite;
+}
+.anim-droop .head {
+  transform-origin: 50% 100%;
+  transform: translateY(3px) rotate(3deg);
+}
+
+/* ---------- Pose lengan ---------- */
+.arms-wave .armRight {
+  transform-origin: 0% 50%;
+  animation: wave 0.9s ease-in-out infinite;
+}
+.arms-up .armLeft {
+  transform-origin: 100% 50%;
+  transform: rotate(48deg) translate(4px, -10px);
+}
+.arms-up .armRight {
+  transform-origin: 0% 50%;
+  transform: rotate(-48deg) translate(-4px, -10px);
+}
+.arms-pointUp .armRight {
+  transform-origin: 0% 50%;
+  transform: rotate(-80deg) translate(-6px, -4px);
+}
+.arms-hips .armLeft {
+  transform-origin: 100% 50%;
+  transform: rotate(-35deg);
+}
+.arms-hips .armRight {
+  transform-origin: 0% 50%;
+  transform: rotate(35deg);
+}
+.arms-droop .armLeft {
+  transform-origin: 100% 50%;
+  transform: rotate(-55deg) translate(2px, 4px);
+}
+.arms-droop .armRight {
+  transform-origin: 0% 50%;
+  transform: rotate(55deg) translate(-2px, 4px);
 }
 
 @keyframes breathe {
@@ -109,5 +164,36 @@
 @keyframes twinkle {
   50% {
     opacity: 0.35;
+  }
+}
+@keyframes shake {
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+@keyframes sway {
+  25% {
+    transform: rotate(-2.5deg);
+  }
+  75% {
+    transform: rotate(2.5deg);
+  }
+}
+@keyframes grow {
+  50% {
+    transform: scale(1.04);
+  }
+}
+@keyframes pulse {
+  50% {
+    transform: scale(1.12);
+  }
+}
+@keyframes floatUp {
+  50% {
+    transform: translateY(-6px);
   }
 }

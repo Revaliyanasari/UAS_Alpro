@@ -1,0 +1,79 @@
+.intro {
+  margin: 0 0 var(--space-4);
+}
+.preview {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-board);
+  background: var(--color-surface-soft);
+  margin-bottom: var(--space-5);
+}
+.previewArt {
+  width: 140px;
+  height: 168px;
+}
+.previewText h2 {
+  margin: 0 0 var(--space-1);
+}
+.desc {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--color-primary-text);
+}
+.when {
+  margin: 0;
+}
+@media (max-width: 420px) {
+  .preview {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.card {
+  width: 100%;
+  min-height: var(--touch-min);
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1) var(--space-3);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  font: inherit;
+  cursor: pointer;
+}
+.active {
+  border-color: var(--teal-700);
+  background: var(--mint-100);
+  box-shadow: var(--shadow-toy);
+}
+.art {
+  width: 72px;
+  height: 86px;
+}
+/* Kartu kecil diam (animasi hanya di pratinjau) */
+.art :global(*) {
+  animation: none !important;
+}
+.name {
+  font-weight: 700;
+  font-size: var(--fs-small);
+  text-align: center;
+}
+.note {
+  margin: var(--space-5) 0 0;
+  color: var(--color-text-muted);
+}

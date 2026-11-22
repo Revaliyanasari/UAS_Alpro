@@ -36,6 +36,11 @@ export default function SettingsPage() {
         </fieldset>
       </Card>
       <p className={styles.note}>Pengaturan tersimpan otomatis di perangkat ini.</p>
+      <Card title="Kenali TATA">
+        <Button to="/tata" variant="secondary" block>
+          Galeri Ekspresi TATA
+        </Button>
+      </Card>
       <Card title="Untuk guru" tone="cream">
         <div className={styles.links}>
           <Button to="/lab" variant="secondary" block>

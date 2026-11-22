@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { moodFor } from '../../components/tata/tataMood.js';
 import { Link } from 'react-router-dom';
 import Tata from '../../components/tata/Tata.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
@@ -14,9 +15,32 @@ import styles from './MapPage.module.css';
 
 // Peta petualangan: 5 pulau berurutan dari prasyarat (World 1) sampai literasi matematis (World 5).
 // Pulau berikutnya terbuka setelah pulau sebelumnya selesai (profileStore.isUnlocked).
+const IDLE_MS = 60_000;
+
+/** true bila tidak ada sentuhan/ketikan selama `ms` (TATA mengantuk di peta). */
+export function useIdle(ms) {
+  const [idle, setIdle] = useState(false);
+  useEffect(() => {
+    let timer = setTimeout(() => setIdle(true), ms);
+    const reset = () => {
+      setIdle(false);
+      clearTimeout(timer);
+      timer = setTimeout(() => setIdle(true), ms);
+    };
+    const events = ['pointerdown', 'keydown', 'scroll'];
+    events.forEach((e) => window.addEventListener(e, reset, { passive: true }));
+    return () => {
+      clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, reset));
+    };
+  }, [ms]);
+  return idle;
+}
+
 export default function MapPage() {
   const { nickname, xp, isUnlocked, totalStars, worlds: progress, quizHistory } = useProfile();
   const [openId, setOpenId] = useState(null);
+  const sleepy = useIdle(IDLE_MS);
   const worlds = content.worlds;
   const current = worlds.find((w) => isUnlocked(w.id) && !progress[w.id]?.completed) ?? worlds[0];
   const openWorld = worlds.find((w) => w.id === openId);
@@ -64,7 +88,7 @@ export default function MapPage() {
       </main>
 
       <aside className={styles.guide}>
-        <Tata state="idle" size="sm" />
+        <Tata state={moodFor(sleepy ? 'idleLong' : 'idle')} size="sm" />
         <SpeechBubble tail="left">{copy.map.tataStart.replace('{world}', current.name)}</SpeechBubble>
       </aside>
 

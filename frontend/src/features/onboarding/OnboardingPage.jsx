@@ -4,6 +4,7 @@ import Button from '../../components/ui/Button.jsx';
 import ProgressPath from '../../components/ui/ProgressPath.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import Tata from '../../components/tata/Tata.jsx';
+import { moodFor } from '../../components/tata/tataMood.js';
 import TileMatchActivity from './TileMatchActivity.jsx';
 import { useProfile } from '../../store/profileStore.js';
 import copy from '../../content/onboarding.json';
@@ -27,7 +28,7 @@ export default function OnboardingPage() {
     navigate('/peta');
   };
 
-  const tataState = step.id === 'tiles' && tilesDone ? 'celebrating' : step.tata;
+  const tataState = step.id === 'tiles' && tilesDone ? moodFor('correct', { firstTry: true }) : step.tata;
 
   return (
     <div className={styles.screen}>

@@ -5,6 +5,7 @@ import ProgressPath from '../../components/ui/ProgressPath.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import MathText from '../../components/ui/MathText.jsx';
 import Tata from '../../components/tata/Tata.jsx';
+import { moodFor } from '../../components/tata/tataMood.js';
 import { pretty } from '../../components/ui/prettyMath.js';
 import NotFoundPage from '../home/NotFoundPage.jsx';
 import QuizQuestion from './QuizQuestion.jsx';
@@ -63,7 +64,7 @@ export default function QuizPage() {
     return (
       <main className={styles.result}>
         <div className={styles.resultHead}>
-          <Tata state={result.passed ? 'celebrating' : 'talking'} size="md" />
+          <Tata state={moodFor('quizResult', { percent: result.percent })} size="md" />
           <h1>{quiz.title}</h1>
           <p className={styles.score} aria-label={`Nilai ${result.percent}`}>
             {result.percent}
