@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { setProfile } from './helpers.js';
 
 async function drag(page, from, to) {
   const a = await from.boundingBox();
@@ -11,23 +12,6 @@ async function drag(page, from, to) {
   await page.waitForTimeout(150);
 }
 
-/** Menyimpan progres langsung ke IndexedDB (sama seperti yang dilakukan aplikasi). */
-async function setProfile(page, state) {
-  await page.goto('/');
-  await page.evaluate(async (s) => {
-    const req = indexedDB.open('keyval-store');
-    const db = await new Promise((res, rej) => {
-      req.onupgradeneeded = () => req.result.createObjectStore('keyval');
-      req.onsuccess = () => res(req.result);
-      req.onerror = () => rej(req.error);
-    });
-    await new Promise((res) => {
-      const tx = db.transaction('keyval', 'readwrite');
-      tx.objectStore('keyval').put(JSON.stringify({ state: s, version: 1 }), 'aa-profile');
-      tx.oncomplete = res;
-    });
-  }, state);
-}
 
 test('peta → masuk World 1 → layar pelajaran berfungsi', async ({ page }) => {
   await setProfile(page, { nickname: 'Uji', onboardingDone: true, xp: 0, worlds: {} });

@@ -29,13 +29,6 @@
       "wrong": "Belum muat. Bandingkan panjang sisi ubin dan bingkainya.",
       "match": "Cocok! Lanjutkan ubin berikutnya.",
       "done": "Hebat! Nama ubin adalah luasnya: x · x = x², x · 1 = x, dan 1 · 1 = 1."
-    },
-    {
-      "id": "name",
-      "title": "Siapa nama panggilanmu?",
-      "tata": "shy",
-      "text": "Cukup nama panggilan, tidak perlu nama lengkap.",
-      "placeholder": "contoh: Dimas"
     }
   ],
   "map": {

@@ -1,6 +1,7 @@
 {
   "button": "Tanya TATA",
   "title": "Tanya TATA AI",
+  "hello": "Halo, {name}!",
   "intro": "Tanyakan bagian yang belum kamu pahami. TATA akan membantumu berpikir, bukan memberi jawaban akhir.",
   "privacy": "Jangan menulis nama lengkap, alamat, atau nomor HP.",
   "caution": "TATA AI bisa keliru. Selalu cek dengan mengalikan kembali.",

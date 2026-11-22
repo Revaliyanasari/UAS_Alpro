@@ -10,20 +10,19 @@ import { useProfile } from '../../store/profileStore.js';
 import copy from '../../content/onboarding.json';
 import styles from './OnboardingPage.module.css';
 
-// Onboarding 4 langkah: kenalan TATA → cara belajar → aktivitas ubin → nama panggilan.
+// Onboarding 3 langkah: kenalan TATA → cara belajar → aktivitas ubin.
+// Nama panggilan sudah diisi di halaman identitas (features/student), jadi tidak ditanyakan lagi.
 // Tidak ada perpindahan otomatis; siswa bisa kembali atau melewati.
 export default function OnboardingPage() {
   const navigate = useNavigate();
-  const { nickname, setNickname, completeOnboarding } = useProfile();
+  const completeOnboarding = useProfile((s) => s.completeOnboarding);
   const [index, setIndex] = useState(0);
   const [tilesDone, setTilesDone] = useState(false);
-  const [name, setName] = useState(nickname);
   const steps = copy.steps;
   const step = steps[index];
   const last = index === steps.length - 1;
 
   const finish = () => {
-    if (name.trim()) setNickname(name);
     completeOnboarding();
     navigate('/peta');
   };
@@ -62,19 +61,6 @@ export default function OnboardingPage() {
 
         {step.id === 'tiles' && <TileMatchActivity copy={step} onComplete={() => setTilesDone(true)} />}
 
-        {step.id === 'name' && (
-          <label className={styles.nameField}>
-            <span className="visually-hidden">Nama panggilan</span>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={step.placeholder}
-              maxLength={20}
-              autoComplete="nickname"
-              onKeyDown={(e) => e.key === 'Enter' && finish()}
-            />
-          </label>
-        )}
       </main>
 
       <footer className={styles.bottom}>

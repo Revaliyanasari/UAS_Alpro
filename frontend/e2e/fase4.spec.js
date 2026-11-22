@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { setProfile } from './helpers.js';
 
 // World 1–2 lengkap: kuis dunia dengan seret sungguhan pada soal sortir, pembahasan, buka-kunci World 2.
 
@@ -13,22 +14,6 @@ async function drag(page, from, to) {
   await page.waitForTimeout(150);
 }
 
-async function setProfile(page, state) {
-  await page.goto('/');
-  await page.evaluate(async (s) => {
-    const req = indexedDB.open('keyval-store');
-    const db = await new Promise((res, rej) => {
-      req.onupgradeneeded = () => req.result.createObjectStore('keyval');
-      req.onsuccess = () => res(req.result);
-      req.onerror = () => rej(req.error);
-    });
-    await new Promise((res) => {
-      const tx = db.transaction('keyval', 'readwrite');
-      tx.objectStore('keyval').put(JSON.stringify({ state: s, version: 1 }), 'aa-profile');
-      tx.oncomplete = res;
-    });
-  }, state);
-}
 
 const noHorizontalScroll = (page) => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 

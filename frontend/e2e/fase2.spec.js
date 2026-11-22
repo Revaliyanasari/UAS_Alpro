@@ -14,15 +14,27 @@ async function drag(page, from, to) {
   await page.waitForTimeout(150);
 }
 
+/** Siswa baru: isi identitas (halaman wajib sebelum petualangan). */
+async function fillIdentity(page, nickname = 'Rani') {
+  await page.getByLabel(/Nama lengkap/).fill('Rani Putri Utami');
+  await page.getByLabel(/Nama panggilan/).fill(nickname);
+  await page.getByRole('button', { name: 'VII C' }).click();
+  await page.getByLabel(/Asal sekolah/).fill('SMP Negeri 2 Contoh');
+  await page.getByRole('button', { name: /Mulai Petualangan/ }).click();
+  await expect(page.getByText(`Halo, ${nickname}! Siap memulai petualangan matematika hari ini?`)).toBeVisible();
+  await page.getByRole('button', { name: 'Ayo berangkat!' }).click();
+}
+
 async function openTilesStep(page) {
   await page.goto('/');
   await page.getByRole('link', { name: 'Mulai Petualangan' }).click();
+  await fillIdentity(page);
   await page.getByRole('button', { name: 'Lanjut' }).click();
   await page.getByRole('button', { name: 'Lanjut' }).click();
   await expect(page.getByRole('heading', { name: 'Kenalan dengan ubin' })).toBeVisible();
 }
 
-test('alur lengkap: welcome → onboarding → seret ubin → nama → peta', async ({ page }) => {
+test('alur lengkap: welcome → identitas → onboarding → seret ubin → peta', async ({ page }) => {
   await openTilesStep(page);
 
   // salah bingkai: ubin x² diseret ke bingkai 1×1 → ditolak, ubin kembali ke nampan
@@ -38,8 +50,6 @@ test('alur lengkap: welcome → onboarding → seret ubin → nama → peta', as
   await page.locator('[data-frame="one"]').click();
   await expect(page.getByText(/Nama ubin adalah luasnya/)).toBeVisible();
 
-  await page.getByRole('button', { name: 'Lanjut' }).click();
-  await page.getByLabel('Nama panggilan').fill('Rani');
   await page.getByRole('button', { name: 'Ke Peta Petualangan' }).click();
   await expect(page.getByText('Halo, Rani!')).toBeVisible();
 

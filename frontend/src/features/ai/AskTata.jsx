@@ -5,6 +5,7 @@ import { moodFor } from '../../components/tata/tataMood.js';
 import { askTata, CLIENT_LIMIT } from '../../services/aiClient.js';
 import { useSettings } from '../../store/settingsStore.js';
 import { useAiStatus } from './useAiStatus.js';
+import { useProfile } from '../../store/profileStore.js';
 import copy from '../../content/ai.json';
 import styles from './AskTata.module.css';
 
@@ -18,6 +19,8 @@ const MAX_CHARS = 300;
 export default function AskTata({ context }) {
   const status = useAiStatus();
   const aiEnabled = useSettings((s) => s.aiEnabled);
+  // Sapaan memakai nama panggilan secara LOKAL saja; nama tidak pernah ikut dikirim ke AI.
+  const nickname = useProfile((s) => s.nickname);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
@@ -82,7 +85,9 @@ export default function AskTata({ context }) {
             </header>
 
             <div className={styles.messages} ref={listRef} aria-live="polite">
-              {messages.length === 0 && <p className={styles.bubbleTata}>{copy.intro}</p>}
+              {messages.length === 0 && (
+                <p className={styles.bubbleTata}>{nickname ? `${copy.hello.replace('{name}', nickname)} ${copy.intro}` : copy.intro}</p>
+              )}
               {messages.map((m, i) => (
                 <p key={i} className={m.role === 'user' ? styles.bubbleUser : styles.bubbleTata}>
                   {pretty(m.content)}

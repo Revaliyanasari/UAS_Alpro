@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { setProfile } from './helpers.js';
 
 // Fase 5: Galeri Ekspresi TATA, AI Assistant (mode nonaktif), Modul Guru.
 
@@ -43,6 +44,9 @@ test('Modul Guru: instrumen → skor → laporan → unduh CSV sungguhan', async
 });
 
 test('Tanpa server AI: tombol Tanya TATA tidak muncul, Pengaturan menjelaskan', async ({ page }) => {
+  // Simulasikan server AI mati (uji tidak bergantung pada proxy lokal & tidak memakai kuota DeepSeek).
+  await page.route('**/api/ai/**', (route) => route.abort());
+  await setProfile(page, { nickname: 'Uji', onboardingDone: true, xp: 0, worlds: {} });
   await page.goto('/pengaturan');
   await expect(page.getByText(/Server AI tidak berjalan|API key DeepSeek belum diisi/)).toBeVisible();
   await page.goto('/belajar/1');
@@ -51,20 +55,7 @@ test('Tanpa server AI: tombol Tanya TATA tidak muncul, Pengaturan menjelaskan', 
 });
 
 test('World 3: Potong & Geser a² − b² di browser', async ({ page }, testInfo) => {
-  await page.goto('/');
-  await page.evaluate(async () => {
-    const req = indexedDB.open('keyval-store');
-    const db = await new Promise((res) => {
-      req.onupgradeneeded = () => req.result.createObjectStore('keyval');
-      req.onsuccess = () => res(req.result);
-    });
-    await new Promise((res) => {
-      const tx = db.transaction('keyval', 'readwrite');
-      const state = { nickname: 'Uji', onboardingDone: true, xp: 0, worlds: { 1: { completed: true, stars: 3 }, 2: { completed: true, stars: 3 } }, quizHistory: [] };
-      tx.objectStore('keyval').put(JSON.stringify({ state, version: 1 }), 'aa-profile');
-      tx.oncomplete = res;
-    });
-  });
+  await setProfile(page, { nickname: 'Uji', onboardingDone: true, xp: 0, worlds: { 1: { completed: true, stars: 3 }, 2: { completed: true, stars: 3 } } });
   await page.goto('/peta');
   await page.getByRole('button', { name: /World 3/ }).click();
   await page.getByRole('link', { name: 'Masuk ke Kepulauan Kuadrat' }).click();

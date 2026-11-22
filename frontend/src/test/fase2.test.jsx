@@ -27,11 +27,12 @@ describe('Welcome', () => {
     expect(screen.getByRole('heading', { name: 'Kenalan dengan TATA' })).toBeInTheDocument();
   });
 
-  it('siswa yang kembali melihat "Lanjutkan Petualangan" dan namanya', async () => {
-    useProfile.setState({ onboardingDone: true, nickname: 'Dimas' });
+  it('siswa yang kembali melihat "Lanjutkan Petualangan", nama panggilannya, dan pilihan ganti siswa', async () => {
+    useProfile.setState({ onboardingDone: true, nickname: 'Uji' });
     renderAt('/');
     expect(await screen.findByRole('link', { name: 'Lanjutkan Petualangan' })).toHaveAttribute('href', '/peta');
-    expect(screen.getByText(/Dimas/)).toBeInTheDocument();
+    expect(screen.getByText(/Selamat datang kembali, Uji/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Bukan Uji? Ganti siswa' })).toHaveAttribute('href', '/siswa');
   });
 });
 
@@ -72,19 +73,18 @@ describe('Onboarding & aktivitas ubin', () => {
       await user.keyboard('{Enter}');
     }
     expect(screen.getByText(/Nama ubin adalah luasnya/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Lanjut' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Ke Peta Petualangan' })).toBeInTheDocument();
   });
 
-  it('nama panggilan tersimpan dan siswa masuk ke peta', async () => {
+  it('perkenalan selesai → peta menyapa dengan nama panggilan dari identitas (tidak ditanya ulang)', async () => {
     const user = userEvent.setup();
+    useProfile.setState({ nickname: 'Uji' });
     renderAt('/mulai');
     for (let i = 0; i < 2; i++) await user.click(screen.getByRole('button', { name: 'Lanjut' }));
-    await user.click(screen.getByRole('button', { name: 'Lewati aktivitas' }));
-    await user.type(screen.getByLabelText('Nama panggilan'), 'Sari');
+    expect(screen.queryByLabelText('Nama panggilan')).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Ke Peta Petualangan' }));
-    expect(useProfile.getState().nickname).toBe('Sari');
     expect(useProfile.getState().onboardingDone).toBe(true);
-    expect(screen.getByText('Halo, Sari!')).toBeInTheDocument();
+    expect(screen.getByText('Halo, Uji!')).toBeInTheDocument();
   });
 });
 

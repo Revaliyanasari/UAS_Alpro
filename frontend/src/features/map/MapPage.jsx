@@ -56,6 +56,9 @@ export default function MapPage() {
             <span aria-label={`${xp} poin pengalaman`}>XP {xp}</span>
           </span>
         </div>
+        <Link to="/profil" className={styles.settings} aria-label="Profil belajarku">
+          <span aria-hidden="true">👤</span>
+        </Link>
         <Link to="/pengaturan" className={styles.settings} aria-label="Pengaturan">
           <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
             <path

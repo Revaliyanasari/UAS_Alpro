@@ -53,6 +53,7 @@ describe('Tanya TATA', () => {
     const user = userEvent.setup();
     render(<AskTata context={ctx} />);
     await user.click(await screen.findByRole('button', { name: /Tanya TATA/ }));
+    expect(screen.getByText(/Halo, Dimas!/)).toBeInTheDocument(); // sapaan personal, dibuat di perangkat
     await user.type(screen.getByLabelText('Pertanyaan untuk TATA'), 'Aku bingung FPB');
     await user.click(screen.getByRole('button', { name: 'Kirim' }));
     expect(await screen.findByText('Berapa FPB dari 6 dan 9?')).toBeInTheDocument();
@@ -60,7 +61,8 @@ describe('Tanya TATA', () => {
     const body = JSON.parse(chat.init.body);
     expect(body.messages).toEqual([{ role: 'user', content: 'Aku bingung FPB' }]);
     expect(body.context.task).toMatch(/FPB dari 6x\^2/);
-    expect(chat.init.body).not.toMatch(/Dimas/);
+    expect(chat.init.body).not.toMatch(/Dimas/); // nama panggilan tidak dikirim ke AI
+    expect(chat.init.body).not.toMatch(/Siswa Uji Coba|SMP Uji|VII A/); // identitas lain juga tidak
     expect(screen.getByText(/Sisa pertanyaan: 14/)).toBeInTheDocument();
   });
 

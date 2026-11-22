@@ -39,7 +39,7 @@ Instruksi utama untuk Claude Code saat bekerja di repositori ini.
 5a. **Aset:** gambar referensi di `docs/referensi/` hanya inspirasi — jangan dibundel ke aplikasi.
 6. **Jangan menambah layanan berbayar** (AI, TTS, hosting) tanpa menjelaskan biaya & alternatif gratis lalu mendapat persetujuan.
 7. **Jangan mengubah tujuan pembelajaran atau cakupan materi** tanpa diskusi.
-8. **Data anak:** tanpa email/nama lengkap siswa; jangan kirim data siswa ke layanan AI.
+8. **Data anak:** tanpa email siswa; jangan kirim data siswa ke layanan AI atau server mana pun. *Keputusan pemilik 22 Nov 2026:* halaman identitas boleh meminta nama lengkap, nama panggilan, kelas, sekolah, dan no. absen, **hanya disimpan di perangkat** (IndexedDB `aa-students`), bisa dihapus siswa, tidak pernah dikirim ke AI. Modul Guru tetap memakai kode siswa. Lihat `docs/PROGRESS.md` §8.
 
 ## Aturan desain (ringkas — detail di UI_UX_DESIGN.md)
 

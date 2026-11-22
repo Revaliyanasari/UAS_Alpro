@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { idbStorage } from './storage.js';
+import { scopedStorage } from './scopedStorage.js';
 
 /** Nilai minimal kuis dunia untuk membuka pulau berikutnya (docs/LEARNING_DESIGN.md §3). */
 export const PASS_PERCENT = 60;
@@ -14,7 +14,11 @@ export function quizStars(percent) {
   return 0;
 }
 
-// Profil & progres siswa di perangkat ini. XP dan bintang dimulai dari 0 (tanpa data tiruan).
+/** Progres awal siswa baru (tanpa data tiruan). */
+export const INITIAL_PROGRESS = { nickname: '', onboardingDone: false, xp: 0, worlds: {}, quizHistory: [] };
+
+// Progres SATU siswa (siswa yang sedang aktif, lihat studentStore.js). Disimpan per siswa lewat scopedStorage:
+// kunci IndexedDB "aa-profile:<idSiswa>". XP dan bintang dimulai dari 0.
 // worlds[id] = { lessonDone, completed (lulus kuis), stars (terbaik), bestPercent }
 // Catatan: data lama (sebelum ada kuis) berbentuk { completed, stars } dan tetap dianggap lulus.
 export const useProfile = create(
@@ -63,7 +67,7 @@ export const useProfile = create(
     {
       name: 'aa-profile',
       version: 1,
-      storage: createJSONStorage(() => idbStorage),
+      storage: createJSONStorage(() => scopedStorage),
       partialize: ({ nickname, onboardingDone, xp, worlds, quizHistory }) => ({ nickname, onboardingDone, xp, worlds, quizHistory }),
     },
   ),

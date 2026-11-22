@@ -1,0 +1,52 @@
+{
+  "identity": {
+    "titleNew": "Kenalan dulu, yuk!",
+    "titleEdit": "Ubah identitasmu",
+    "tataNew": "Halo! Aku TATA. Sebelum berpetualang, ceritakan sedikit tentang dirimu, ya.",
+    "tataEdit": "Ada yang mau diubah? Tenang, XP, bintang, dan progres petualanganmu tetap aman.",
+    "privacy": "Identitasmu hanya disimpan di perangkat ini, tidak dikirim ke internet atau ke AI.",
+    "fullName": "Nama lengkap",
+    "fullNameHint": "contoh: Rara Ayu Lestari",
+    "nickname": "Nama panggilan",
+    "nicknameHint": "TATA akan memanggilmu dengan nama ini",
+    "className": "Kelas",
+    "classHint": "Pilih atau tulis kelasmu",
+    "school": "Asal sekolah",
+    "schoolHint": "contoh: SMP Negeri 1 Harapan",
+    "absen": "Nomor absen",
+    "absenHint": "boleh dikosongkan",
+    "optional": "opsional",
+    "submitNew": "Mulai Petualangan",
+    "submitEdit": "Simpan perubahan",
+    "fixErrors": "Masih ada yang belum lengkap. Cek bagian yang ditandai, ya.",
+    "greeting": "Halo, {name}! Siap memulai petualangan matematika hari ini?",
+    "greetingEdit": "Sip, {name}! Identitasmu sudah diperbarui.",
+    "go": "Ayo berangkat!",
+    "back": "Kembali ke profil"
+  },
+  "switch": {
+    "title": "Siapa yang belajar hari ini?",
+    "tata": "Pilih namamu agar progres belajarmu tidak tertukar dengan teman.",
+    "newStudent": "+ Aku siswa baru",
+    "remove": "Hapus",
+    "removeConfirm": "Hapus identitas dan SEMUA progres belajar {name} dari perangkat ini? Tindakan ini tidak bisa dibatalkan.",
+    "empty": "Belum ada siswa di perangkat ini."
+  },
+  "profile": {
+    "title": "Profil Belajarku",
+    "progress": "Progres belajar",
+    "edit": "Ubah identitas",
+    "switch": "Ganti siswa",
+    "signOut": "Selesai belajar (keluar)",
+    "signOutNote": "Progresmu tetap tersimpan. Kamu bisa memilih namamu lagi nanti.",
+    "notStarted": "Belum dimulai",
+    "lessonDone": "Pelajaran selesai",
+    "passed": "Lulus kuis",
+    "locked": "Terkunci",
+    "history": "Riwayat kuis terakhir",
+    "noHistory": "Belum ada kuis yang dikerjakan."
+  },
+  "welcome": {
+    "notYou": "Bukan {name}? Ganti siswa"
+  }
+}
