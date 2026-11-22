@@ -60,6 +60,15 @@
       "steps": ["Bagi angkanya", "Bagi variabelnya", "Gabungkan hasilnya", "Cek dengan mengalikan"],
       "hints": ["Kita selalu mulai dari angka.", "Setelah angka, baru variabel.", "Langkah terakhir adalah memeriksa jawaban."],
       "done": "Sempurna! Ini Langkah Jitu Pembagian. Ingat langkah ini di World 2." },
+    { "type": "info", "title": "Jembatan: aturan umum", "rmt": { "phase": "elaborasi" }, "math": "luas : sisi = sisi lain",
+      "text": "Pembagian selalu kebalikan perkalian. Berlaku untuk bilangan (12 : 3 = 4), suku aljabar (12x² : 3x = 4x), dan luas persegi panjang." },
+    { "type": "identify", "title": "Analisis soal cerita",
+      "story": "Setiap pagi Pak Danu menyiram kebun sayurnya yang berbentuk persegi panjang. Luas kebun 12x² m² dan lebarnya 3x m. Berapa panjang kebun itu?",
+      "prompt": "Pilah setiap kalimat: diketahui, ditanya, atau tidak diperlukan.",
+      "items": [{ "expr": "Kebun berbentuk persegi panjang", "bin": "known" }, { "expr": "Luas kebun 12x² m²", "bin": "known" }, { "expr": "Lebar kebun 3x m", "bin": "known" }, { "expr": "Panjang kebun", "bin": "asked" }, { "expr": "Disiram setiap pagi", "bin": "extra" }],
+      "bins": [{ "id": "known", "label": "Diketahui" }, { "id": "asked", "label": "Ditanya" }, { "id": "extra", "label": "Tidak diperlukan" }],
+      "hints": ["Yang ditanya biasanya ada di kalimat tanya.", "Informasi yang berupa ukuran atau bentuk biasanya diketahui.", "Apakah waktu menyiram memengaruhi ukuran kebun?"],
+      "done": "Tepat! Sekarang kamu tahu bahan yang dipakai (luas & lebar) dan tujuannya (panjang)." },
     { "type": "input", "title": "Kebun sayur", "story": "Pak Danu punya kebun sayur berbentuk persegi panjang. Luasnya 12x² m² dan lebarnya 3x m.",
       "known": ["Luas = 12x² m²", "Lebar = 3x m"], "asked": "Panjang kebun",
       "prompt": "Berapa panjang kebun itu?", "check": { "kind": "division", "dividend": "12x^2", "divisor": "3x" },
@@ -71,6 +80,21 @@
       "solution": ["4x = 4 × x", "Untuk x = 2: 4 × 2 = 8", "Panjang kebun 8 m"] },
     { "type": "input", "title": "Tantangan terakhir", "prompt": "Tentukan FPB dari 16x^2 dan 24x.", "check": { "kind": "equivalent", "target": "8x" },
       "hints": ["FPB angka: 16 dan 24.", "FPB 16 dan 24 adalah 8.", "Gabungkan 8 dengan x berpangkat terkecil."],
-      "solution": ["FPB dari 16 dan 24 = 8", "Variabel bersama = x", "FPB = 8x"] }
+      "solution": ["FPB dari 16 dan 24 = 8", "Variabel bersama = x", "FPB = 8x"] },
+    { "type": "reflect", "title": "Refleksi",
+      "questions": [
+        { "prompt": "Saat mencari FPB dari dua suku, apa yang kamu kerjakan lebih dulu?",
+          "options": [
+            { "text": "Mencari FPB angkanya, lalu variabel berpangkat terkecil", "good": true, "feedback": "Strategi yang runtut! Memisahkan angka dan variabel membuat pekerjaan lebih teliti." },
+            { "text": "Langsung menebak jawabannya", "good": false, "feedback": "Menebak itu coba-coba. Coba pikirkan: langkah apa yang membuatmu yakin?" },
+            { "text": "Mengalikan kedua suku", "good": false, "feedback": "Hmm, mengalikan justru membuat suku lebih besar. FPB adalah pembagi bersama. Pilih lagi, ya." }
+          ] },
+        { "prompt": "Bagaimana kamu yakin hasil pembagianmu benar?",
+          "options": [
+            { "text": "Aku mengalikan hasilnya dengan pembagi, lalu membandingkannya dengan soal", "good": true, "feedback": "Itu validasi! Mengalikan kembali adalah cara ahli matematika memeriksa." },
+            { "text": "Karena jawabanku terlihat rapi", "good": false, "feedback": "Rapi belum tentu benar. Cara apa yang bisa membuktikannya?" },
+            { "text": "Karena temanku juga menjawab sama", "good": false, "feedback": "Pendapat teman bisa membantu, tapi matematika punya cara sendiri untuk membuktikan. Pilih lagi." }
+          ] }
+      ] }
   ]
 }

@@ -62,6 +62,18 @@ for (const { file, data } of readDir('../content/lessons/')) {
     if (s.type === 'divider') test(`${name}: pembagian bulat`, () => assert.ok(toPoly(s.dividend).divideByMonomial(toPoly(s.divisor))));
     if (s.type === 'board') test(`${name}: target dapat difaktorkan`, () => assert.ok(toPoly(s.target).size >= 2));
     if (s.type === 'sort') test(`${name}: kartu di keranjang yang benar`, () => assertSort(s));
+    if (s.type === 'identify') test(`${name}: analisis tugas punya diketahui & ditanya`, () => {
+      const bins = s.items.map((it) => it.bin);
+      assert.ok(bins.includes('known') && bins.includes('asked'));
+      for (const b of bins) assert.ok(s.bins.some((x) => x.id === b));
+      assert.equal(s.hints.length, 3);
+    });
+    if (s.type === 'reflect') test(`${name}: setiap pertanyaan refleksi punya pilihan baik & tanggapan`, () => {
+      for (const q of s.questions) {
+        assert.ok(q.options.some((o) => o.good));
+        for (const o of q.options) assert.ok(o.feedback.length > 0);
+      }
+    });
     if (s.type === 'tiles') test(`${name}: ubin bisa dibagi rata`, () => assertTiles(s));
     if (s.type === 'faded') {
       test(`${name}: setiap kotak lulus pemeriksa`, () => {

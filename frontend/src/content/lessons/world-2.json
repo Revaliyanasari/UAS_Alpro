@@ -51,6 +51,15 @@
       "steps": ["Cari FPB koefisien", "Cari variabel dengan pangkat terkecil", "Gabungkan menjadi FPB suku", "Bagi setiap suku dengan FPB", "Tulis FPB(hasil bagi)", "Cek dengan mengalikan kembali"],
       "hints": ["Mulai dari angka, lalu variabel.", "Setelah FPB ditemukan, setiap suku dibagi FPB.", "Menulis bentuk faktor dilakukan sebelum mengecek."],
       "done": "Hebat! Kamu bisa menjelaskan 6 Langkah Jitu memfaktorkan." },
+    { "type": "info", "title": "Jembatan: aturan umum", "rmt": { "phase": "elaborasi" }, "math": "ab + ac = a(b + c)",
+      "text": "Memfaktorkan = membalik perkalian: penjumlahan diubah menjadi perkalian faktor. Di World 3, ide yang sama dipakai untuk a² − b²." },
+    { "type": "identify", "title": "Analisis soal cerita",
+      "story": "Mading kelas yang dicat biru berbentuk persegi panjang. Luasnya (4x² + 6x) dm² dan tingginya 2x dm. Berapa lebar mading itu?",
+      "prompt": "Pilah setiap kalimat: diketahui, ditanya, atau tidak diperlukan.",
+      "items": [{ "expr": "Luas mading (4x² + 6x) dm²", "bin": "known" }, { "expr": "Tinggi mading 2x dm", "bin": "known" }, { "expr": "Mading berbentuk persegi panjang", "bin": "known" }, { "expr": "Lebar mading", "bin": "asked" }, { "expr": "Mading dicat biru", "bin": "extra" }],
+      "bins": [{ "id": "known", "label": "Diketahui" }, { "id": "asked", "label": "Ditanya" }, { "id": "extra", "label": "Tidak diperlukan" }],
+      "hints": ["Cari kalimat tanya untuk menemukan yang ditanya.", "Ukuran dan bentuk mading adalah informasi yang dipakai.", "Apakah warna cat memengaruhi ukuran?"],
+      "done": "Bagus! Luas = tinggi × lebar, jadi lebar = luas : tinggi. Itulah model matematikanya." },
     { "type": "input", "title": "Mading kelas", "story": "Mading kelas berbentuk persegi panjang. Luasnya (4x² + 6x) dm² dan tingginya 2x dm.",
       "known": ["Luas = 4x² + 6x dm²", "Tinggi = 2x dm"], "asked": "Lebar mading",
       "prompt": "Tulis lebar mading dalam x.", "check": { "kind": "quotient", "dividend": "4x^2+6x", "divisor": "2x" },
@@ -67,6 +76,21 @@
       "explain": "Tepat! Ukuran benda harus positif, jadi x harus lebih dari 0." },
     { "type": "input", "title": "Tantangan terakhir", "prompt": "Faktorkan 12x^2 + 18x", "check": { "kind": "factor", "target": "12x^2+18x", "key": "6x(2x+3)" },
       "hints": ["Cari FPB dari 12x² dan 18x.", "FPB angka 12 dan 18 adalah 6, variabelnya x.", "FPB = 6x. Bagi setiap suku dengan 6x."],
-      "solution": ["FPB = 6x", "12x² : 6x = 2x", "18x : 6x = 3", "12x² + 18x = 6x(2x + 3)"] }
+      "solution": ["FPB = 6x", "12x² : 6x = 2x", "18x : 6x = 3", "12x² + 18x = 6x(2x + 3)"] },
+    { "type": "reflect", "title": "Refleksi",
+      "questions": [
+        { "prompt": "Sebelum menulis bentuk faktor, apa rencanamu?",
+          "options": [
+            { "text": "Menentukan FPB dulu, lalu membagi setiap suku dengan FPB", "good": true, "feedback": "Rencana yang sistematis! Itulah perencanaan tindakan sebelum menulis jawaban." },
+            { "text": "Mencoba-coba angka sampai cocok", "good": false, "feedback": "Coba-coba bisa lama dan membingungkan. Langkah apa yang selalu bisa dipakai?" },
+            { "text": "Hanya membagi suku pertama", "good": false, "feedback": "Ingat kesalahan yang sering terjadi: setiap suku harus dibagi. Pilih lagi, ya." }
+          ] },
+        { "prompt": "Mengapa memeriksa dengan mengalikan kembali itu penting?",
+          "options": [
+            { "text": "Karena pemfaktoran adalah kebalikan perkalian, jadi hasil kali harus sama dengan soal", "good": true, "feedback": "Tepat! Kamu memahami hubungan dua arah: kalikan ⇄ faktorkan." },
+            { "text": "Supaya jawabannya lebih panjang", "good": false, "feedback": "Bukan soal panjang pendek. Apa hubungan perkalian dan pemfaktoran?" },
+            { "text": "Tidak penting, yang penting cepat", "good": false, "feedback": "Cepat itu baik, tapi teliti lebih penting agar hasilnya benar. Pilih lagi." }
+          ] }
+      ] }
   ]
 }

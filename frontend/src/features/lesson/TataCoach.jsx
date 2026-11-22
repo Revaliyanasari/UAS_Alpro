@@ -9,7 +9,7 @@ import styles from './lesson.module.css';
  * Petunjuk tidak mengurangi poin. Pesan umpan balik ditampilkan di balon yang sama.
  * mood: ekspresi TATA (lihat components/tata/tataMood.js).
  */
-export default function TataCoach({ message, tone = 'neutral', mood, hints = [], hintLevel, onHint }) {
+export default function TataCoach({ message, tone = 'neutral', mood, focus, hints = [], hintLevel, onHint }) {
   const shown = hintLevel > 0 ? hints[hintLevel - 1] : null;
   // Ekspresi dari situasi belajar (mood); bila tidak ada, diturunkan dari nada umpan balik.
   const tataState = mood ?? moodFromTone(tone, Boolean(shown));
@@ -17,9 +17,14 @@ export default function TataCoach({ message, tone = 'neutral', mood, hints = [],
     <div className={styles.coach}>
       <Tata state={tataState} size="sm" />
       <div className={styles.coachBody}>
-        {(message || shown) && (
+        {(message || shown || focus) && (
           <SpeechBubble tone={tone === 'neutral' ? 'neutral' : tone}>
             {message && <span>{message} </span>}
+            {focus && (
+              <span className={styles.focus}>
+                {focus.icon} <strong>{focus.label}:</strong> {focus.text}
+              </span>
+            )}
             {shown && (
               <span className={styles.hint}>
                 💡 {pretty(shown)}

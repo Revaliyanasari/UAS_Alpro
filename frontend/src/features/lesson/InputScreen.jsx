@@ -6,6 +6,7 @@ import { useTask } from './useTask.js';
 import StoryCard from './StoryCard.jsx';
 import { runCheck } from './runCheck.js';
 import { feedbackFor } from '../../content/feedback.js';
+import { diagnoseError, phaseInfo } from './rmt.js';
 import styles from './lesson.module.css';
 
 /** Soal isian dengan papan ketik matematika, diperiksa mesin aljabar (umpan balik M1–M11). */
@@ -13,10 +14,14 @@ export default function InputScreen({ screen, onDone }) {
   const [value, setValue] = useState('');
   const task = useTask(screen.hints.length, onDone);
   const [showSolution, setShowSolution] = useState(false);
+  const [focus, setFocus] = useState(null);
 
   const submit = () => {
     const r = runCheck(screen.check, value);
     const fb = feedbackFor(r);
+    const d = r.status === 'correct' ? null : diagnoseError(r.code);
+    // Diagnosis RMT (Bab 5 §4): fase kognitif mana yang perlu diperiksa.
+    setFocus(d ? { ...phaseInfo(d.phase), text: d.focus } : null);
     if (r.status === 'correct') task.correct(fb.text);
     else task.wrong(fb.text);
   };
@@ -30,6 +35,7 @@ export default function InputScreen({ screen, onDone }) {
         message={task.feedback.text}
         tone={task.feedback.tone}
         mood={task.feedback.mood}
+        focus={task.solved ? null : focus}
         hints={task.solved ? [] : screen.hints}
         hintLevel={task.hintLevel}
         onHint={task.nextHint}

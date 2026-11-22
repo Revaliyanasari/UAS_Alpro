@@ -2,11 +2,13 @@ import { useState } from 'react';
 import Button from '../../components/ui/Button.jsx';
 import SortBoard from './SortBoard.jsx';
 import TataCoach from './TataCoach.jsx';
+import StoryCard from './StoryCard.jsx';
 import { useTask } from './useTask.js';
 import styles from './lesson.module.css';
 
 /**
  * Aktivitas sortir/kelompokkan (World 1): mis. kelompokkan suku sejenis, sortir menurut koefisien.
+ * Jenis 'identify' = analisis tugas RMT: memilah kalimat cerita ke Diketahui / Ditanya / Tidak diperlukan.
  * Kartu yang salah tempat dikembalikan ke nampan (jawaban benar tidak ditampilkan lebih dulu).
  */
 export default function SortScreen({ screen, onDone }) {
@@ -23,8 +25,16 @@ export default function SortScreen({ screen, onDone }) {
 
   return (
     <div className={styles.screenBody}>
+      <StoryCard story={screen.story} />
       <p className={styles.prompt}>{screen.prompt}</p>
-      <SortBoard items={screen.items} bins={screen.bins} placement={placement} onChange={setPlacement} locked={task.solved} />
+      <SortBoard
+        items={screen.items}
+        bins={screen.bins}
+        placement={placement}
+        onChange={setPlacement}
+        locked={task.solved}
+        plain={screen.type === 'identify'}
+      />
       {!task.solved && <Button onClick={check}>Periksa</Button>}
       <TataCoach
         message={task.feedback.text}

@@ -1,0 +1,35 @@
+{
+  "source": "Ringkasan buku Rigorous Mathematical Thinking: Conceptual Formation in the Mathematics Classroom (Kinard & Kozulin), Bab 1–6 & Simpulan, dari dosen.",
+  "phases": {
+    "input": { "icon": "🔎", "label": "Input", "student": "Kumpulkan informasi dengan teliti", "source": "Bab 4 §3: fase Input — persepsi jelas, ketepatan & akurasi mengumpulkan data" },
+    "elaborasi": { "icon": "🧠", "label": "Elaborasi", "student": "Olah hubungan antarbagian", "source": "Bab 4 §3: fase Elaborasi — hubungan sebab-akibat, bagian-keseluruhan, penalaran induktif/deduktif" },
+    "output": { "icon": "🗣️", "label": "Output", "student": "Sampaikan jawaban dengan tepat", "source": "Bab 4 §3: fase Output — komunikasi jelas, hindari coba-coba, ketepatan bahasa & simbol" }
+  },
+  "learningActivity": {
+    "analysis": { "label": "Analisis tugas", "source": "Bab 3 §4: mengidentifikasi prinsip inti dan struktur masalah" },
+    "planning": { "label": "Perencanaan tindakan", "source": "Bab 3 §4: menyusun langkah pemecahan secara sistematis" },
+    "reflection": { "label": "Refleksi", "source": "Bab 3 §4: mengevaluasi strategi diri sendiri, kelebihan/kekurangan kinerja kognitif" }
+  },
+  "cycle": {
+    "representasi": { "label": "Representasi", "source": "Bab 6 §3: siklus penyelidikan Representasi–Manipulasi–Validasi" },
+    "manipulasi": { "label": "Manipulasi", "source": "Bab 6 §3" },
+    "validasi": { "label": "Validasi", "source": "Bab 6 §3" }
+  },
+  "errorPhase": {
+    "INPUT": { "phase": "output", "focus": "Tulis simbol dengan tepat agar bisa dibaca." },
+    "NOT_FACTORED": { "phase": "output", "focus": "Bentuk akhirnya harus perkalian, bukan penjumlahan." },
+    "NOT_SIMPLE": { "phase": "output", "focus": "Sampaikan hasil dalam bentuk paling sederhana." },
+    "M11": { "phase": "output", "focus": "Jawabanmu belum lengkap: faktor di depan kurung belum ditulis." },
+    "M3": { "phase": "input", "focus": "Perhatikan lagi: variabel apa yang ada di semua suku?" },
+    "DOTS_LEFT": { "phase": "input", "focus": "Amati bentuk di dalam kurung dengan teliti." },
+    "M1": { "phase": "elaborasi", "focus": "Hubungan bagian–keseluruhan: setiap suku harus dibagi FPB." },
+    "M2": { "phase": "elaborasi", "focus": "Bandingkan: apakah faktor yang kamu ambil sudah yang terbesar?" },
+    "M4": { "phase": "elaborasi", "focus": "Periksa hubungan tanda kedua kurung." },
+    "M5": { "phase": "elaborasi", "focus": "Bandingkan a² + b² dengan a² − b²." },
+    "M6": { "phase": "elaborasi", "focus": "Hubungan pembagian dan perkalian: cek angkanya." },
+    "M8": { "phase": "elaborasi", "focus": "x² = x · x. Apa yang tersisa setelah dibagi x?" },
+    "M9": { "phase": "elaborasi", "focus": "x : x = 1. Apa artinya bagi hasilmu?" },
+    "M10": { "phase": "elaborasi", "focus": "x² : x masih menyisakan x." },
+    "M7": { "phase": "elaborasi", "focus": "Validasi: kalikan kembali dan bandingkan dengan soal." }
+  }
+}

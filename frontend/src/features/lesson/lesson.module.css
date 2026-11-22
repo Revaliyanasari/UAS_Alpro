@@ -212,3 +212,25 @@
   border-color: var(--teal-700);
   background: var(--mint-100);
 }
+.focus {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--fs-small);
+}
+.optionText {
+  font-size: var(--fs-body);
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+}
+.phaseChip {
+  justify-self: start;
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--cream-100);
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}

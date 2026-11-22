@@ -10,9 +10,10 @@ import styles from './Activities.module.css';
  * (juga bisa dengan Tab + Enter). Ketuk kartu di dalam keranjang untuk mengembalikannya.
  * Komponen ini hanya mengatur tampilan & pemindahan; penilaian dilakukan pemanggil.
  *
+ * plain: kartu berisi kalimat biasa (aktivitas analisis tugas), bukan bentuk aljabar.
  * placement[i] = id keranjang untuk kartu ke-i, atau null bila masih di nampan.
  */
-function Card({ index, expr, selected, onSelect, locked }) {
+function Card({ index, expr, selected, onSelect, locked, plain }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: `card-${index}`, disabled: locked });
   const style = transform ? { transform: `translate3d(${transform.x}px, ${transform.y}px, 0)` } : undefined;
   return (
@@ -29,12 +30,12 @@ function Card({ index, expr, selected, onSelect, locked }) {
       aria-label={`Kartu ${expr}`}
       data-card={index}
     >
-      <MathText>{expr}</MathText>
+      {plain ? pretty(expr) : <MathText>{expr}</MathText>}
     </button>
   );
 }
 
-function Bin({ bin, cards, onPlace, onReturn, locked, holding }) {
+function Bin({ bin, cards, onPlace, onReturn, locked, holding, plain }) {
   const { setNodeRef, isOver } = useDroppable({ id: `bin-${bin.id}` });
   return (
     <div
@@ -64,7 +65,7 @@ function Bin({ bin, cards, onPlace, onReturn, locked, holding }) {
             tabIndex={locked ? -1 : 0}
             aria-label={`Kembalikan kartu ${expr}`}
           >
-            <MathText>{expr}</MathText>
+            {plain ? pretty(expr) : <MathText>{expr}</MathText>}
           </button>
         ))}
       </div>
@@ -72,7 +73,7 @@ function Bin({ bin, cards, onPlace, onReturn, locked, holding }) {
   );
 }
 
-export default function SortBoard({ items, bins, placement, onChange, locked = false }) {
+export default function SortBoard({ items, bins, placement, onChange, locked = false, plain = false }) {
   const [selected, setSelected] = useState(null);
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
 
@@ -100,6 +101,7 @@ export default function SortBoard({ items, bins, placement, onChange, locked = f
                 index={c.index}
                 expr={c.expr}
                 locked={locked}
+                plain={plain}
                 selected={selected === c.index}
                 onSelect={(i) => setSelected((s) => (s === i ? null : i))}
               />
@@ -113,6 +115,7 @@ export default function SortBoard({ items, bins, placement, onChange, locked = f
               bin={b}
               locked={locked}
               holding={selected !== null}
+              plain={plain}
               cards={items.map((it, i) => ({ ...it, index: i })).filter((c) => placement[c.index] === b.id)}
               onPlace={(binId) => move(selected, binId)}
               onReturn={(i) => move(i, null)}
