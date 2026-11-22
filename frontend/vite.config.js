@@ -6,7 +6,12 @@ import { VitePWA } from 'vite-plugin-pwa';
 const THEME_COLOR = '#7CC6C4';
 const BACKGROUND_COLOR = '#FFF8EA';
 
+// Proxy AI (backend/src/server.js). API key hanya ada di backend/.env, tidak pernah di frontend.
+const AI_PROXY = { '/api': { target: 'http://localhost:8787', changeOrigin: true } };
+
 export default defineConfig({
+  server: { proxy: AI_PROXY },
+  preview: { proxy: AI_PROXY },
   plugins: [
     react(),
     VitePWA({
@@ -33,6 +38,7 @@ export default defineConfig({
         // .woff (format lama) tidak di-cache; browser modern memakai .woff2.
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,json}'],
         navigateFallback: 'index.html',
+        navigateFallbackDenylist: [new RegExp('^/api/')], // panggilan AI selalu ke jaringan
       },
       devOptions: { enabled: false },
     }),

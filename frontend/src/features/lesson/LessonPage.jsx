@@ -18,6 +18,7 @@ import OrderScreen from './OrderScreen.jsx';
 import FadedScreen from './FadedScreen.jsx';
 import ReflectScreen from './ReflectScreen.jsx';
 import { phaseOf, phaseInfo } from './rmt.js';
+import AskTata from '../ai/AskTata.jsx';
 import NotFoundPage from '../home/NotFoundPage.jsx';
 import { lessons, lessonCopy } from '../../content/lessons/index.js';
 import worldsContent from '../../content/worlds.json';
@@ -64,6 +65,7 @@ export default function LessonPage() {
   const passive = screen.type === 'info';
   const canNext = passive || Boolean(results[index]);
   const Screen = SCREENS[screen.type];
+  const phase = phaseInfo(phaseOf(screen));
 
   const handleDone = (r) => setResults((prev) => (prev[index] ? prev : { ...prev, [index]: { ...r, graded: !UNGRADED.has(screen.type) } }));
 
@@ -101,11 +103,22 @@ export default function LessonPage() {
         <ProgressPath value={index + 1} max={screens.length} label={`Langkah pelajaran ${world.name}`} />
       </header>
       <main className={styles.main}>
-        {phaseInfo(phaseOf(screen)) && (
-          <span className={styles.phaseChip} title="Fase berpikir (RMT)">
-            {phaseInfo(phaseOf(screen)).icon} {phaseInfo(phaseOf(screen)).label} · {phaseInfo(phaseOf(screen)).student}
-          </span>
-        )}
+        <div className={styles.metaRow}>
+          {phase && (
+            <span className={styles.phaseChip} title="Fase berpikir (RMT)">
+              {phase.icon} {phase.label} · {phase.student}
+            </span>
+          )}
+          <AskTata
+            context={{
+              worldName: world.name,
+              topic: screen.title,
+              // Hanya teks soal/cerita — kunci jawaban & pembahasan tidak pernah dikirim ke AI.
+              task: [screen.story, screen.prompt ?? screen.math].filter(Boolean).join(' '),
+              phase: phase?.label,
+            }}
+          />
+        </div>
         <h1 className={styles.title}>{screen.title}</h1>
         {screen.type === 'info' && screen.tata && (
           <div className={styles.introTata}>

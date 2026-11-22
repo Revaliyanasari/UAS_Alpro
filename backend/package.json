@@ -1,0 +1,14 @@
+{
+  "name": "algebra-adventure-ai-proxy",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Proxy aman AI Learning Assistant (DeepSeek) untuk Algebra Adventure. Tanpa dependensi: hanya Node.js bawaan.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test \"test/*.test.js\""
+  }
+}

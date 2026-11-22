@@ -42,3 +42,6 @@
   font-size: var(--fs-small);
   text-align: center;
 }
+.aiStatus {
+  margin: 0 0 var(--space-2);
+}

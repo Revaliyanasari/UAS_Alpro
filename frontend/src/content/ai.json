@@ -1,0 +1,28 @@
+{
+  "button": "Tanya TATA",
+  "title": "Tanya TATA AI",
+  "intro": "Tanyakan bagian yang belum kamu pahami. TATA akan membantumu berpikir, bukan memberi jawaban akhir.",
+  "privacy": "Jangan menulis nama lengkap, alamat, atau nomor HP.",
+  "caution": "TATA AI bisa keliru. Selalu cek dengan mengalikan kembali.",
+  "placeholder": "Tulis pertanyaanmu…",
+  "send": "Kirim",
+  "thinking": "TATA sedang berpikir…",
+  "limitReached": "Kamu sudah memakai semua pertanyaan untuk pelajaran ini. Coba tombol petunjuk 💡 atau tanya gurumu.",
+  "remaining": "Sisa pertanyaan: {n}",
+  "quick": [
+    "Aku belum paham soal ini.",
+    "Beri aku petunjuk kecil.",
+    "Apa yang diketahui dan ditanya di soal ini?",
+    "Kenapa jawabanku belum tepat?",
+    "Beri contoh dalam kehidupan sehari-hari."
+  ],
+  "settings": {
+    "title": "Asisten AI TATA",
+    "toggle": "Aktifkan tombol Tanya TATA di pelajaran",
+    "statusOk": "Server AI aktif.",
+    "statusNotConfigured": "Belum aktif: API key DeepSeek belum diisi di server (backend/.env). Lihat docs/AI_SETUP.md.",
+    "statusOffline": "Server AI tidak berjalan atau perangkat sedang offline. Pelajaran tetap bisa dipakai.",
+    "checking": "Memeriksa server AI…",
+    "quizNote": "Tanya TATA tidak tersedia saat kuis, agar kuis tetap mengukur kemampuanmu sendiri."
+  }
+}

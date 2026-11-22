@@ -9,6 +9,8 @@ export const useSettings = create(
     (setState) => ({
       motion: 'system', // 'system' | 'reduced' | 'full'
       textSize: 'normal', // 'normal' | 'large'
+      aiEnabled: true, // siswa/guru boleh mematikan Asisten AI; tetap tersembunyi bila server belum siap
+      setAiEnabled: (aiEnabled) => setState({ aiEnabled }),
       setMotion: (motion) => setState({ motion }),
       setTextSize: (textSize) => setState({ textSize }),
     }),
@@ -16,7 +18,7 @@ export const useSettings = create(
       name: 'aa-settings',
       version: 1,
       storage: createJSONStorage(() => idbStorage),
-      partialize: (s) => ({ motion: s.motion, textSize: s.textSize }),
+      partialize: (s) => ({ motion: s.motion, textSize: s.textSize, aiEnabled: s.aiEnabled }),
     },
   ),
 );

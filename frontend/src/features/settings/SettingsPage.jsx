@@ -2,6 +2,8 @@ import PageShell from '../../components/ui/PageShell.jsx';
 import Card from '../../components/ui/Card.jsx';
 import Button from '../../components/ui/Button.jsx';
 import { useSettings } from '../../store/settingsStore.js';
+import { useAiStatus } from '../ai/useAiStatus.js';
+import aiCopy from '../../content/ai.json';
 import styles from './SettingsPage.module.css';
 
 function Choice({ name, value, current, onChange, label, hint }) {
@@ -17,7 +19,15 @@ function Choice({ name, value, current, onChange, label, hint }) {
 }
 
 export default function SettingsPage() {
-  const { motion, textSize, setMotion, setTextSize } = useSettings();
+  const { motion, textSize, setMotion, setTextSize, aiEnabled, setAiEnabled } = useSettings();
+  const ai = useAiStatus();
+  const aiText = !ai
+    ? aiCopy.settings.checking
+    : ai.enabled
+      ? aiCopy.settings.statusOk
+      : ai.reason === 'not_configured'
+        ? aiCopy.settings.statusNotConfigured
+        : aiCopy.settings.statusOffline;
   return (
     <PageShell title="Pengaturan">
       <Card title="Ukuran tulisan">
@@ -36,6 +46,20 @@ export default function SettingsPage() {
         </fieldset>
       </Card>
       <p className={styles.note}>Pengaturan tersimpan otomatis di perangkat ini.</p>
+      <Card title={aiCopy.settings.title}>
+        <p className={styles.aiStatus} role="status">
+          {aiText}
+        </p>
+        {ai?.enabled && (
+          <label className={[styles.choice, aiEnabled ? styles.active : ''].join(' ')}>
+            <input type="checkbox" checked={aiEnabled} onChange={(e) => setAiEnabled(e.target.checked)} />
+            <span>
+              <strong>{aiCopy.settings.toggle}</strong>
+              <small>{aiCopy.settings.quizNote}</small>
+            </span>
+          </label>
+        )}
+      </Card>
       <Card title="Kenali TATA">
         <Button to="/tata" variant="secondary" block>
           Galeri Ekspresi TATA
