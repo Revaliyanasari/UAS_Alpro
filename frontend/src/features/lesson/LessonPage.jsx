@@ -17,6 +17,7 @@ import CommonFactorsScreen from './CommonFactorsScreen.jsx';
 import OrderScreen from './OrderScreen.jsx';
 import FadedScreen from './FadedScreen.jsx';
 import ReflectScreen from './ReflectScreen.jsx';
+import CutSlideScreen from './CutSlideScreen.jsx';
 import { phaseOf, phaseInfo } from './rmt.js';
 import AskTata from '../ai/AskTata.jsx';
 import NotFoundPage from '../home/NotFoundPage.jsx';
@@ -41,6 +42,7 @@ const SCREENS = {
   faded: FadedScreen,
   identify: SortScreen,
   reflect: ReflectScreen,
+  cutSlide: CutSlideScreen,
 };
 // Layar yang tidak dinilai (contoh & refleksi) tetap harus diselesaikan sebelum Lanjut.
 const UNGRADED = new Set(['example', 'reflect']);

@@ -22,6 +22,8 @@ Instruksi utama untuk Claude Code saat bekerja di repositori ini.
 | Stack, folder, AI, PWA, 3D, audio | `docs/TECHNICAL_ARCHITECTURE.md` |
 | Tabel & RLS | `docs/DATABASE_SCHEMA.md` |
 | Urutan kerja | `docs/IMPLEMENTATION_PLAN.md` |
+| Desain RMT (prinsip → fitur) | `docs/RMT_DESIGN.md` |
+| AI DeepSeek (konfigurasi, keamanan) | `docs/AI_SETUP.md` |
 | Kasus uji | `docs/TESTING_PLAN.md` |
 | Aset & lisensi | `docs/ASSET_GUIDE.md` |
 
@@ -55,7 +57,8 @@ Instruksi utama untuk Claude Code saat bekerja di repositori ini.
 - Teks yang tampil ke siswa ditulis di file konten JSON, bukan di dalam logika komponen (kecuali label UI umum).
 - Logika matematika murni (tanpa React) di `src/math/`, wajib diuji unit.
 - Data: supabase-js langsung dari frontend; skema/RLS/fungsi sebagai file SQL di `supabase/migrations/`.
-- Backend Python (fase AI saja): Python 3.12+, FastAPI, Pydantic, type hints; panggilan AI hanya lewat `app/ai/provider.py`.
+- Proxy AI (`backend/`): **Node.js bawaan tanpa dependensi** (keputusan 22 Nov 2026: Python di laptop pengembang hanya stub Microsoft Store, sehingga FastAPI tidak bisa diuji). Panggilan AI hanya lewat `backend/src/ai/provider.js`; API key hanya di `backend/.env`. Lihat `docs/AI_SETUP.md`.
+- Model pembelajaran RMT: ikuti `docs/RMT_DESIGN.md` (sumber: ringkasan buku Kinard & Kozulin dari dosen). Jangan menambah istilah RMT di luar sumber.
 - Komentar & pesan commit boleh Bahasa Indonesia; nama variabel dalam bahasa Inggris.
 - Jangan menambah dependensi baru tanpa alasan yang ditulis di PR/commit (ukuran bundle penting).
 - Bundle awal ≤ 250 KB gzip; three.js hanya dimuat malas.
@@ -69,7 +72,7 @@ UAS_Projek/
 ├─ supabase/migrations/  skema, RLS, fungsi SQL
 ├─ frontend/             React + Vite PWA
 │  └─ src/{components,features,math,content,store,services,styles}
-└─ backend/              FastAPI (dibuat pada fase AI)
+└─ backend/              proxy AI DeepSeek (Node bawaan) + uji
 ```
 (Detail lengkap: `docs/TECHNICAL_ARCHITECTURE.md` §3.)
 

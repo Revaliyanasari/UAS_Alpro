@@ -21,6 +21,7 @@ const DEFAULT_PHASE = {
   choice: 'elaborasi',
   input: 'output',
   reflect: 'output',
+  cutSlide: 'elaborasi',
 };
 
 export function phaseOf(screen) {

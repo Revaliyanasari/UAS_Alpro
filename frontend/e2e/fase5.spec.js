@@ -49,3 +49,59 @@ test('Tanpa server AI: tombol Tanya TATA tidak muncul, Pengaturan menjelaskan', 
   await expect(page.getByRole('heading', { name: 'Misi Lembah Aljabar' })).toBeVisible();
   await expect(page.getByRole('button', { name: /Tanya TATA/ })).toHaveCount(0);
 });
+
+test('World 3: Potong & Geser a² − b² di browser', async ({ page }, testInfo) => {
+  await page.goto('/');
+  await page.evaluate(async () => {
+    const req = indexedDB.open('keyval-store');
+    const db = await new Promise((res) => {
+      req.onupgradeneeded = () => req.result.createObjectStore('keyval');
+      req.onsuccess = () => res(req.result);
+    });
+    await new Promise((res) => {
+      const tx = db.transaction('keyval', 'readwrite');
+      const state = { nickname: 'Uji', onboardingDone: true, xp: 0, worlds: { 1: { completed: true, stars: 3 }, 2: { completed: true, stars: 3 } }, quizHistory: [] };
+      tx.objectStore('keyval').put(JSON.stringify({ state, version: 1 }), 'aa-profile');
+      tx.oncomplete = res;
+    });
+  });
+  await page.goto('/peta');
+  await page.getByRole('button', { name: /World 3/ }).click();
+  await page.getByRole('link', { name: 'Masuk ke Kepulauan Kuadrat' }).click();
+  await expect(page.getByRole('heading', { name: 'Misi Kepulauan Kuadrat' })).toBeVisible();
+  // lompat ke layar Potong & Geser: selesaikan layar sebelumnya
+  await page.getByRole('button', { name: 'Lanjut' }).click();
+  for (let k = 0; k < 3; k++) {
+    if (k > 0) await page.getByRole('button', { name: 'Tambah baris' }).click();
+    if (k === 2) await page.getByRole('button', { name: 'Tambah baris' }).click();
+    await page.getByRole('button', { name: 'Catat ukuran ini' }).click();
+  }
+  await page.getByRole('button', { name: 'Lanjut' }).click();
+  await page.getByRole('button', { name: 'Lanjut' }).click();
+  await page.getByRole('button', { name: '49', exact: true }).click();
+  await page.getByRole('button', { name: 'Lanjut' }).click();
+  for (const k of ['9', 'x', 'kuadrat']) await page.getByRole('group', { name: 'Papan ketik matematika' }).getByRole('button', { name: k, exact: true }).click();
+  await page.getByRole('button', { name: 'Cek', exact: true }).click();
+  await page.getByRole('button', { name: 'Lanjut' }).click();
+  await page.getByRole('button', { name: 'Lanjut' }).click();
+  await expect(page.getByRole('heading', { name: 'Potong & geser' })).toBeVisible();
+  await page.getByRole('button', { name: /Potong pojok/ }).click();
+  await page.getByRole('button', { name: /Potong sisa L/ }).click();
+  await page.getByRole('button', { name: /Potongan kuning/ }).click();
+  await page.getByRole('button', { name: 'a + b' }).click();
+  await page.getByRole('button', { name: 'a − b' }).click();
+  await expect(page.getByText(/Luas tetap sama/)).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Lanjut' })).toBeEnabled();
+  // posisi akhir: potongan kuning menempel di kanan potongan toska, tinggi sama (persegi panjang utuh)
+  await page.waitForTimeout(900);
+  const geo = await page.evaluate(() => {
+    const yellow = document.querySelector('[data-slid="true"]').getBoundingClientRect();
+    const teal = document.querySelector('svg rect').getBoundingClientRect();
+    return { gapX: Math.abs(yellow.left - teal.right), dTop: Math.abs(yellow.top - teal.top), dBottom: Math.abs(yellow.bottom - teal.bottom) };
+  });
+  expect(geo.gapX).toBeLessThan(3);
+  expect(geo.dTop).toBeLessThan(3);
+  expect(geo.dBottom).toBeLessThan(3);
+  expect(await noHorizontalScroll(page)).toBeLessThanOrEqual(0);
+  await page.screenshot({ path: `e2e/.results/${testInfo.project.name}-potong-geser.png`, fullPage: true });
+});

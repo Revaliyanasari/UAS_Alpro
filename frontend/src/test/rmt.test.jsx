@@ -15,16 +15,17 @@ import { useProfile } from '../store/profileStore.js';
 
 const w1 = lessons[1].screens;
 const w2 = lessons[2].screens;
+const w3 = lessons[3].screens;
 
 beforeEach(() => useProfile.setState({ nickname: '', onboardingDone: true, xp: 0, worlds: {}, quizHistory: [] }));
 
 describe('fase berpikir RMT (Input–Elaborasi–Output)', () => {
   it('setiap layar World 1–2 punya fase', () => {
-    for (const s of [...w1, ...w2]) expect(['input', 'elaborasi', 'output']).toContain(phaseOf(s));
+    for (const s of [...w1, ...w2, ...w3]) expect(['input', 'elaborasi', 'output']).toContain(phaseOf(s));
   });
 
   it('pelajaran memuat ketiga fase dan aktivitas belajar lengkap (analisis, rencana, refleksi)', () => {
-    for (const screens of [w1, w2]) {
+    for (const screens of [w1, w2, w3]) {
       const phases = new Set(screens.map(phaseOf));
       expect(phases).toEqual(new Set(['input', 'elaborasi', 'output']));
       const types = screens.map((s) => s.type);

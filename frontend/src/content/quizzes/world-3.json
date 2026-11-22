@@ -1,0 +1,56 @@
+{
+  "worldId": 3,
+  "title": "Kuis Kepulauan Kuadrat",
+  "summary": {
+    "title": "Langkah Jitu Selisih Dua Kuadrat",
+    "steps": ["Pastikan dua suku kuadrat dipisah tanda minus", "Tentukan a dan b (a² dan b²)", "Tulis (a + b)(a − b)", "Cek: kalikan kembali, suku tengah saling menghapus"]
+  },
+  "slots": [
+    { "variants": [
+      { "type": "choice", "prompt": "Bentuk faktor dari x^2 - 49 adalah ...", "options": ["(x - 7)(x - 7)", "(x + 7)(x - 7)", "(x + 49)(x - 1)"], "answer": "(x + 7)(x - 7)",
+        "hints": ["49 = 7².", "Tanda kedua kurung berbeda."],
+        "solution": ["x² = (x)², 49 = 7²", "x² − 49 = (x + 7)(x − 7)"] },
+      { "type": "choice", "prompt": "Bentuk faktor dari y^2 - 64 adalah ...", "options": ["(y + 8)(y - 8)", "(y - 8)(y - 8)", "(y + 32)(y - 2)"], "answer": "(y + 8)(y - 8)",
+        "hints": ["64 = 8².", "Tanda kedua kurung berbeda."],
+        "solution": ["y² = (y)², 64 = 8²", "y² − 64 = (y + 8)(y − 8)"] }
+    ] },
+    { "variants": [
+      { "type": "input", "prompt": "Faktorkan 9x^2 - 4", "check": { "kind": "factor", "target": "9x^2-4" }, "key": "(3x + 2)(3x − 2)",
+        "hints": ["9x² = (3x)².", "4 = 2²."],
+        "solution": ["a = 3x, b = 2", "9x² − 4 = (3x + 2)(3x − 2)"] },
+      { "type": "input", "prompt": "Faktorkan 16y^2 - 25", "check": { "kind": "factor", "target": "16y^2-25" }, "key": "(4y + 5)(4y − 5)",
+        "hints": ["16y² = (4y)².", "25 = 5²."],
+        "solution": ["a = 4y, b = 5", "16y² − 25 = (4y + 5)(4y − 5)"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "prompt": "Benar atau salah: (x + 6)(x - 6) = x^2 - 36.", "options": ["Benar", "Salah"], "answer": "Benar",
+        "verify": { "lhs": "(x+6)(x-6)", "rhs": "x^2-36" },
+        "hints": ["Kalikan setiap suku.", "Suku tengah: −6x + 6x = ?"],
+        "solution": ["(x + 6)(x − 6) = x² − 6x + 6x − 36", "= x² − 36 → Benar"] },
+      { "type": "choice", "prompt": "Benar atau salah: y^2 + 25 = (y + 5)(y - 5).", "options": ["Benar", "Salah"], "answer": "Salah",
+        "verify": { "lhs": "y^2+25", "rhs": "(y+5)(y-5)" },
+        "hints": ["Kalikan (y + 5)(y − 5).", "Tanda hasilnya plus atau minus?"],
+        "solution": ["(y + 5)(y − 5) = y² − 25", "Bukan y² + 25 → Salah"] }
+    ] },
+    { "variants": [
+      { "type": "sort", "prompt": "Pilah: selisih dua kuadrat atau bukan?", "rule": "dos",
+        "items": [{ "expr": "x^2 - 1", "bin": "yes" }, { "expr": "x^2 + 4", "bin": "no" }, { "expr": "9y^2 - 25", "bin": "yes" }, { "expr": "x^2 - 5", "bin": "no" }],
+        "bins": [{ "id": "yes", "label": "Selisih dua kuadrat" }, { "id": "no", "label": "Bukan" }],
+        "hints": ["Dua suku kuadrat dipisah tanda minus.", "Apakah 5 bilangan kuadrat?"],
+        "solution": ["Selisih dua kuadrat: x² − 1, 9y² − 25", "Bukan: x² + 4 (tanda plus), x² − 5 (5 bukan kuadrat)"] },
+      { "type": "sort", "prompt": "Pilah: selisih dua kuadrat atau bukan?", "rule": "dos",
+        "items": [{ "expr": "y^2 - 81", "bin": "yes" }, { "expr": "y^2 + 1", "bin": "no" }, { "expr": "4x^2 - 49", "bin": "yes" }, { "expr": "x^2 - 2x", "bin": "no" }],
+        "bins": [{ "id": "yes", "label": "Selisih dua kuadrat" }, { "id": "no", "label": "Bukan" }],
+        "hints": ["Dua suku kuadrat dipisah tanda minus.", "Apakah 2x sebuah kuadrat?"],
+        "solution": ["Selisih dua kuadrat: y² − 81, 4x² − 49", "Bukan: y² + 1 (tanda plus), x² − 2x (2x bukan kuadrat)"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "prompt": "Faktorkan x^2 - 16. Tio: (x - 4)(x - 4). Nadia: (x + 4)(x - 4). Siapa yang benar?", "options": ["Tio", "Nadia"], "answer": "Nadia",
+        "hints": ["Kalikan kedua jawaban.", "Apakah suku tengah hilang pada jawaban Tio?"],
+        "solution": ["(x − 4)(x − 4) = x² − 8x + 16 (salah)", "(x + 4)(x − 4) = x² − 16 → Nadia benar"] },
+      { "type": "input", "story": "Kevin menghitung 102² − 98² dengan rumus selisih dua kuadrat.", "prompt": "Berapa 102² − 98²?", "check": { "kind": "equivalent", "target": "800" }, "key": "800",
+        "hints": ["(a + b)(a − b) dengan a = 102, b = 98.", "a + b = 200, a − b = 4."],
+        "solution": ["102² − 98² = (102 + 98)(102 − 98)", "= 200 × 4 = 800"] }
+    ] }
+  ]
+}

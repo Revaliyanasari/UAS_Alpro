@@ -1,6 +1,6 @@
 # Progres Proyek — Algebra Adventure (MVP)
 
-> Diperbarui: 22 November 2026 · Status: **World 1–2 lengkap (materi, aktivitas manipulatif, soal cerita, kuis + pembahasan); dapat dijalankan secara lokal** · Belum di-deploy online.
+> Diperbarui: 22 November 2026 (Fase 5) · Status: **World 1–3 lengkap dengan desain RMT, Galeri Ekspresi TATA, AI Assistant (siap, belum diberi API key), Modul Guru; dapat dijalankan secara lokal** · Belum di-deploy online.
 
 ## 1. Cara menjalankan
 
@@ -15,7 +15,9 @@ npm run dev          # buka http://localhost:5173
 Mencoba di HP (Wi-Fi yang sama): `npm run dev -- --host`, lalu buka alamat `http://<IP-laptop>:5173` yang muncul di terminal.
 Mode produksi + PWA: `npm run build` lalu `npm run preview` → http://localhost:4173.
 
-Pengujian: `npm run lint`, `npm test` (mesin aljabar + komponen), `npm run test:e2e` (Edge, lebar 360 & 1440 px).
+Pengujian: `npm run lint`, `npm test` (mesin aljabar + komponen), `npm run test:e2e` (Edge, lebar 360 & 1440 px), `cd ../backend && npm test` (proxy AI).
+
+AI Assistant (opsional): isi `backend/.env` (salin dari `.env.example`), jalankan `npm run ai` di terminal lain, lalu `npm run dev`. Panduan: `docs/AI_SETUP.md`. Tanpa langkah ini aplikasi tetap berjalan; tombol Tanya TATA disembunyikan.
 
 > Catatan Windows: nama folder induk berisi `&`, jadi skrip memanggil alat lewat `node node_modules/...`. Jangan memakai `npx`.
 
@@ -44,19 +46,27 @@ Pengujian: `npm run lint`, `npm test` (mesin aljabar + komponen), `npm run test:
 | 3 | **Pembahasan & evaluasi**: nilai %, bintang (≥ 60% = 1, ≥ 80% = 2, 100% = 3), pembahasan tiap soal + jawaban benar, kartu ringkasan Langkah Jitu, tombol ulang | Uji komponen + e2e |
 | 3 | **Buka-kunci sesuai desain**: pelajaran selesai → kuis terbuka; lulus kuis ≥ 60% → pulau berikutnya terbuka (data lama tetap kompatibel) | Uji store + komponen |
 | 3 | **Riwayat kuis** (tanggal, skor) & nilai terbaik di kartu pulau; XP dari langkah belajar & jawaban kuis benar | Uji komponen + e2e |
+| 5 | **Galeri Ekspresi TATA** (`/tata`, dari Pengaturan): 18 ekspresi orisinal SVG parametris, nama, keterangan, "kapan muncul"; pratinjau beranimasi | Uji komponen (18 gambar berbeda) + e2e |
+| 5 | **Ekspresi kontekstual** (`tataMood.js`): menyapa, bersorak (benar pertama kali), semangat → berpikir → bingung (salah berulang), fokus (petunjuk), punya ide (pembahasan), kagum (penemuan), bangga (selesai), mengantuk (peta diam 60 dtk). Wajah sedih/kecewa tidak dipakai untuk menilai | Uji komponen |
+| 5 | **RMT** (sumber: ringkasan Kinard & Kozulin dari dosen): penanda fase Input/Elaborasi/Output di setiap layar, layar Analisis soal cerita, Refleksi, Jembatan aturan umum (transendensi), diagnosis fase kognitif pada setiap kode kesalahan. Pemetaan lengkap di `docs/RMT_DESIGN.md` | Uji komponen + kunci konten |
+| 5 | **AI Learning Assistant** "Tanya TATA" (DeepSeek): proxy aman `backend/` (Node bawaan), API key hanya di `backend/.env`, prompt berbasis MLE/RMT, batas laju, batas waktu, penyamaran data pribadi, pesan error ramah. Tersembunyi bila belum dikonfigurasi, tidak ada di kuis | 10 uji backend + 7 uji UI + uji rantai dengan server DeepSeek tiruan. **Belum diuji dengan API key asli** |
+| 5 | **Modul Guru** (`/guru`, dimuat malas): instrumen (materi, indikator, kunci, rubrik bertahap, catatan revisi, draf/disetujui, impor/ekspor JSON); penilaian per tahap rubrik + transkrip jawaban + catatan; laporan per siswa, per soal (penuh/sebagian/nol), ketercapaian indikator, pretest–posttest + N-gain; ekspor CSV, cetak/PDF, cadangan JSON | 7 uji UI/logika + e2e (unduh CSV sungguhan, data bertahan setelah muat ulang) |
+| 5 | Google Drive: **belum terhubung** (sengaja, perlu OAuth resmi). Tersedia unduh berkas + langkah unggah manual; rancangan di `docs/GOOGLE_DRIVE_INTEGRATION.md` | — |
+| 5 | **World 3 Kepulauan Kuadrat (23 layar)**: bilangan kuadrat (16 ubin), aktivitas **Potong & Geser** a² − b² (ketuk potong, ketuk potongan untuk memutar-menggeser, siswa menentukan panjang & lebar), sortir selisih dua kuadrat, contoh rumpang, 4 latihan, B/S, siapa benar (M4), hitung cepat 51² − 49², soal cerita + kewajaran, refleksi. **Kuis Dunia 3** (5 soal × 2 varian) | Uji kunci (sortir diperiksa `isDifferenceOfSquares`) + komponen + e2e (geometri posisi akhir) |
 
-Ukuran: muatan awal ±135 KB JS + 8 KB CSS (gzip); TATA 3D ±252 KB dimuat terpisah.
+Ukuran: muatan awal ±150 KB JS + 9,5 KB CSS (gzip; batas 250 KB); Modul Guru ±8 KB dan TATA 3D ±252 KB dimuat terpisah.
 
-Hasil uji terakhir (22 Nov 2026): lint bersih · 171 uji mesin & kunci konten lulus · 48 uji komponen lulus · 28 uji e2e (Edge, 360 & 1440 px) lulus.
+Hasil uji terakhir (22 Nov 2026, Fase 5): lint bersih · 202 uji mesin & kunci konten lulus · 78 uji komponen lulus · 10 uji proxy AI lulus · 36 uji e2e (Edge, 360 & 1440 px) lulus.
 
 ## 3. Belum selesai
 
 - **Fase 3 sisa:** pemudaran contoh (fading) otomatis setelah 3 jawaban benar beruntun (LEARNING_DESIGN §5.3), tawaran "Lihat contoh mirip", mode baris tiles dengan jumlah baris bebas, progres tersimpan per layar (saat ini pelajaran diulang dari awal bila keluar di tengah), badge.
-- **Fase 4:** World 3 (visual potong-geser a² − b²), World 4, World 5, puzzle pasangan, badge, riwayat kuis.
-- **Fase 5:** pretest & posttest (menunggu persetujuan akhir instrumen Revisi 2).
-- **Fase 6:** Supabase (gabung kelas, sinkronisasi), halaman guru (penilaian rubrik, ekspor CSV).
-- **Fase 7:** deploy ke hosting HTTPS gratis (agar bisa dipasang di Android), audio & narasi.
-- **Fase 8+:** AI tutor, model GLB TATA final, animasi demonstrasi.
+- **World 4 (Menara Tantangan) & World 5 (Petualangan Literasi)**: belum dibuat. Pola konten & semua jenis layar sudah siap dipakai.
+- **AI**: uji dengan API key DeepSeek asli (setelah pemilik mengisi `backend/.env`) dan tinjau kualitas jawaban bersama dosen.
+- **RMT**: hanya ringkasan yang tersedia. Pemetaan kode kesalahan → fase kognitif perlu ditinjau dosen; jurnal RMT siswa belum ada (lihat `docs/RMT_DESIGN.md` §7).
+- **Pretest & posttest siswa** di aplikasi: menunggu persetujuan akhir instrumen Revisi 2. Modul Guru sudah bisa menilai uji coba secara manual.
+- **Supabase** (gabung kelas, sinkronisasi guru–siswa): data Modul Guru masih lokal per perangkat, tanpa PIN guru.
+- **Google Drive otomatis** (OAuth), **deploy HTTPS**, audio & narasi, model GLB TATA final.
 - Kesesuaian kurikulum **belum terverifikasi** (menunggu CP/ATP).
 
 ## 4. Struktur folder (ringkas)
@@ -65,13 +75,15 @@ Hasil uji terakhir (22 Nov 2026): lint bersih · 171 uji mesin & kunci konten lu
 UAS_Projek/
 ├─ CLAUDE.md, README.md
 ├─ docs/                       perencanaan + PROGRESS.md (dokumen ini)
+├─ backend/                    proxy AI DeepSeek (Node bawaan, tanpa dependensi) + uji
 └─ frontend/
    ├─ src/math/                mesin aljabar + uji (node --test)
    ├─ src/content/             teks & materi (JSON): worlds, onboarding, lessons/, quizzes/, feedback
    ├─ src/components/ui/       komponen dasar (Button, MathKeypad, MathText, …)
    ├─ src/components/tata/     TATA 2D/3D
-   ├─ src/features/            welcome, onboarding, map, lesson, quiz, settings, lab, catalog
-   ├─ src/store/               profil & pengaturan (zustand + IndexedDB)
+   ├─ src/features/            welcome, onboarding, map, lesson, quiz, ai, teacher, tata-gallery, settings, lab, catalog
+   ├─ src/services/aiClient.js klien proxy AI (tanpa API key)
+   ├─ src/store/               profil, pengaturan, data guru (zustand + IndexedDB)
    ├─ src/test/                uji komponen (Vitest)
    └─ e2e/                     uji browser (Playwright + Edge)
 ```
@@ -83,17 +95,15 @@ React 19 + Vite 6 (JavaScript), CSS Modules, zustand, idb-keyval, @dnd-kit/core,
 ## 6. Melanjutkan pengerjaan
 
 1. Baca `CLAUDE.md` (aturan) dan dokumen ini.
-2. Menambah materi: buat/ubah `frontend/src/content/lessons/world-N.json` (jenis layar: info, example, choice, input, divider, tiles, board, sort, factorPairs, commonFactors, order, faded; field `story`/`known`/`asked` untuk soal cerita), daftarkan di `lessons/index.js`. Kuis: `frontend/src/content/quizzes/world-N.json` (5 slot × ≥ 2 varian; jenis choice, input, sort, tiles), daftarkan di `quizzes/index.js`. Semua kunci pelajaran & kuis diuji otomatis oleh `src/math/lesson-keys.test.js`.
+2. Menambah materi: buat/ubah `frontend/src/content/lessons/world-N.json` (jenis layar: info, example, choice, input, divider, tiles, board, sort, identify, factorPairs, commonFactors, order, faded, reflect, cutSlide; `rmt.phase` untuk menimpa fase RMT; field `story`/`known`/`asked` untuk soal cerita), daftarkan di `lessons/index.js`. Kuis: `frontend/src/content/quizzes/world-N.json` (5 slot × ≥ 2 varian; jenis choice, input, sort, tiles), daftarkan di `quizzes/index.js`. Semua kunci pelajaran & kuis diuji otomatis oleh `src/math/lesson-keys.test.js`.
 3. Setelah perubahan: `npm run lint && npm test && npm run test:e2e`.
 
 ## 7. Roadmap singkat
 
 | Urutan | Isi |
 |--------|-----|
-| ✔ Selesai | World 1–2 lengkap + kuis dunia + pembahasan |
-| Berikutnya | World 3 (visual potong-geser a² − b²) dengan pola yang sama |
-| Fase 4 | World 3–5, visual a² − b², puzzle |
-| Fase 5 | Pretest/posttest (setelah instrumen disetujui) |
-| Fase 6 | Supabase + halaman guru + ekspor CSV |
-| Fase 7 | Deploy HTTPS, PWA penuh di Android, audio |
-| Fase 8+ | AI tutor, aset final |
+| ✔ Selesai | World 1–3, kuis + pembahasan, RMT, Galeri TATA, struktur AI, Modul Guru lokal |
+| Berikutnya | World 4 (Menara Tantangan) lalu World 5 (Literasi) dengan pola yang sama |
+| Lalu | Aktifkan AI dengan API key + tinjauan dosen; pretest/posttest setelah instrumen disetujui |
+| Fase 6 | Supabase: kelas, sinkronisasi hasil ke Modul Guru |
+| Fase 7 | Deploy HTTPS, PWA penuh di Android, Google Drive OAuth, audio |

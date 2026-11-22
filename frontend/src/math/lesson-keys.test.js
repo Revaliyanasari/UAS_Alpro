@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { checkFactorization, checkEquivalent, checkDivision, checkQuotient, checkSimplified, fpb } from './checker.js';
+import { checkFactorization, checkEquivalent, checkDivision, checkQuotient, checkSimplified, fpb, isDifferenceOfSquares } from './checker.js';
 import { toPoly } from './parser.js';
 import { keyOf as termKey } from './polynomial.js';
 
@@ -40,6 +40,7 @@ function assertSort(s) {
     assert.ok(binIds.includes(it.bin), `keranjang ${it.bin} tidak ada`);
     const [t] = toPoly(it.expr).termList();
     if (s.rule === 'coefficient') assert.equal(t.coef, Number(it.bin), `koefisien ${it.expr}`);
+    if (s.rule === 'dos') assert.equal(isDifferenceOfSquares(it.expr), it.bin === 'yes', `selisih dua kuadrat? ${it.expr}`);
     if (s.rule === 'like-terms') assert.equal(termKey(t.vars), termKey(toPoly(it.bin).termList()[0].vars), `jenis ${it.expr}`);
   }
 }
@@ -58,7 +59,10 @@ for (const { file, data } of readDir('../content/lessons/')) {
         assert.ok(s.solution.length > 0);
       });
     }
-    if (s.type === 'choice') test(`${name}: jawaban ada di pilihan`, () => assert.ok(s.options.includes(s.answer)));
+    if (s.type === 'choice') test(`${name}: jawaban ada di pilihan`, () => {
+      assert.ok(s.options.includes(s.answer));
+      if (s.verify) assert.equal(s.answer, toPoly(s.verify.lhs).equals(toPoly(s.verify.rhs)) ? 'Benar' : 'Salah');
+    });
     if (s.type === 'divider') test(`${name}: pembagian bulat`, () => assert.ok(toPoly(s.dividend).divideByMonomial(toPoly(s.divisor))));
     if (s.type === 'board') test(`${name}: target dapat difaktorkan`, () => assert.ok(toPoly(s.target).size >= 2));
     if (s.type === 'sort') test(`${name}: kartu di keranjang yang benar`, () => assertSort(s));

@@ -1,0 +1,109 @@
+.wrap {
+  display: grid;
+  gap: var(--space-3);
+}
+.svg {
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+  overflow: visible;
+  background: var(--cream-100);
+  border-radius: var(--radius-board);
+}
+.pieceA {
+  fill: var(--tile-x2);
+  stroke: var(--teal-700);
+  stroke-width: 2;
+}
+.pieceB {
+  fill: var(--tile-x);
+  stroke: var(--beige-500);
+  stroke-width: 2;
+}
+.corner {
+  fill: var(--tile-1);
+  stroke: var(--terra-500);
+  stroke-width: 2;
+}
+.hole {
+  fill: none;
+  stroke: var(--terra-500);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+.cut {
+  stroke: var(--ink-900);
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+}
+.guide {
+  stroke: var(--ink-600);
+  stroke-width: 2;
+  stroke-dasharray: 3 6;
+  opacity: 0.6;
+}
+.label,
+.labelB,
+.labelSmall {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--ink-900);
+}
+.label {
+  font-size: 18px;
+  font-style: italic;
+}
+.labelB {
+  font-size: 16px;
+  font-style: italic;
+  fill: var(--terra-500);
+}
+.labelSmall {
+  font-size: 14px;
+  font-style: italic;
+  fill: var(--ink-600);
+}
+.area {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+}
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.ask {
+  font-weight: 700;
+  font-size: var(--fs-h3);
+}
+.choice {
+  min-width: 72px;
+  min-height: var(--touch-min);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  cursor: pointer;
+}
+.tappable {
+  cursor: pointer;
+  animation: nudge 1.2s ease-in-out infinite;
+}
+.tappable:focus-visible {
+  outline: 3px solid var(--color-focus);
+}
+@keyframes nudge {
+  50% {
+    opacity: 0.7;
+  }
+}
+/* Potongan kuning: transform dalam satuan SVG, titik asal (0,0); durasi mengikuti pengaturan animasi */
+.movable {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: transform calc(var(--dur-screen) * 2) var(--ease-soft);
+}

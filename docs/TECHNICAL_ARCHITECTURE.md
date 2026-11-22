@@ -167,6 +167,8 @@ Target cakupan uji ≥ 95% — inilah penjamin kebenaran matematis aplikasi.
 
 ## 11. AI Learning Assistant (fitur lanjutan)
 
+> **Pembaruan 22 Nov 2026:** proxy diwujudkan dengan Node.js bawaan di `backend/` (bukan FastAPI, karena Python tidak dapat dijalankan di laptop pengembang), penyedia **DeepSeek** sesuai arahan dosen. Endpoint: `GET /api/ai/status`, `POST /api/ai/chat`. Rincian & cara aktivasi: `docs/AI_SETUP.md`. Rancangan di bawah tetap berlaku sebagai prinsip.
+
 Dikerjakan **setelah fitur inti selesai** (F-9). Rancangan tetap:
 - Backend FastAPI `/ai/chat`; frontend tidak pernah memegang API key.
 - Antarmuka penyedia yang dapat diganti:
