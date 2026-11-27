@@ -45,7 +45,7 @@
   width: 100%;
   max-width: var(--reading-max);
   margin: 0 auto;
-  padding: var(--space-4) var(--gutter) calc(var(--space-7) + env(safe-area-inset-bottom));
+  padding: var(--space-4) var(--gutter) calc(var(--space-7) + var(--inset-bottom));
 }
 .wide {
   max-width: var(--content-max);

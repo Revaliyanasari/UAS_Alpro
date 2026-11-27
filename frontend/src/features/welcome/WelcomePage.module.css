@@ -8,7 +8,7 @@
   min-height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
-  padding: calc(var(--space-6) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  padding: calc(var(--space-6) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-5) + var(--inset-bottom));
   display: flex;
   flex-direction: column;
   align-items: center;

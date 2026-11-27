@@ -15,6 +15,10 @@ import './styles/global.css';
 import App from './App.jsx';
 import UpdatePrompt from './pwa/UpdatePrompt.jsx';
 
+// Hosting yang menyisipkan lencana tetap di pojok kanan bawah (Netlify paket gratis) → beri ruang di bawah
+// agar tombol aplikasi tidak tertutup (token --inset-bottom di styles/tokens.css).
+if (document.querySelector('script[src*="/.netlify/scripts/hud"]')) document.documentElement.classList.add('host-badge');
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* basename = alamat dasar build (mis. /UAS_Alpro di GitHub Pages); kosong saat lokal */}

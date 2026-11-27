@@ -53,3 +53,19 @@ describe('animasi penghargaan', () => {
     expect(keyframes).not.toMatch(/\b(width|height|top|left|margin):/);
   });
 });
+
+describe('ruang bawah untuk lencana hosting (Netlify paket gratis)', () => {
+  it('semua jarak bawah memakai token --inset-bottom; token bertambah saat lencana host ada', async () => {
+    const { readdirSync, statSync } = await import('node:fs');
+    const { join } = await import('node:path');
+    const root = join(process.cwd(), 'src');
+    const css = [];
+    const walk = (d) => readdirSync(d).forEach((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : f.endsWith('.css') && css.push(join(d, f))));
+    walk(root);
+    for (const f of css) if (!f.endsWith('tokens.css')) expect(readFileSync(f, 'utf8'), f).not.toMatch(/env\(safe-area-inset-bottom\)/);
+    const tokens = readFileSync(join(root, 'styles/tokens.css'), 'utf8');
+    expect(tokens).toMatch(/--inset-bottom: env\(safe-area-inset-bottom\)/);
+    expect(tokens).toMatch(/:root\.host-badge \{\s*--inset-bottom: calc\(env\(safe-area-inset-bottom\) \+ 72px\)/);
+    expect(readFileSync(join(root, 'main.jsx'), 'utf8')).toMatch(/\.netlify\/scripts\/hud.*host-badge/);
+  });
+});

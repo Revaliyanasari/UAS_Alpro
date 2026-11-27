@@ -12,7 +12,7 @@
   max-width: var(--reading-max);
   max-height: 88dvh;
   overflow-y: auto;
-  padding: var(--space-5) var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  padding: var(--space-5) var(--gutter) calc(var(--space-5) + var(--inset-bottom));
   border-radius: var(--radius-board) var(--radius-board) 0 0;
   background: var(--color-bg);
   box-shadow: var(--shadow-lift);

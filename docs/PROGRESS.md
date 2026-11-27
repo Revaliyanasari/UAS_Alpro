@@ -201,3 +201,7 @@ Kunci baru pemilik adalah kunci Google Gemini; backend ditambah penyedia `gemini
 ## 16. Peluncur satu klik (27 Nov 2026)
 
 `Jalankan Algebra Adventure.bat` (folder proyek) / `npm run mulai` (folder frontend) → `frontend/scripts/start-all.mjs`: memasang dependensi bila belum ada, menyalakan server AI (8787) + aplikasi (5173, juga untuk HP di Wi-Fi yang sama), menampilkan status Tanya TATA (tanpa menampilkan kunci), membuka browser; bila sudah berjalan, hanya membuka browser. Diuji: dijalankan lewat .bat → AI aktif (Gemini) dan Tanya TATA menjawab dari browser (HP & laptop).
+
+## 17. Netlify live + perbaikan lencana host (28 Nov 2026)
+
+Situs Netlify `uas-alpro-9t3y.netlify.app` terverifikasi menyajikan versi terbaru (sama dengan GitHub Pages) dan Tanya TATA (Gemini) aktif. Lencana "Powered by Netlify" (paket gratis) menutupi tombol Lanjut/Soal berikutnya di HP → diperbaiki dengan token `--inset-bottom` + deteksi lencana di `main.jsx`. Rincian: `docs/DEPLOYMENT.md` §G.

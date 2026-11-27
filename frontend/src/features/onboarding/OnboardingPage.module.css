@@ -4,7 +4,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--space-3) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-4) + env(safe-area-inset-bottom));
+  padding: calc(var(--space-3) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-4) + var(--inset-bottom));
   gap: var(--space-4);
 }
 .top {

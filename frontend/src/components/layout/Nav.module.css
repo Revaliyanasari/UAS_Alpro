@@ -163,7 +163,7 @@
   position: relative;
   max-width: 760px;
   margin: 0 auto;
-  padding: var(--space-4) var(--gutter) calc(var(--space-7) + env(safe-area-inset-bottom));
+  padding: var(--space-4) var(--gutter) calc(var(--space-7) + var(--inset-bottom));
 }
 .mainWide {
   max-width: 1100px;

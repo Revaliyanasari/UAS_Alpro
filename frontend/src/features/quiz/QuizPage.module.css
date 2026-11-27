@@ -4,7 +4,7 @@
 .result {
   max-width: var(--reading-max);
   margin: 0 auto;
-  padding: calc(var(--space-4) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-6) + env(safe-area-inset-bottom));
+  padding: calc(var(--space-4) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-6) + var(--inset-bottom));
   display: grid;
   gap: var(--space-5);
 }

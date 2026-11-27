@@ -68,7 +68,7 @@
   display: flex;
   align-items: flex-end;
   gap: var(--space-2);
-  padding: 0 var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  padding: 0 var(--gutter) calc(var(--space-5) + var(--inset-bottom));
 }
 
 /* Header peta di HP: ringkas agar sapaan & XP/bintang tetap satu baris */

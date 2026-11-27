@@ -35,6 +35,10 @@
 
   /* Skala lapisan (z-index) — SATU sumber agar panel tidak saling menutupi.
      Urutan: isi < header lengket < kartu pulau (sheet) < drawer menu < modal/dialog < tur < notifikasi */
+  /* Ruang aman di tepi bawah layar. Bertambah saat hosting menyisipkan lencana tetap di pojok kanan bawah
+     (paket gratis Netlify: "Powered by Netlify", tidak boleh disembunyikan) agar tombol Lanjut, Kirim, dll.
+     tidak tertutup. Di GitHub Pages/lokal nilainya sama seperti sebelumnya. Lihat src/main.jsx. */
+  --inset-bottom: env(safe-area-inset-bottom);
   --z-content: 1;
   --z-header: 20;
   --z-sheet: 60;
@@ -134,4 +138,8 @@
 :root[data-motion='reduced'] {
   --dur-micro: 0ms;
   --dur-screen: 0ms;
+}
+
+:root.host-badge {
+  --inset-bottom: calc(env(safe-area-inset-bottom) + 72px);
 }

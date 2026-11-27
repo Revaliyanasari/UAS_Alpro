@@ -81,3 +81,11 @@ Netlify dipilih karena menjalankan aplikasi **dan** proxy AI di satu alamat (tan
 **Yang dialami pengguna:**
 - Perangkat yang masih memakai versi lama: buka situs/aplikasi sekali (service worker baru terpasang di latar belakang), lalu buka/muat ulang sekali lagi → versi terbaru. Tidak perlu menghapus data browser.
 - Deploy berikutnya: versi baru tampil pada pembukaan pertama setelah deploy.
+
+## G. Netlify: diagnosis "tampilan masih lama" & lencana "Powered by Netlify" (28 Nov 2026)
+
+- **Netlify sudah menyajikan versi terbaru.** Situs `uas-alpro-9t3y.netlify.app` menyajikan `assets/index-DwnXTO9h.js` — identik dengan build bersih `main` `ff75c5e` (sama dengan GitHub Pages); `/api/ai/status` → `{"enabled":true,"provider":"gemini"}`. Koneksi GitHub ↔ Netlify benar (repo `Revaliyanasari/UAS_Alpro`, branch `main`). Label "pushed 15 days ago" di daftar pemilihan repository Netlify hanyalah keterangan daftar itu; commit yang di-deploy tetap `ff75c5e`.
+- **Mengapa terlihat "lama":** alamat Netlify adalah alamat baru, sehingga data siswa di sana kosong → aplikasi dimulai dari halaman pembuka/identitas/perkenalan (hampir sama dengan versi lama). Versi baru tampak setelah perkenalan (Beranda, tur, menu ⋮, World 4–5). Gambar pratinjau di dasbor Netlify juga hanya memotret halaman pembuka.
+- **Masalah nyata yang ditemukan:** paket gratis Netlify menyisipkan skrip `/.netlify/scripts/hud` yang menampilkan lencana "Powered by Netlify" (197×64 px, pojok kanan bawah, lapisan teratas, tidak boleh disembunyikan pada paket gratis). Di HP lencana ini **menutupi tombol Lanjut (pelajaran) dan Soal berikutnya (kuis)**.
+- **Perbaikan:** token `--inset-bottom` (styles/tokens.css) menggantikan `env(safe-area-inset-bottom)` di semua CSS; `src/main.jsx` menambah kelas `host-badge` bila skrip lencana ada → ruang bawah +72 px. Di GitHub Pages/lokal tidak ada perubahan tampilan. Diukur: bilah tombol bawah tidak lagi tertutup; elemen lain bisa dijangkau dengan menggulir.
+- **Akses situs:** sebelumnya situs Netlify terkunci "Visitor access" (HTTP 401 → halaman login Netlify); pemilik sudah mengubahnya menjadi publik agar siswa bisa membuka.

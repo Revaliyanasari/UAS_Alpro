@@ -8,7 +8,7 @@
   z-index: 1;
   max-width: 520px;
   margin: 0 auto;
-  padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-6) + env(safe-area-inset-bottom));
+  padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--gutter) calc(var(--space-6) + var(--inset-bottom));
   display: grid;
   gap: var(--space-4);
 }
