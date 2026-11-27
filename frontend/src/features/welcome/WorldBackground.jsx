@@ -96,6 +96,71 @@ export default function WorldBackground({ variant = 'welcome' }) {
       {variant === 'welcome' && (
         <path d="M214 690 C170 730 250 760 200 800 S170 850 196 860 H236 C214 840 262 812 248 790 S206 730 238 690 Z" fill="var(--cream-50)" opacity="0.85" />
       )}
+
+      {/* Peta: lingkungan petualangan di TEPI (tidak menutupi jalur & pulau di tengah) */}
+      {variant === 'map' && (
+        <g>
+          {/* awan tambahan */}
+          <g className={styles.cloudSlow} fill="var(--white)" opacity="0.85">
+            <ellipse cx="330" cy="60" rx="38" ry="12" />
+            <ellipse cx="346" cy="52" rx="20" ry="12" />
+            <ellipse cx="40" cy="420" rx="30" ry="9" />
+          </g>
+          {/* burung */}
+          <g fill="none" stroke="var(--ink-600)" strokeWidth="2" strokeLinecap="round" opacity="0.5">
+            <path d="M200 70 q6 -6 12 0 q6 -6 12 0" />
+            <path d="M236 92 q4 -4 8 0 q4 -4 8 0" />
+          </g>
+          {/* pohon kiri & kanan (batang + daun bulat / cemara) */}
+          {[
+            [18, 260, 1],
+            [26, 520, 0.85],
+            [376, 360, 0.95],
+            [384, 610, 0.8],
+          ].map(([x, y, s]) => (
+            <g key={`t${x}-${y}`} transform={`translate(${x} ${y}) scale(${s})`}>
+              <rect x="-4" y="0" width="8" height="26" rx="3" fill="var(--beige-500)" />
+              <circle cx="0" cy="-8" r="20" fill="var(--sage-500)" />
+              <circle cx="-10" cy="2" r="13" fill="var(--sage-500)" />
+              <circle cx="9" cy="0" r="14" fill="var(--sage-700)" opacity="0.55" />
+            </g>
+          ))}
+          {[
+            [14, 760],
+            [388, 470],
+            [372, 790],
+          ].map(([x, y]) => (
+            <g key={`p${x}-${y}`} transform={`translate(${x} ${y})`}>
+              <rect x="-3" y="0" width="6" height="14" fill="var(--beige-500)" />
+              <path d="M0 -40 L16 -8 H-16 Z M0 -26 L19 4 H-19 Z" fill="var(--sage-700)" opacity="0.8" />
+            </g>
+          ))}
+          {/* rumput & bunga */}
+          <g stroke="var(--sage-700)" strokeWidth="2.5" strokeLinecap="round" opacity="0.7">
+            <path d="M60 740 l-4 -12 M64 740 l0 -14 M68 740 l4 -12" />
+            <path d="M330 720 l-4 -12 M334 720 l0 -14 M338 720 l4 -12" />
+            <path d="M120 820 l-4 -10 M124 820 l0 -12 M128 820 l4 -10" />
+            <path d="M300 830 l-4 -10 M304 830 l0 -12 M308 830 l4 -10" />
+          </g>
+          <g>
+            <circle cx="90" cy="770" r="5" fill="var(--peach-300)" />
+            <circle cx="90" cy="770" r="2" fill="var(--butter-300)" />
+            <circle cx="310" cy="760" r="5" fill="var(--lilac-300)" />
+            <circle cx="310" cy="760" r="2" fill="var(--butter-300)" />
+            <circle cx="160" cy="840" r="4" fill="var(--sky-300)" />
+          </g>
+          {/* batu */}
+          <ellipse cx="48" cy="800" rx="14" ry="8" fill="var(--beige-300)" />
+          <ellipse cx="352" cy="836" rx="12" ry="7" fill="var(--beige-300)" />
+          {/* simbol matematika kecil di tepi */}
+          <g className={styles.twinkle} fontFamily="var(--font-display)" fontWeight="600" opacity="0.6">
+            <text x="22" y="190" fontSize="22" fill="var(--teal-700)">x²</text>
+            <text x="364" y="250" fontSize="24" fill="var(--peach-300)">+</text>
+            <text x="16" y="600" fontSize="22" fill="var(--lilac-300)">÷</text>
+            <text x="364" y="540" fontSize="22" fill="var(--sky-300)">=</text>
+          </g>
+        </g>
+      )}
     </svg>
   );
 }

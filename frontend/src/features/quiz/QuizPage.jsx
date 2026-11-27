@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import RewardBurst from '../../components/reward/RewardBurst.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/ui/Button.jsx';
 import ProgressPath from '../../components/ui/ProgressPath.jsx';
@@ -7,7 +8,8 @@ import MathText from '../../components/ui/MathText.jsx';
 import Tata from '../../components/tata/Tata.jsx';
 import { moodFor } from '../../components/tata/tataMood.js';
 import AudioButton from '../../audio/AudioButton.jsx';
-import { sfx } from '../../audio/index.js';
+import MenuButton from '../../components/layout/MenuButton.jsx';
+import { sfx, sayTata, useTataSays } from '../../audio/index.js';
 import { pretty } from '../../components/ui/prettyMath.js';
 import NotFoundPage from '../home/NotFoundPage.jsx';
 import QuizQuestion from './QuizQuestion.jsx';
@@ -35,6 +37,7 @@ export default function QuizPage() {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
+  useTataSays('quizStart', hydrated && Boolean(quiz && world) && !result && canTakeQuiz(world.id));
 
   if (!hydrated) return null;
   if (!quiz || !world || !isUnlocked(world.id)) return <NotFoundPage />;
@@ -71,10 +74,10 @@ export default function QuizPage() {
           <p className={styles.score} aria-label={`Nilai ${result.percent}`}>
             {result.percent}
           </p>
-          <p className={lessonStyles.stars} aria-label={`${result.stars} bintang`}>
-            {'⭐'.repeat(result.stars)}
-            <span className={lessonStyles.dim}>{'⭐'.repeat(3 - result.stars)}</span>
+          <p className="visually-hidden" aria-label={`${result.stars} bintang`}>
+            {result.stars} dari 3 bintang
           </p>
+          <RewardBurst stars={result.stars} xp={result.correct * XP_PER_CORRECT} />
           <p>
             Benar {result.correct} dari {result.total} soal · +{result.correct * XP_PER_CORRECT} XP
           </p>
@@ -159,13 +162,16 @@ export default function QuizPage() {
     const r = recordQuiz(world.id, correct, total, correct * XP_PER_CORRECT);
     setResult({ ...r, correct, total });
     // Suara hasil: kemenangan + bintang; bunyi khusus bila pulau baru terbuka; lembut bila belum lulus.
+    const opened = r.passed && !wasCompleted && worldsContent.worlds.some((w) => w.id === world.id + 1);
     if (r.passed) {
       sfx('victory');
       if (r.stars > 0) setTimeout(() => sfx('star'), 1400);
-      if (!wasCompleted && worldsContent.worlds.some((w) => w.id === world.id + 1)) setTimeout(() => sfx('unlock'), 2200);
+      if (opened) setTimeout(() => sfx('unlock'), 2200);
     } else {
       sfx('tataSoft');
     }
+    // TATA mengomentari hasil setelah bunyi selesai (musik diredam saat ia berbicara).
+    setTimeout(() => sayTata(opened ? 'worldUnlocked' : r.passed ? 'levelComplete' : 'tryAgainResult', { force: true }), r.passed ? 2800 : 900);
   };
 
   return (
@@ -174,6 +180,7 @@ export default function QuizPage() {
         <button type="button" className={lessonStyles.close} onClick={() => navigate('/peta')} aria-label="Keluar ke peta">
           ✕
         </button>
+        <MenuButton compact className={lessonStyles.close} />
         <AudioButton className={lessonStyles.close} />
         <ProgressPath value={index + 1} max={questions.length} label={`Soal kuis ${world.name}`} />
       </header>

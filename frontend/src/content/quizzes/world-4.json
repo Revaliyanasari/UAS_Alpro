@@ -1,0 +1,53 @@
+{
+  "worldId": 4,
+  "title": "Kuis Menara Tantangan",
+  "summary": {
+    "title": "Strategi Menara",
+    "steps": ["Kenali bentuknya: FPB atau selisih dua kuadrat", "Faktorkan sampai lengkap", "Pada soal luas: faktor pasangan adalah sisi yang dicari", "Cek: kalikan kembali dan periksa apakah hasilnya masuk akal"]
+  },
+  "slots": [
+    { "variants": [
+      { "type": "input", "prompt": "Faktorkan 15x + 25", "check": { "kind": "factor", "target": "15x+25" }, "key": "5(3x + 5)",
+        "hints": ["FPB dari 15 dan 25 = …", "15x : 5 = 3x dan 25 : 5 = 5."],
+        "solution": ["FPB(15, 25) = 5", "15x + 25 = 5(3x + 5)", "Cek: 5 · 3x + 5 · 5 = 15x + 25 ✔"] },
+      { "type": "input", "prompt": "Faktorkan 8y^2 + 12y", "check": { "kind": "factor", "target": "8y^2+12y" }, "key": "4y(2y + 3)",
+        "hints": ["FPB angka 8 dan 12, lalu variabel berpangkat terkecil.", "FPB = 4y."],
+        "solution": ["FPB(8, 12) = 4, variabel bersama y → FPB = 4y", "8y² + 12y = 4y(2y + 3)", "Cek: 4y · 2y + 4y · 3 = 8y² + 12y ✔"] }
+    ] },
+    { "variants": [
+      { "type": "input", "prompt": "Faktorkan 25 - y^2", "check": { "kind": "factor", "target": "25-y^2" }, "key": "(5 + y)(5 − y)",
+        "hints": ["25 = 5².", "a = 5 dan b = y."],
+        "solution": ["25 = 5², y² = (y)²", "25 − y² = (5 + y)(5 − y)", "Cek: 25 − 5y + 5y − y² = 25 − y² ✔"] },
+      { "type": "input", "prompt": "Faktorkan 4a^2 - 9", "check": { "kind": "factor", "target": "4a^2-9" }, "key": "(2a + 3)(2a − 3)",
+        "hints": ["4a² = (2a)².", "9 = 3²."],
+        "solution": ["4a² = (2a)², 9 = 3²", "4a² − 9 = (2a + 3)(2a − 3)", "Cek: 4a² − 6a + 6a − 9 = 4a² − 9 ✔"] }
+    ] },
+    { "variants": [
+      { "type": "input", "story": "Luas sebuah persegi panjang (12x² + 8x) cm² dan lebarnya 4x cm.", "prompt": "Tulis panjangnya dalam x.",
+        "check": { "kind": "quotient", "dividend": "12x^2+8x", "divisor": "4x" }, "key": "3x + 2",
+        "hints": ["Panjang = luas : lebar.", "12x² + 8x = 4x(… + …)."],
+        "solution": ["12x² + 8x = 4x(3x + 2)", "Panjang = (3x + 2) cm"] },
+      { "type": "input", "story": "Luas sebuah persegi panjang (10y² + 15y) cm² dan lebarnya 5y cm.", "prompt": "Tulis panjangnya dalam y.",
+        "check": { "kind": "quotient", "dividend": "10y^2+15y", "divisor": "5y" }, "key": "2y + 3",
+        "hints": ["Panjang = luas : lebar.", "10y² + 15y = 5y(… + …)."],
+        "solution": ["10y² + 15y = 5y(2y + 3)", "Panjang = (2y + 3) cm"] }
+    ] },
+    { "variants": [
+      { "type": "input", "prompt": "Hitung 101^2 - 99^2 tanpa kalkulator.", "check": { "kind": "equivalent", "target": "400" }, "key": "400",
+        "hints": ["Pakai (a + b)(a − b) dengan a = 101 dan b = 99.", "a + b = 200 dan a − b = 2."],
+        "solution": ["101² − 99² = (101 + 99)(101 − 99)", "= 200 × 2 = 400"] },
+      { "type": "input", "prompt": "Hitung nilai x^2 - 4 untuk x = 12.", "check": { "kind": "equivalent", "target": "140" }, "key": "140",
+        "hints": ["x² − 4 = (x + 2)(x − 2).", "(12 + 2)(12 − 2) = …"],
+        "solution": ["x² − 4 = (x + 2)(x − 2)", "Untuk x = 12: 14 × 10 = 140"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "story": "Selembar karton persegi bersisi k cm. Pojoknya digunting berbentuk persegi bersisi 3 cm. Luas sisa karton (k + 3)(k − 3) cm².",
+        "prompt": "Apakah k = 2 masuk akal?", "options": ["Tidak, k harus lebih dari 3", "Ya, karena 2 bilangan bulat"], "answer": "Tidak, k harus lebih dari 3",
+        "hints": ["Hitung k − 3 untuk k = 2.", "Bisakah potongan 3 cm diambil dari karton bersisi 2 cm?"],
+        "solution": ["k − 3 = 2 − 3 = −1 (ukuran tidak mungkin negatif)", "Potongan 3 cm harus muat, jadi k > 3"] },
+      { "type": "choice", "prompt": "Faktorkan 18x^2 + 12x. Rani: 6x(3x + 2). Dodi: 3x(6x + 4). Siapa yang memfaktorkan dengan lengkap?", "options": ["Rani", "Dodi"], "answer": "Rani",
+        "hints": ["Kalikan kembali kedua jawaban.", "Apakah 6x + 4 masih punya faktor bersama?"],
+        "solution": ["Keduanya bernilai 18x² + 12x", "6x + 4 = 2(3x + 2) masih bisa difaktorkan, jadi jawaban Dodi belum lengkap", "FPB lengkap = 6x → Rani benar"] }
+    ] }
+  ]
+}

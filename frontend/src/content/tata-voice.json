@@ -1,0 +1,57 @@
+{
+  "_catatan": "Kalimat suara TATA per situasi (dibacakan Web Speech API). Sengaja tanpa nama siswa: suara 'online' memproses teks di server penyedia browser. Satu kalimat dipilih bergiliran agar tidak membosankan.",
+  "firstOpen": [
+    "Halo, aku TATA! Teman belajar matematika kamu. Yuk, kita jelajahi dunia aljabar bersama! Jangan takut salah, karena setiap jawaban adalah kesempatan untuk belajar. Siap berpetualang?"
+  ],
+  "dashboard": [
+    "Selamat datang kembali! Mau lanjut petualangan aljabar hari ini?",
+    "Hai, senang bertemu lagi! Yuk, selesaikan misi hari ini.",
+    "Aku sudah menunggumu. Pilih langkah berikutnya, ya!"
+  ],
+  "lessonStart": [
+    "Ayo mulai belajar! Ikuti langkahnya pelan-pelan, aku menemanimu.",
+    "Pelajaran baru dimulai. Kalau bingung, tekan tombol petunjuk, ya.",
+    "Siap? Kita pahami konsepnya dulu, lalu berlatih bersama."
+  ],
+  "quizStart": [
+    "Saatnya kuis! Baca soalnya dengan teliti. Kamu pasti bisa.",
+    "Kuis dimulai. Tenang saja, petunjuk tidak mengurangi nilaimu.",
+    "Ayo tunjukkan apa yang sudah kamu pelajari!"
+  ],
+  "correct": [
+    "Hebat, jawabanmu benar!",
+    "Tepat sekali!",
+    "Keren, kamu berhasil!",
+    "Betul! Cara berpikirmu sudah bagus."
+  ],
+  "wrong": [
+    "Belum tepat, tidak apa-apa. Coba periksa lagi langkahnya.",
+    "Hampir! Yuk, coba sekali lagi.",
+    "Salah itu bagian dari belajar. Lihat petunjuknya, ya."
+  ],
+  "struggling": [
+    "Sepertinya soal ini menantang. Coba tekan tombol petunjuk, aku bantu pelan-pelan.",
+    "Tidak apa-apa kalau masih bingung. Ulangi langkah pertama dulu, ya.",
+    "Jangan menyerah! Pelan-pelan saja, kita cari polanya bersama."
+  ],
+  "reward": [
+    "Wah, kamu mendapat XP! Terus kumpulkan, ya.",
+    "Bintang baru untukmu! Kerja bagus.",
+    "Poinmu bertambah. Hebat!"
+  ],
+  "worldUnlocked": [
+    "Hore, pulau baru terbuka! Petualangan berikutnya menunggumu.",
+    "Luar biasa! Kamu membuka dunia baru di peta."
+  ],
+  "levelComplete": [
+    "Selamat, kamu menyelesaikan tahap ini! Aku bangga padamu.",
+    "Misi selesai! Kamu semakin jago aljabar."
+  ],
+  "tryAgainResult": [
+    "Belum lulus kali ini, tapi kamu sudah berusaha. Pelajari lagi bagian yang sulit, lalu coba lagi, ya.",
+    "Tidak apa-apa. Ulangi pelajarannya sebentar, lalu kita coba kuisnya lagi."
+  ],
+  "test": [
+    "Halo, ini suara TATA. Kalau terdengar jelas, berarti suaraku sudah aktif!"
+  ]
+}

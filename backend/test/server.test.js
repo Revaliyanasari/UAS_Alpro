@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { createApp } from '../src/server.js';
-import { configFrom, parseEnv } from '../src/env.js';
+import { configFrom, parseEnv, keyWarning } from '../src/env.js';
 import { createDeepSeekProvider, providerFromConfig, ProviderError } from '../src/ai/provider.js';
 import { buildSystemPrompt } from '../src/ai/prompt.js';
 import { validateChatBody, scrubPersonalData, createRateLimiter } from '../src/ai/guard.js';
@@ -135,4 +135,12 @@ test('prompt tanpa konteks tetap memuat aturan mediasi', () => {
   const s = buildSystemPrompt();
   assert.match(s, /DIKETAHUI/);
   assert.match(s, /mengalikan kembali/);
+});
+
+test('peringatan bentuk API key (isi kunci tidak pernah ditampilkan)', () => {
+  assert.equal(keyWarning(configFrom({})), null);
+  assert.match(keyWarning(configFrom({ AI_API_KEY: 'abcdefabcdefabcdefabcdefabcd' })), /tidak berawalan/);
+  assert.match(keyWarning(configFrom({ AI_API_KEY: 'sk-123' })), /terlalu pendek/);
+  assert.equal(keyWarning(configFrom({ AI_API_KEY: 'sk-' + 'a'.repeat(32) })), null);
+  assert.doesNotMatch(keyWarning(configFrom({ AI_API_KEY: 'rahasiarahasiarahasiarahasia' })), /rahasia/);
 });

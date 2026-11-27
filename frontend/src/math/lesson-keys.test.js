@@ -41,6 +41,12 @@ function assertSort(s) {
     const [t] = toPoly(it.expr).termList();
     if (s.rule === 'coefficient') assert.equal(t.coef, Number(it.bin), `koefisien ${it.expr}`);
     if (s.rule === 'dos') assert.equal(isDifferenceOfSquares(it.expr), it.bin === 'yes', `selisih dua kuadrat? ${it.expr}`);
+    // Pasangkan bentuk ↔ faktor: setiap kartu sama dengan bentuk faktor keranjangnya; keranjang pengecoh tidak cocok dengan kartu mana pun.
+    if (s.rule === 'factor') {
+      const bin = s.bins.find((b) => b.id === it.bin);
+      assert.ok(toPoly(it.expr).equals(toPoly(bin.expr)), `${it.expr} = ${bin.expr}`);
+      for (const other of s.bins.filter((b) => b.id !== it.bin)) assert.ok(!toPoly(it.expr).equals(toPoly(other.expr)), `${it.expr} juga cocok dengan ${other.expr}`);
+    }
     if (s.rule === 'like-terms') assert.equal(termKey(t.vars), termKey(toPoly(it.bin).termList()[0].vars), `jenis ${it.expr}`);
   }
 }

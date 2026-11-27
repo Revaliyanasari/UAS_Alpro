@@ -1,0 +1,60 @@
+{
+  "worldId": 5,
+  "title": "Kuis Petualangan Literasi",
+  "summary": {
+    "title": "Lima Langkah Literasi",
+    "steps": ["Diketahui & ditanya: pilah informasi penting", "Model: ubah cerita menjadi bentuk aljabar", "Hitung: selesaikan dengan pemfaktoran", "Simpulkan: jawab pertanyaan cerita", "Periksa: apakah hasilnya masuk akal?"]
+  },
+  "slots": [
+    { "variants": [
+      { "type": "choice", "story": "Panitia pentas seni menata (8x² + 20x) gelas di beberapa meja. Setiap meja berisi 4x gelas.",
+        "prompt": "Lia: banyak meja (2x + 5). Bima: banyak meja (2x + 20). Siapa yang benar?", "options": ["Lia", "Bima"], "answer": "Lia",
+        "hints": ["Banyak meja = (8x² + 20x) : 4x.", "Bagi SETIAP suku dengan 4x."],
+        "solution": ["8x² + 20x = 4x(2x + 5)", "Banyak meja = 2x + 5 → Lia benar", "Bima lupa membagi 20x dengan 4x"] },
+      { "type": "choice", "story": "Rara menyimpan (9y² + 12y) kelereng ke dalam beberapa toples. Setiap toples berisi 3y kelereng.",
+        "prompt": "Rara: banyak toples (3y + 4). Doni: banyak toples (3y + 12). Siapa yang benar?", "options": ["Rara", "Doni"], "answer": "Rara",
+        "hints": ["Banyak toples = (9y² + 12y) : 3y.", "12y : 3y = …"],
+        "solution": ["9y² + 12y = 3y(3y + 4)", "Banyak toples = 3y + 4 → Rara benar", "Doni lupa membagi 12y dengan 3y"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "story": "Kertas origami berbentuk persegi bersisi m cm. Di salah satu pojoknya digunting persegi bersisi 3 cm.",
+        "prompt": "Luas kertas yang tersisa (dalam cm²) dalam bentuk faktor adalah ...", "options": ["(m + 3)(m − 3)", "(m − 3)(m − 3)", "(m + 9)(m − 1)"], "answer": "(m + 3)(m − 3)",
+        "hints": ["Luas sisa = m² − 3² = m² − 9.", "Gunakan a² − b² = (a + b)(a − b)."],
+        "solution": ["Luas kertas = m², luas potongan = 9", "Luas sisa = m² − 9", "= (m + 3)(m − 3) cm²"] },
+      { "type": "input", "story": "Sebuah ubin lantai berbentuk persegi bersisi t dm. Pojoknya dipotong berbentuk persegi bersisi 5 dm untuk tempat pipa.",
+        "prompt": "Tulis luas ubin yang tersisa dalam bentuk faktor.", "check": { "kind": "factor", "target": "t^2-25" }, "key": "(t + 5)(t − 5)",
+        "hints": ["Luas sisa = t² − 5².", "Gunakan (a + b)(a − b)."],
+        "solution": ["Luas ubin = t², luas potongan = 25", "Luas sisa = t² − 25", "= (t + 5)(t − 5) dm²"] }
+    ] },
+    { "variants": [
+      { "type": "input", "story": "Dua spanduk kelas berbentuk persegi panjang dengan luas (6x² + 9x) dm² dan (9x² + 3x) dm². Lebar kedua spanduk sama, yaitu faktor persekutuan terbesar dari kedua luas.",
+        "prompt": "Berapa lebar spanduk?", "check": { "kind": "equivalent", "target": "3x" }, "key": "3x",
+        "hints": ["Faktorkan kedua luas dengan FPB.", "6x² + 9x = 3x(2x + 3) dan 9x² + 3x = 3x(3x + 1)."],
+        "solution": ["6x² + 9x = 3x(2x + 3)", "9x² + 3x = 3x(3x + 1)", "Faktor bersama = 3x → lebar 3x dm"] },
+      { "type": "input", "story": "Kebun sayur sekolah berbentuk persegi panjang dengan luas (8y² + 12y) m² dan lebar 4y m.",
+        "prompt": "Berapa panjang kebun?", "check": { "kind": "quotient", "dividend": "8y^2+12y", "divisor": "4y" }, "key": "2y + 3",
+        "hints": ["Panjang = luas : lebar.", "8y² + 12y = 4y(… + …)."],
+        "solution": ["8y² + 12y = 4y(2y + 3)", "Panjang kebun = (2y + 3) m"] }
+    ] },
+    { "variants": [
+      { "type": "choice", "story": "Sebuah meja belajar berbentuk persegi panjang dengan luas (x² − 49) dm², panjang (x + 7) dm, dan lebar (x − 7) dm. Ani mengusulkan x = 6.",
+        "prompt": "Apakah usulan x = 6 masuk akal?", "options": ["Tidak, lebarnya menjadi −1 dm", "Ya, karena 6 bilangan bulat"], "answer": "Tidak, lebarnya menjadi −1 dm",
+        "hints": ["Hitung x − 7 untuk x = 6.", "Bisakah lebar bernilai negatif?"],
+        "solution": ["Lebar = 6 − 7 = −1 dm", "Ukuran tidak mungkin negatif, jadi x harus lebih dari 7"] },
+      { "type": "input", "story": "Sebuah papan tulis berukuran (x + 4) dm × (x − 4) dm. Guru memilih x = 9.",
+        "prompt": "Berapa luas papan tulis (dalam dm²)?", "check": { "kind": "equivalent", "target": "65" }, "key": "65",
+        "hints": ["Panjang = 9 + 4 dan lebar = 9 − 4.", "13 × 5 = …"],
+        "solution": ["Panjang = 13 dm, lebar = 5 dm", "Luas = 13 × 5 = 65 dm²", "Cek: 9² − 16 = 81 − 16 = 65 ✔"] }
+    ] },
+    { "variants": [
+      { "type": "input", "story": "Harga satu spidol (x + 2) ribu rupiah. Kelas membeli 3x spidol.",
+        "prompt": "Tulis total harga (dalam ribu rupiah) sebagai bentuk aljabar yang paling sederhana.", "check": { "kind": "simplified", "target": "3x^2+6x" }, "key": "3x^2 + 6x",
+        "hints": ["Total = banyak spidol × harga satu spidol.", "3x(x + 2) = 3x · x + 3x · 2."],
+        "solution": ["Total = 3x(x + 2)", "= 3x² + 6x ribu rupiah"] },
+      { "type": "input", "story": "Uang kas kelas (5x² + 15x) ribu rupiah dibagi rata untuk 5x siswa pengurus.",
+        "prompt": "Berapa ribu rupiah yang diterima setiap pengurus?", "check": { "kind": "quotient", "dividend": "5x^2+15x", "divisor": "5x" }, "key": "x + 3",
+        "hints": ["Bagian setiap pengurus = uang kas : banyak pengurus.", "5x² + 15x = 5x(… + …)."],
+        "solution": ["5x² + 15x = 5x(x + 3)", "Setiap pengurus menerima (x + 3) ribu rupiah"] }
+    ] }
+  ]
+}

@@ -1,0 +1,286 @@
+.intro {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.introTata {
+  width: 80px;
+  flex: none;
+}
+.hub {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hubCard {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  border-top: 6px solid var(--cat-game);
+  transition: transform var(--dur-micro) var(--ease-soft);
+}
+.hubCard:hover {
+  transform: translateY(-3px);
+}
+.hubCard h2 {
+  margin: 0;
+  font-size: var(--fs-h3);
+}
+.hubCard p {
+  margin: 0;
+}
+.hubEmoji {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: var(--cat-game-bg);
+  font-size: 30px;
+}
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.skills li {
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--cat-learn-bg);
+  color: var(--cat-learn-text);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.record {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.playBtn {
+  justify-self: start;
+  min-height: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-toy);
+  color: var(--color-primary-on);
+  font-weight: 800;
+  text-decoration: none;
+}
+.playBtn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.planned {
+  margin-top: var(--space-5);
+  color: var(--color-text-muted);
+}
+
+/* ---------- permainan ---------- */
+.ready {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4);
+  border-radius: var(--radius-board);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.ready > :first-child {
+  width: 130px;
+}
+.ready h2,
+.ready p {
+  margin: 0;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  font-weight: 700;
+}
+.hud strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+}
+.timeBar {
+  display: block;
+  height: 10px;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--cream-100);
+  overflow: hidden;
+}
+.timeBar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--peach-300), var(--butter-300));
+  transition: width 1s linear;
+}
+.question {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+.topic {
+  justify-self: start;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--cat-game-bg);
+  color: var(--cat-game-text);
+  font-size: var(--fs-small);
+  font-weight: 800;
+}
+.prompt {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+.opts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-2);
+}
+.opt {
+  min-height: 60px;
+  padding: var(--space-2);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  box-shadow: 0 3px 0 var(--color-border);
+  cursor: pointer;
+  transition: transform var(--dur-micro);
+}
+.opt:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--peach-300);
+}
+.opt:disabled {
+  cursor: default;
+}
+.right {
+  border-color: var(--sage-500);
+  background: var(--color-ok-bg);
+}
+.wrong {
+  border-color: var(--color-hint);
+  background: var(--color-hint-bg);
+}
+.feedback {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.feedback p {
+  margin: 0;
+}
+.fbTata {
+  width: 64px;
+  flex: none;
+}
+.review {
+  width: 100%;
+  text-align: left;
+}
+.review summary {
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--color-primary-text);
+  cursor: pointer;
+}
+.review ol {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* ---------- Pasangkan Ekspresi ---------- */
+.matchGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+@media (min-width: 600px) {
+  .matchGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 960px) {
+  .matchGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.matchCard {
+  min-height: 76px;
+  padding: var(--space-2);
+  border: 2px solid var(--sky-300);
+  border-radius: var(--radius-card);
+  background: var(--sky-100);
+  box-shadow: 0 4px 0 var(--sky-300);
+  cursor: pointer;
+  transition: transform var(--dur-micro) var(--ease-soft);
+}
+.factoredCard {
+  border-color: var(--lilac-300);
+  background: var(--lilac-100);
+  box-shadow: 0 4px 0 var(--lilac-300);
+}
+.matchCard:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.selectedCard {
+  border-color: var(--teal-700);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--shadow-lift);
+}
+.matchedCard {
+  border-color: var(--sage-500);
+  background: var(--color-ok-bg);
+  box-shadow: none;
+  opacity: 0.75;
+  cursor: default;
+}
+.shake {
+  animation: shake 0.35s ease-in-out 2;
+  border-color: var(--color-hint);
+}
+@keyframes shake {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}

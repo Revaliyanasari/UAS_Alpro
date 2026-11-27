@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MathText from '../../components/ui/MathText.jsx';
-import MathKeypad from '../../components/ui/MathKeypad.jsx';
+import MathKeypad, { varsOf } from '../../components/ui/MathKeypad.jsx';
 import TataCoach from './TataCoach.jsx';
 import { runCheck } from './runCheck.js';
 import { feedbackFor } from '../../content/feedback.js';
@@ -59,7 +59,7 @@ export default function FadedScreen({ screen, onDone }) {
           </li>
         ))}
       </ol>
-      {!done && <MathKeypad value={value} onChange={setValue} onSubmit={submit} label={`Isi kotak ${active + 1}`} />}
+      {!done && <MathKeypad value={value} onChange={setValue} onSubmit={submit} label={`Isi kotak ${active + 1}`} vars={varsOf(...blanks.map((b) => b.check))} />}
       <TataCoach
         message={msg.text}
         tone={msg.tone}

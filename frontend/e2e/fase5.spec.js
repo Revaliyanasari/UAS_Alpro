@@ -7,7 +7,7 @@ const noHorizontalScroll = (page) => page.evaluate(() => document.documentElemen
 
 test('Galeri Ekspresi TATA: 18 ekspresi, responsif', async ({ page }, testInfo) => {
   await page.goto('/pengaturan');
-  await page.getByRole('link', { name: 'Galeri Ekspresi TATA' }).click();
+  await page.getByRole('main').getByRole('link', { name: 'Galeri Ekspresi TATA' }).click();
   await expect(page.getByRole('list', { name: 'Daftar ekspresi TATA' }).locator('li')).toHaveCount(18);
   await page.getByRole('button', { name: '9. Berpikir' }).click();
   await expect(page.getByRole('heading', { name: 'Berpikir' })).toBeVisible();

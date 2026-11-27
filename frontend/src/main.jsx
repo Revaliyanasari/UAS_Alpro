@@ -17,7 +17,8 @@ import UpdatePrompt from './pwa/UpdatePrompt.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    {/* basename = alamat dasar build (mis. /UAS_Alpro di GitHub Pages); kosong saat lokal */}
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <UpdatePrompt />
       <App />
     </BrowserRouter>

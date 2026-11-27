@@ -5,7 +5,7 @@ import ProgressPath from '../../components/ui/ProgressPath.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import Tata from '../../components/tata/Tata.jsx';
 import { moodFor } from '../../components/tata/tataMood.js';
-import { sfx } from '../../audio/index.js';
+import { sfx, sayTata } from '../../audio/index.js';
 import TileMatchActivity from './TileMatchActivity.jsx';
 import { useProfile } from '../../store/profileStore.js';
 import copy from '../../content/onboarding.json';
@@ -25,12 +25,16 @@ export default function OnboardingPage() {
 
   const finish = () => {
     completeOnboarding();
-    navigate('/peta');
+    navigate('/beranda');
   };
 
   // TATA menyapa saat perkenalan dibuka (siswa baru saja menekan tombol, jadi browser mengizinkan suara)
   useEffect(() => {
-    if (step.id === 'intro') sfx('tataHello');
+    if (step.id !== 'intro') return undefined;
+    sfx('tataHello');
+    // Sapaan pertama TATA (suara) setelah bunyi "bip-bup"
+    const t = setTimeout(() => sayTata('firstOpen'), 700);
+    return () => clearTimeout(t);
   }, [step.id]);
 
   const tataState = step.id === 'tiles' && tilesDone ? moodFor('correct', { firstTry: true }) : step.tata;
@@ -74,7 +78,7 @@ export default function OnboardingPage() {
           Kembali
         </Button>
         {last ? (
-          <Button onClick={finish}>Ke Peta Petualangan</Button>
+          <Button onClick={finish}>Mulai Berpetualang</Button>
         ) : (
           <Button onClick={() => setIndex((i) => i + 1)}>{step.id === 'tiles' && !tilesDone ? 'Lewati aktivitas' : 'Lanjut'}</Button>
         )}

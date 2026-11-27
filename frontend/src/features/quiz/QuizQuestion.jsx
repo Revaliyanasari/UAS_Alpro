@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MathText from '../../components/ui/MathText.jsx';
-import MathKeypad from '../../components/ui/MathKeypad.jsx';
+import MathKeypad, { varsOf } from '../../components/ui/MathKeypad.jsx';
 import Button from '../../components/ui/Button.jsx';
 import { pretty } from '../../components/ui/prettyMath.js';
 import TataCoach from '../lesson/TataCoach.jsx';
@@ -79,7 +79,7 @@ export default function QuizQuestion({ question, onAnswer }) {
       )}
 
       {question.type === 'input' && (
-        <MathKeypad value={value} onChange={setValue} onSubmit={submit} submitLabel={SUBMIT} disabled={Boolean(answered)} />
+        <MathKeypad value={value} onChange={setValue} onSubmit={submit} submitLabel={SUBMIT} disabled={Boolean(answered)} vars={varsOf(question.check)} />
       )}
 
       {question.type === 'sort' && (

@@ -1,0 +1,30 @@
+/* Di dalam .trailWrap (position: relative), di bawah daftar pulau (.path z-index 1). */
+.trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.road,
+.roadDone,
+.dashes {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.road {
+  stroke: var(--beige-300);
+  stroke-width: 18;
+  opacity: 0.9;
+}
+.roadDone {
+  stroke: var(--butter-300);
+  stroke-width: 18;
+}
+.dashes {
+  stroke: var(--cream-50);
+  stroke-width: 3;
+  stroke-dasharray: 8 12;
+}

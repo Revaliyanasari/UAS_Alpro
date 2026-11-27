@@ -2,6 +2,8 @@
 // - Tidak ada suara sebelum interaksi pertama (unlock dipanggil dari ketukan/tombol).
 // - Hanya SATU lagu yang berjalan; berganti lagu memakai crossfade halus.
 // - Berhenti saat tab disembunyikan, lanjut saat terlihat lagi.
+// - Bila browser/HP menahan audio (pindah aplikasi, telepon, layar terkunci), audio dibangunkan lagi
+//   pada ketukan berikutnya; UI dapat menampilkan tombol "Aktifkan suara" (lihat needsGesture/subscribe).
 // - Jika Web Audio tidak tersedia/gagal, semua fungsi menjadi diam (aplikasi tetap jalan).
 import { TRACKS, midiToFreq } from './music.js';
 
@@ -9,17 +11,26 @@ const LOOKAHEAD = 0.15; // detik penjadwalan ke depan
 const TICK_MS = 30;
 const FADE_IN = 1.2;
 const FADE_OUT = 0.8;
+// Penguat per kanal (dinaikkan agar lebih jelas; limiter mencegah pecah). Musik tetap lebih pelan dari efek.
+const MUSIC_GAIN = 1.0;
+const SFX_GAIN = 1.35;
 
 export function createAudioEngine(createContext = defaultContext) {
   let ctx = null;
-  let master, musicBus, sfxBus;
+  let master, limiter, analyser, musicBus, sfxBus;
   let noise = null;
   let available = true;
   let unlocked = false;
   let current = null; // { name, gain, timer, step, nextTime }
   let desired = null; // lagu yang seharusnya diputar (walau musik dimatikan / belum unlock)
-  const prefs = { musicOn: true, sfxOn: true, musicVolume: 0.5, sfxVolume: 0.7 };
+  const prefs = { musicOn: true, sfxOn: true, musicVolume: 0.7, sfxVolume: 0.85 };
   let duckUntil = 0;
+  let hidden = false;
+  let previewing = false; // "Tes musik" di Pengaturan: putar lagu petualangan sebentar
+  let previewTimer = null;
+  let speaking = false; // TATA sedang berbicara → musik diredam
+  const listeners = new Set();
+  const emit = () => listeners.forEach((fn) => fn());
 
   function ensure() {
     if (ctx || !available) return Boolean(ctx);
@@ -27,13 +38,27 @@ export function createAudioEngine(createContext = defaultContext) {
       ctx = createContext();
       if (!ctx) throw new Error('no ctx');
       master = ctx.createGain();
-      master.gain.value = 0.9;
-      master.connect(ctx.destination);
+      master.gain.value = 1;
+      // Limiter: menahan puncak saat beberapa suara berbunyi bersamaan → lebih keras tanpa pecah (clipping).
+      limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.value = -6;
+      limiter.knee.value = 4;
+      limiter.ratio.value = 12;
+      limiter.attack.value = 0.003;
+      limiter.release.value = 0.2;
+      master.connect(limiter);
+      limiter.connect(ctx.destination);
+      // Alat ukur puncak sinyal keluaran (untuk uji "tidak pecah").
+      analyser = ctx.createAnalyser();
+      analyser.fftSize = 2048;
+      limiter.connect(analyser);
       musicBus = ctx.createGain();
       sfxBus = ctx.createGain();
       musicBus.connect(master);
       sfxBus.connect(master);
       applyVolumes();
+      // Keadaan konteks berubah (mis. diinterupsi iOS) → beri tahu UI agar tombol "Aktifkan suara" muncul.
+      ctx.onstatechange = emit;
       return true;
     } catch {
       available = false;
@@ -46,8 +71,10 @@ export function createAudioEngine(createContext = defaultContext) {
     if (!ctx) return;
     const t = ctx.currentTime;
     const level = current ? TRACKS[current.name].level : 1;
-    musicBus.gain.setTargetAtTime(prefs.musicOn ? prefs.musicVolume * level * 0.6 : 0, t, 0.08);
-    sfxBus.gain.setTargetAtTime(prefs.sfxOn ? prefs.sfxVolume : 0, t, 0.03);
+    const voiceDuck = speaking ? 0.35 : 1;
+    musicBus.gain.cancelScheduledValues(t);
+    musicBus.gain.setTargetAtTime(prefs.musicOn ? prefs.musicVolume * level * MUSIC_GAIN * voiceDuck : 0, t, 0.08);
+    sfxBus.gain.setTargetAtTime(prefs.sfxOn ? prefs.sfxVolume * SFX_GAIN : 0, t, 0.03);
   }
 
   // ---------- instrumen ----------
@@ -157,7 +184,7 @@ export function createAudioEngine(createContext = defaultContext) {
 
   function sync() {
     if (!unlocked || !ctx) return;
-    const want = prefs.musicOn ? desired : null;
+    const want = prefs.musicOn ? (desired ?? (previewing ? 'map' : null)) : null;
     if ((current?.name ?? null) === want) return;
     stopCurrent();
     if (want && TRACKS[want]) startTrack(want);
@@ -211,7 +238,7 @@ export function createAudioEngine(createContext = defaultContext) {
     if (!ctx || !prefs.musicOn) return;
     const t = ctx.currentTime;
     const level = current ? TRACKS[current.name].level : 1;
-    const normal = prefs.musicVolume * level * 0.6;
+    const normal = prefs.musicVolume * level * MUSIC_GAIN;
     duckUntil = t + seconds;
     musicBus.gain.cancelScheduledValues(t);
     musicBus.gain.setTargetAtTime(normal * 0.25, t, 0.05);
@@ -222,10 +249,58 @@ export function createAudioEngine(createContext = defaultContext) {
     /** Panggil dari interaksi pengguna pertama (aturan autoplay browser). */
     unlock() {
       if (!ensure()) return false;
-      if (ctx.state === 'suspended') ctx.resume?.();
+      // iPhone/iPad: tanpa ini Web Audio ikut bisu saat saklar senyap aktif (Safari 17+).
+      try {
+        if (typeof navigator !== 'undefined' && navigator.audioSession) navigator.audioSession.type = 'playback';
+      } catch {
+        /* tidak didukung: abaikan */
+      }
       unlocked = true;
+      this.resume();
       sync();
+      emit();
       return true;
+    },
+    /** Bangunkan audio yang tertahan. Aman dipanggil di setiap ketukan (tidak berbuat apa-apa bila sudah jalan). */
+    resume() {
+      if (!ctx || !unlocked || hidden) return;
+      if (ctx.state !== 'running' && ctx.state !== 'closed') {
+        try {
+          const r = ctx.resume?.();
+          r?.then?.(emit, emit);
+        } catch {
+          /* ditolak di luar ketukan: dicoba lagi pada ketukan berikutnya */
+        }
+      }
+    },
+    /** true = perlu ketukan pengguna agar suara bisa terdengar (belum diaktifkan atau tertahan browser). */
+    needsGesture() {
+      if (!available) return false;
+      if (!unlocked || !ctx) return true;
+      return !hidden && ctx.state !== 'running';
+    },
+    /** Berlangganan perubahan keadaan audio (untuk tombol "Aktifkan suara"). */
+    subscribe(fn) {
+      listeners.add(fn);
+      return () => listeners.delete(fn);
+    },
+    /** "Tes musik": bila halaman ini tanpa musik, putar lagu petualangan selama ms. */
+    previewMusic(ms = 4000) {
+      if (!unlocked || !ctx || !prefs.musicOn) return false;
+      this.resume();
+      clearTimeout(previewTimer);
+      previewing = true;
+      sync();
+      previewTimer = setTimeout(() => {
+        previewing = false;
+        sync();
+      }, ms);
+      return true;
+    },
+    /** TATA mulai/berhenti berbicara: musik diredam agar suaranya jelas. */
+    setSpeaking(on) {
+      speaking = Boolean(on);
+      applyVolumes();
     },
     /** Lagu yang diinginkan halaman ini (null = tanpa musik). Aman dipanggil berulang. */
     setTrack(name) {
@@ -241,6 +316,7 @@ export function createAudioEngine(createContext = defaultContext) {
     },
     play(name) {
       if (!unlocked || !ctx || !prefs.sfxOn || !SFX[name]) return false;
+      this.resume();
       try {
         SFX[name](ctx.currentTime + 0.01);
         return true;
@@ -249,13 +325,28 @@ export function createAudioEngine(createContext = defaultContext) {
       }
     },
     /** Tab disembunyikan → hentikan semua suara; terlihat lagi → lanjut. */
-    setHidden(hidden) {
+    setHidden(isHidden) {
+      hidden = Boolean(isHidden);
       if (!ctx) return;
       if (hidden) ctx.suspend?.();
-      else if (unlocked) ctx.resume?.();
+      else this.resume();
+      emit();
+    },
+    /** Puncak sinyal keluaran (0..1, 1 = batas pecah) selama `ms` milidetik — untuk uji kejernihan. */
+    async measurePeak(ms = 1500) {
+      if (!analyser) return null;
+      const buf = new Float32Array(analyser.fftSize);
+      let peak = 0;
+      const end = Date.now() + ms;
+      while (Date.now() < end) {
+        analyser.getFloatTimeDomainData(buf);
+        for (const v of buf) peak = Math.max(peak, Math.abs(v));
+        await new Promise((r) => setTimeout(r, 20));
+      }
+      return peak;
     },
     /** Untuk pengujian & diagnosis (tanpa data pribadi). */
-    debug: () => ({ available, unlocked, state: ctx?.state ?? null, track: current?.name ?? null, desired, playing: current ? 1 : 0, ducked: ctx ? ctx.currentTime < duckUntil : false, ...prefs }),
+    debug: () => ({ available, unlocked, hidden, speaking, previewing, state: ctx?.state ?? null, track: current?.name ?? null, desired, playing: current ? 1 : 0, ducked: ctx ? ctx.currentTime < duckUntil : false, ...prefs }),
   };
 }
 

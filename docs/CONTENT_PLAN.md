@@ -136,7 +136,7 @@ Empat "misi", satu per indikator, dengan **konteks berbeda** dari instrumen. Jaw
 | 5.1 | Reasoning | Stiker (6x² + 18x) lembar dibagikan ke kelompok, tiap kelompok 6x lembar. Sari: (x + 3); Tono: (x + 18). Siapa benar? | Sari; 6x(x + 3) |
 | 5.2 | Formulating | Lapangan persegi sisi k meter, pojok untuk pos jaga persegi 2 meter. Sisa disusun ulang menjadi persegi panjang. Modelkan. | k² − 4 = (k + 2)(k − 2) |
 | 5.3 | Employing | Dua papan pengumuman berbentuk persegi panjang dengan luas (10x² + 15x) dm² dan (15x² + 5x) dm². Lebar kedua papan sama, yaitu faktor persekutuan terbesar dari kedua luas. Tentukan lebar dan panjang masing-masing papan. | 5x(2x + 3) dan 5x(3x + 1) → lebar 5x dm; panjang (2x + 3) dm dan (3x + 1) dm |
-| 5.4 | Interpreting | Kolam (x² − 36) m² = (x + 6)(x − 6). Usulan x = 5. Wajar? Pilih x yang masuk akal. | Tidak wajar (lebar −1 m); x > 6, mis. x = 8 → 14 m × 2 m |
+| 5.4 | Interpreting | ~~Kolam~~ → **Lahan parkir sepeda** (x² − 36) m² = (x + 6)(x − 6) (diganti 27 Nov 2026: "kolam" terlalu dekat dengan konteks instrumen Soal 2). Usulan x = 5. Wajar? Pilih x yang masuk akal. | Tidak wajar (lebar −1 m); x > 6, mis. x = 8 → 14 m × 2 m |
 
 > Catatan 5.3: angka dipilih agar FPB berupa **suku tunggal** (5x). Pasangan seperti (8x² + 4x) dan (12x² + 6x) sengaja dihindari karena FPB-nya 2x(2x + 1) — terlalu sulit untuk kelas VII. Konteks "lebar sama" mengikuti usulan perbaikan E-1(a); jika E-1 tidak disetujui, konteks 5.3 tetap boleh dipakai karena ini soal latihan, bukan instrumen.
 

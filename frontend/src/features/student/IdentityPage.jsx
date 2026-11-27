@@ -103,7 +103,7 @@ function IdentityForm() {
               {copy.identity.back}
             </Button>
           ) : (
-            <Button block onClick={() => navigate(onboarded ? '/peta' : '/mulai')}>
+            <Button block onClick={() => navigate(onboarded ? '/beranda' : '/mulai')}>
               {copy.identity.go}
             </Button>
           )}

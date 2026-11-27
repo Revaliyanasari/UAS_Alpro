@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node src/server.js",
+    "cek-kunci": "node scripts/check-key.js",
     "test": "node --test \"test/*.test.js\""
   }
 }

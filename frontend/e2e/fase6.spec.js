@@ -41,13 +41,16 @@ test('dua siswa bergantian: progres terpisah, ubah identitas tidak menghapus pro
   await expect(page.getByLabel('120 poin pengalaman')).toBeVisible();
 
   // ganti ke siswa baru Budi → progres kosong
-  await page.getByRole('link', { name: 'Profil belajarku' }).click();
+  // buka Profil lewat menu ⋮ (tersedia di semua ukuran layar)
+  await page.getByRole('button', { name: 'Buka menu' }).click();
+  await page.getByRole('dialog', { name: 'Menu utama' }).getByRole('link', { name: 'Profil Siswa' }).click();
   await page.getByRole('link', { name: 'Ganti siswa' }).click();
   await page.getByRole('link', { name: '+ Aku siswa baru' }).click();
   await fill(page, { full: 'Budi Santoso', nick: 'Budi', kelas: 'VII C', school: 'SMP Negeri 1 Harapan' });
   await page.getByRole('button', { name: 'Ayo berangkat!' }).click();
   await page.getByRole('button', { name: 'Lewati' }).click();
   await expect(page.getByText('Halo, Budi!')).toBeVisible();
+  await page.getByRole('link', { name: /Buka peta petualangan/ }).click(); // Beranda → peta
   await expect(page.getByLabel('0 poin pengalaman')).toBeVisible();
 
   // muat ulang, kembali ke Rara → progres Rara utuh

@@ -32,6 +32,18 @@ Browser (React) ──/api/ai/*──► Proxy Vite (dev) ──► backend/src/
 
 Tanpa langkah di atas, aplikasi tetap berjalan normal. Fitur AI hanya disembunyikan, dan Pengaturan menjelaskan alasannya.
 
+## 2a. Kunci ditolak? (pemeriksaan cepat)
+
+1. Buka https://platform.deepseek.com → **API keys** → **Create new API key**. Kunci hanya ditampilkan **sekali**, bentuknya `sk-` lalu ±32 huruf/angka. Salin seluruhnya.
+2. Buka `backend/.env` di VS Code dan ganti baris `AI_API_KEY=...` dengan `AI_API_KEY=sk-...` (tanpa spasi atau tanda kutip). Simpan.
+3. Jalankan `cd backend && npm run cek-kunci`.
+   - ✔ "BERFUNGSI" → selesai.
+   - ✘ "auth" → kunci salah/terpotong/dihapus, ulangi langkah 1.
+   - ✘ "quota" → kunci benar, saldo habis (Top up di platform DeepSeek).
+4. Jalankan proxy (`npm run ai` dari folder `frontend`) bersama `npm run dev`, lalu buka menu ⋮ → **Asisten Belajar**.
+
+Jangan menempel kunci di chat atau file lain selain `backend/.env` (diabaikan Git) dan dasbor hosting.
+
 ## 3. Biaya
 
 DeepSeek adalah layanan **berbayar per token**: setiap pertanyaan dan jawaban memakai saldo. Periksa tarif terbaru di halaman harga DeepSeek sebelum dipakai di kelas. Fitur ini disiapkan karena diminta dosen, tetapi **tetap nonaktif sampai Anda sendiri mengisi API key** (CLAUDE.md aturan 6). Pengendali biaya:

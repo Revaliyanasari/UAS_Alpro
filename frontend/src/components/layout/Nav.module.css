@@ -1,0 +1,339 @@
+/* Navigasi utama: sidebar (laptop), drawer (HP), bilah atas, dan latar halaman hub. */
+
+/* ---------- tata letak ---------- */
+.app {
+  min-height: 100dvh;
+}
+.sidebar {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .withSidebar {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+  }
+  .sidebar {
+    display: block;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    overflow-y: auto;
+    border-right: 2px solid var(--cream-100);
+    background: var(--color-surface);
+  }
+}
+.page {
+  position: relative;
+  min-height: 100dvh;
+  min-width: 0;
+  isolation: isolate;
+}
+.page-home {
+  background: linear-gradient(180deg, var(--cat-home-bg), var(--color-bg) 320px);
+}
+.page-learn {
+  background: linear-gradient(180deg, var(--cat-learn-bg), var(--color-bg) 320px);
+}
+.page-game {
+  background: linear-gradient(180deg, var(--cat-game-bg), var(--color-bg) 320px);
+}
+.page-community {
+  background: linear-gradient(180deg, var(--cat-community-bg), var(--color-bg) 320px);
+}
+.page-other {
+  background: linear-gradient(180deg, var(--cat-other-bg), var(--color-bg) 320px);
+}
+.mathDecor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---------- bilah atas ---------- */
+.top {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) + env(safe-area-inset-top)) var(--gutter) var(--space-2);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--cream-100);
+}
+.title {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--fs-h2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.titleIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 12px;
+}
+.page-home .titleIcon {
+  background: var(--cat-home);
+}
+.page-learn .titleIcon {
+  background: var(--cat-learn);
+}
+.page-game .titleIcon {
+  background: var(--cat-game);
+}
+.page-community .titleIcon {
+  background: var(--cat-community);
+}
+.page-other .titleIcon {
+  background: var(--cat-other);
+}
+.iconBtn,
+.settingsLink,
+.menuBtn {
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+  border: none;
+  border-radius: var(--radius-button);
+  background: var(--color-surface);
+  box-shadow: 0 3px 0 var(--color-border);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--dur-micro) var(--ease-soft), box-shadow var(--dur-micro);
+}
+.iconBtn:hover,
+.settingsLink:hover,
+.menuBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 var(--color-border);
+}
+.iconBtn:active,
+.settingsLink:active,
+.menuBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+.menuBtn {
+  padding: 0 var(--space-3) 0 var(--space-2);
+}
+.menuBtnCompact {
+  padding: 0;
+}
+.settingsLabel {
+  font-size: var(--fs-small);
+}
+@media (max-width: 479px) {
+  .settingsLabel {
+    display: none; /* tetap punya aria-label "Pengaturan"; label tampil di menu */
+  }
+}
+.desktopOnly {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .desktopOnly {
+    display: inline-flex;
+  }
+  .mobileOnly {
+    display: none;
+  }
+}
+
+.main {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--gutter) calc(var(--space-7) + env(safe-area-inset-bottom));
+}
+.mainWide {
+  max-width: 1100px;
+}
+
+/* ---------- drawer (HP) ---------- */
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  background: rgba(46, 58, 56, 0.4);
+}
+.drawer {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(320px, 88vw);
+  overflow-y: auto;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lift);
+  animation: slideIn var(--dur-screen) var(--ease-soft);
+}
+.drawerClose {
+  position: absolute;
+  top: calc(var(--space-2) + env(safe-area-inset-top));
+  right: var(--space-2);
+  width: var(--touch-min);
+  height: var(--touch-min);
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: var(--radius-button);
+  background: var(--cream-100);
+  cursor: pointer;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+/* ---------- isi menu ---------- */
+.menu {
+  display: grid;
+  gap: var(--space-3);
+  padding: calc(var(--space-3) + env(safe-area-inset-top)) var(--space-3) var(--space-6);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-right: var(--space-7);
+}
+.brandTata {
+  width: 44px;
+  height: 52px;
+  flex: none;
+}
+.brand strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  color: var(--teal-700);
+}
+.brand small {
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+.cat ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.catTitle {
+  margin: 0 0 var(--space-1);
+  padding: 2px var(--space-2);
+  font-size: var(--fs-small);
+  letter-spacing: 0.02em;
+}
+.cat-home .catTitle {
+  color: var(--cat-home-text);
+}
+.cat-learn .catTitle {
+  color: var(--cat-learn-text);
+}
+.cat-game .catTitle {
+  color: var(--cat-game-text);
+}
+.cat-community .catTitle {
+  color: var(--cat-community-text);
+}
+.cat-other .catTitle {
+  color: var(--cat-other-text);
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-button);
+  color: var(--color-text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background var(--dur-micro);
+}
+.itemIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 10px;
+}
+.cat-home .itemIcon {
+  background: var(--cat-home-bg);
+  color: var(--cat-home-text);
+}
+.cat-learn .itemIcon {
+  background: var(--cat-learn-bg);
+  color: var(--cat-learn-text);
+}
+.cat-game .itemIcon {
+  background: var(--cat-game-bg);
+  color: var(--cat-game-text);
+}
+.cat-community .itemIcon {
+  background: var(--cat-community-bg);
+  color: var(--cat-community-text);
+}
+.cat-other .itemIcon {
+  background: var(--cat-other-bg);
+  color: var(--cat-other-text);
+}
+.itemText {
+  font-size: var(--fs-small);
+  line-height: 1.25;
+}
+.item:hover {
+  background: var(--cream-50);
+}
+.active {
+  background: var(--cream-100);
+  box-shadow: inset 4px 0 0 var(--teal-400);
+}
+
+/* Perbaikan: TATA kecil di logo menu harus pas di wadahnya */
+.brandTata {
+  overflow: hidden;
+}
+.brandTata > * {
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Layar sempit: sembunyikan ikon judul agar teks judul tidak terpotong */
+@media (max-width: 420px) {
+  .titleIcon {
+    display: none;
+  }
+  .title {
+    font-size: var(--fs-h3);
+  }
+}
+/* HP sangat sempit: tombol ⋮ hanya ikon (label "Buka menu" tetap untuk pembaca layar) agar judul tidak terpotong */
+@media (max-width: 380px) {
+  .menuBtn span {
+    display: none;
+  }
+  .menuBtn {
+    padding: 0;
+  }
+}

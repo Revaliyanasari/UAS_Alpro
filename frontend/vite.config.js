@@ -9,7 +9,11 @@ const BACKGROUND_COLOR = '#FFF8EA';
 // Proxy AI (backend/src/server.js). API key hanya ada di backend/.env, tidak pernah di frontend.
 const AI_PROXY = { '/api': { target: 'http://localhost:8787', changeOrigin: true } };
 
+// Alamat dasar aplikasi. Lokal & Netlify: '/'. GitHub Pages: '/UAS_Alpro/' (diatur oleh scripts/deploy-pages.mjs).
+const BASE = process.env.VITE_BASE || '/';
+
 export default defineConfig({
+  base: BASE,
   server: { proxy: AI_PROXY },
   preview: { proxy: AI_PROXY },
   plugins: [
@@ -22,8 +26,8 @@ export default defineConfig({
         short_name: 'AlgebraAdv',
         description: 'Exploring the World of Algebra — belajar pemfaktoran bentuk aljabar',
         lang: 'id',
-        start_url: '/',
-        scope: '/',
+        start_url: BASE,
+        scope: BASE,
         display: 'standalone',
         orientation: 'portrait',
         theme_color: THEME_COLOR,
@@ -45,9 +49,10 @@ export default defineConfig({
   ],
   test: {
     environment: 'jsdom',
+    testTimeout: 15_000, // uji interaksi panjang (mis. puluhan ketukan ubin) di laptop yang sibuk
     setupFiles: ['./src/test/setup.js'],
     // Uji mesin aljabar memakai test runner bawaan Node (npm run test:math).
-    exclude: [...configDefaults.exclude, 'src/math/**', 'e2e/**'],
+    exclude: [...configDefaults.exclude, 'src/math/**', 'e2e/**', 'e2e-live/**'],
     css: false,
   },
 });

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PageShell from '../../components/ui/PageShell.jsx';
+import AppLayout from '../../components/layout/AppLayout.jsx';
 import Tata2D from '../../components/tata/Tata2D.jsx';
 import { EXPRESSION_ORDER } from '../../components/tata/tataExpressions.js';
 import copy from '../../content/tata-expressions.json';
@@ -18,7 +18,7 @@ export default function TataGalleryPage() {
   const info = copy.expressions[selected];
 
   return (
-    <PageShell title={copy.title} backTo="/pengaturan" wide>
+    <AppLayout title={copy.title} icon="smile" wide>
       <p className={styles.intro}>{copy.intro}</p>
       <section className={styles.preview} aria-live="polite" aria-label={`Ekspresi terpilih: ${info.name}`}>
         <div className={styles.previewArt}>
@@ -56,6 +56,6 @@ export default function TataGalleryPage() {
         ))}
       </ul>
       <p className={styles.note}>💚 {copy.note}</p>
-    </PageShell>
+    </AppLayout>
   );
 }

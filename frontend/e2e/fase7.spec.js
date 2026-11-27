@@ -14,6 +14,8 @@ test('musik: diam sebelum interaksi, berpindah per halaman tanpa bertumpuk, mute
 
   // 2) interaksi pertama → audio aktif; peta memutar lagu petualangan
   await page.getByRole('link', { name: 'Lanjutkan Petualangan' }).click();
+  await expect.poll(async () => (await audioState(page)).track).toBe('map'); // Beranda
+  await page.getByRole('link', { name: /Buka peta petualangan/ }).click(); // Beranda → peta
   await expect.poll(async () => (await audioState(page)).track).toBe('map');
   const s = await audioState(page);
   expect(s).toMatchObject({ available: true, unlocked: true, state: 'running', playing: 1 });
@@ -42,7 +44,7 @@ test('musik: diam sebelum interaksi, berpindah per halaman tanpa bertumpuk, mute
   await page.reload();
   await page.getByRole('button', { name: 'Pengaturan suara' }).click();
   await expect(page.getByLabel(/Musik latar/)).not.toBeChecked();
-  await expect(page.getByText('Volume efek: 40%')).toBeVisible();
+  await expect(page.getByText('Volume efek suara: 40%')).toBeVisible();
   expect((await audioState(page)).track).toBeNull();
 });
 
@@ -50,8 +52,9 @@ test('opsi hening saat belajar: pelajaran tanpa musik, peta tetap bermusik', asy
   await setProfile(page, { nickname: 'Uji', onboardingDone: true, xp: 0, worlds: {} });
   await page.goto('/pengaturan');
   await page.getByLabel(/Musik lembut saat belajar/).uncheck();
-  await page.getByRole('button', { name: 'Kembali' }).click(); // ke halaman pembuka
+  await page.goto('/'); // halaman pembuka (pengaturan tersimpan di perangkat)
   await page.getByRole('link', { name: 'Lanjutkan Petualangan' }).click();
+  await page.getByRole('link', { name: /Buka peta petualangan/ }).click(); // Beranda → peta
   await expect.poll(async () => (await audioState(page)).track).toBe('map');
   await page.getByRole('button', { name: /World 1/ }).click();
   await page.getByRole('link', { name: 'Masuk ke Lembah Aljabar' }).click();

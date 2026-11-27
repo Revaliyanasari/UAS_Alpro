@@ -10,7 +10,7 @@ import { TRACKS } from '../audio/music.js';
 import AudioButton from '../audio/AudioButton.jsx';
 import Button from '../components/ui/Button.jsx';
 import TataCoach from '../features/lesson/TataCoach.jsx';
-import { useSettings } from '../store/settingsStore.js';
+import { AUDIO_DEFAULTS, useSettings } from '../store/settingsStore.js';
 import { idbStorage } from '../store/storage.js';
 
 /** AudioContext tiruan: mencatat oscillator yang dibuat, tanpa speaker. */
@@ -29,6 +29,8 @@ function fakeContext() {
       return node({ type: '', frequency: param(), detune: param(), start() {}, stop() {} });
     },
     createBiquadFilter: () => node({ type: '', frequency: param() }),
+    createDynamicsCompressor: () => node({ threshold: param(), knee: param(), ratio: param(), attack: param(), release: param() }),
+    createAnalyser: () => node({ fftSize: 2048, getFloatTimeDomainData() {} }),
     createBuffer: (c, n) => ({ getChannelData: () => new Float32Array(n) }),
     createBufferSource: () => node({ buffer: null, start() {}, stop() {} }),
     resume() {
@@ -156,22 +158,29 @@ describe('lagu per halaman', () => {
 });
 
 describe('pengaturan suara', () => {
-  beforeEach(() => useSettings.setState({ musicOn: true, sfxOn: true, musicVolume: 0.5, sfxVolume: 0.7, focusMusic: true }));
+  beforeEach(() => useSettings.setState({ musicOn: true, sfxOn: true, voiceOn: true, musicVolume: 0.5, sfxVolume: 0.7, voiceVolume: 0.9, focusMusic: true }));
 
   it('tombol speaker membuka panel; sakelar & volume tersimpan di perangkat', async () => {
     const user = userEvent.setup();
     render(<AudioButton />);
-    await user.click(screen.getByRole('button', { name: 'Pengaturan suara' }));
+    await user.click(screen.getByRole('button', { name: /^Pengaturan suara/ }));
     expect(screen.getByRole('dialog', { name: 'Suara' })).toBeInTheDocument();
     await user.click(screen.getByLabelText(/Musik latar/));
-    await user.click(screen.getByLabelText(/Efek suara/));
-    expect(useSettings.getState()).toMatchObject({ musicOn: false, sfxOn: false });
+    await user.click(screen.getByRole('checkbox', { name: /^Efek suara/ }));
+    await user.click(screen.getByRole('checkbox', { name: /^Suara TATA/ }));
+    expect(useSettings.getState()).toMatchObject({ musicOn: false, sfxOn: false, voiceOn: false });
     expect(screen.getByRole('button', { name: /suara mati/ })).toHaveTextContent('🔇');
     await user.click(screen.getByLabelText(/Musik latar/));
     const slider = screen.getByLabelText('Volume musik');
     fireEvent.change(slider, { target: { value: '60' } }); // jsdom tidak mensimulasikan tombol panah pada slider
     expect(useSettings.getState().musicVolume).toBeCloseTo(0.6);
     expect(await idbStorage.getItem('aa-settings')).toMatch(/"musicOn":true.*"sfxOn":false/);
+    // Tiga kelompok dengan tombol tes, lalu kembalikan bawaan
+    for (const name of [/Tes musik/, /Tes efek/, /Tes suara TATA/]) expect(screen.getByRole('button', { name })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /Tes suara TATA/ }));
+    expect(screen.getByRole('status')).toHaveTextContent(/Suara TATA sedang dimatikan/);
+    await user.click(screen.getByRole('button', { name: /Kembalikan pengaturan suara bawaan/ }));
+    expect(useSettings.getState()).toMatchObject(AUDIO_DEFAULTS);
   });
 });
 

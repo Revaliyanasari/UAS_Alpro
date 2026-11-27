@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  z-index: 40;
+  z-index: var(--z-sheet);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -120,4 +120,14 @@
   display: flex;
   justify-content: space-between;
   gap: var(--space-2);
+}
+
+/* Ilustrasi dunia di lembar pulau (tinggi dibatasi agar tombol Masuk tetap terlihat) */
+.art {
+  height: 120px;
+  margin-bottom: var(--space-3);
+}
+.artLocked {
+  filter: grayscale(0.7);
+  opacity: 0.7;
 }

@@ -30,7 +30,7 @@ describe('Welcome', () => {
   it('siswa yang kembali melihat "Lanjutkan Petualangan", nama panggilannya, dan pilihan ganti siswa', async () => {
     useProfile.setState({ onboardingDone: true, nickname: 'Uji' });
     renderAt('/');
-    expect(await screen.findByRole('link', { name: 'Lanjutkan Petualangan' })).toHaveAttribute('href', '/peta');
+    expect(await screen.findByRole('link', { name: 'Lanjutkan Petualangan' })).toHaveAttribute('href', '/beranda');
     expect(screen.getByText(/Selamat datang kembali, Uji/)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Bukan Uji? Ganti siswa' })).toHaveAttribute('href', '/siswa');
   });
@@ -73,7 +73,7 @@ describe('Onboarding & aktivitas ubin', () => {
       await user.keyboard('{Enter}');
     }
     expect(screen.getByText(/Nama ubin adalah luasnya/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Ke Peta Petualangan' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Mulai Berpetualang' })).toBeInTheDocument();
   });
 
   it('perkenalan selesai → peta menyapa dengan nama panggilan dari identitas (tidak ditanya ulang)', async () => {
@@ -82,7 +82,7 @@ describe('Onboarding & aktivitas ubin', () => {
     renderAt('/mulai');
     for (let i = 0; i < 2; i++) await user.click(screen.getByRole('button', { name: 'Lanjut' }));
     expect(screen.queryByLabelText('Nama panggilan')).not.toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Ke Peta Petualangan' }));
+    await user.click(screen.getByRole('button', { name: 'Mulai Berpetualang' }));
     expect(useProfile.getState().onboardingDone).toBe(true);
     expect(screen.getByText('Halo, Uji!')).toBeInTheDocument();
   });

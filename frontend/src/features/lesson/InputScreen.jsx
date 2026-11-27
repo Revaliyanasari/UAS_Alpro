@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MathKeypad from '../../components/ui/MathKeypad.jsx';
+import MathKeypad, { varsOf } from '../../components/ui/MathKeypad.jsx';
 import { pretty } from '../../components/ui/prettyMath.js';
 import TataCoach from './TataCoach.jsx';
 import { useTask } from './useTask.js';
@@ -30,7 +30,7 @@ export default function InputScreen({ screen, onDone }) {
     <div className={styles.screenBody}>
       <StoryCard story={screen.story} known={screen.known} asked={screen.asked} />
       <p className={styles.prompt}>{pretty(screen.prompt)}</p>
-      <MathKeypad value={value} onChange={setValue} onSubmit={submit} disabled={task.solved} />
+      <MathKeypad value={value} onChange={setValue} onSubmit={submit} disabled={task.solved} vars={varsOf(screen.check)} />
       <TataCoach
         message={task.feedback.text}
         tone={task.feedback.tone}

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Button from '../../components/ui/Button.jsx';
+import WorldArt from '../../components/art/WorldArt.jsx';
 import styles from './WorldSheet.module.css';
 
 /**
@@ -25,6 +26,7 @@ export default function WorldSheet({ world, unlocked, hasLesson, hasQuiz = false
         aria-labelledby="world-sheet-title"
         onClick={(e) => e.stopPropagation()}
       >
+        <WorldArt worldId={world.id} banner className={[styles.art, !unlocked ? styles.artLocked : ''].join(' ')} />
         <header className={styles.head}>
           <span className={styles.badge}>World {world.id}</span>
           <h2 id="world-sheet-title">{world.name}</h2>

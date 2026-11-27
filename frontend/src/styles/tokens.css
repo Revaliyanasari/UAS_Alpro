@@ -22,6 +22,43 @@
   --ink-900: #2e3a38;
   --ink-600: #55635f;
   --white: #ffffff;
+  --sky-100: #e5f2fb;
+  --sky-300: #a9d2ee;
+  --sky-700: #23628c; /* ≥ 4.5:1 di atas sky-100 */
+  --lilac-100: #f1ebfa;
+  --lilac-300: #cdb9ee;
+  --lilac-700: #61428f; /* ≥ 4.5:1 di atas lilac-100 */
+  --peach-100: #fdeee8;
+  --peach-700: #9a4a2f; /* ≥ 4.5:1 di atas peach-100 */
+  --butter-100: #fdf6dc;
+  --butter-700: #7a5a10; /* ≥ 4.5:1 di atas butter-100 */
+
+  /* Skala lapisan (z-index) — SATU sumber agar panel tidak saling menutupi.
+     Urutan: isi < header lengket < kartu pulau (sheet) < drawer menu < modal/dialog < tur < notifikasi */
+  --z-content: 1;
+  --z-header: 20;
+  --z-sheet: 60;
+  --z-drawer: 70;
+  --z-modal: 80;
+  --z-tour: 90;
+  --z-toast: 100;
+
+  /* Identitas warna kategori menu (latar lembut + aksen + teks) */
+  --cat-home-bg: var(--mint-100);
+  --cat-home: var(--teal-400);
+  --cat-home-text: var(--teal-700);
+  --cat-learn-bg: var(--sky-100);
+  --cat-learn: var(--sky-300);
+  --cat-learn-text: var(--sky-700);
+  --cat-game-bg: var(--peach-100);
+  --cat-game: var(--peach-300);
+  --cat-game-text: var(--peach-700);
+  --cat-community-bg: var(--lilac-100);
+  --cat-community: var(--lilac-300);
+  --cat-community-text: var(--lilac-700);
+  --cat-other-bg: var(--butter-100);
+  --cat-other: var(--butter-300);
+  --cat-other-text: var(--butter-700);
 
   /* Peran warna (dipakai komponen) */
   --color-bg: var(--cream-50);

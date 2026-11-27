@@ -13,7 +13,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: var(--z-modal);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -102,6 +102,7 @@
   font-weight: 700;
 }
 .quick {
+  min-width: 0;
   display: flex;
   gap: var(--space-2);
   overflow-x: auto;
@@ -148,4 +149,83 @@
 .quick button:disabled {
   opacity: 0.5;
   cursor: default;
+}
+.chat {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  flex: 1;
+}
+.chatTall .messages {
+  min-height: 280px;
+  max-height: 52dvh;
+}
+
+/* Indikator memuat: tiga titik berdenyut */
+.thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal-400);
+  animation: dot 1s ease-in-out infinite;
+}
+.dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dots span {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+.error p {
+  margin: 0;
+}
+.retry {
+  margin-top: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: 2px solid var(--color-hint);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-hint);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.clear {
+  min-height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }

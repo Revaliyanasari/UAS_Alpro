@@ -1,9 +1,11 @@
 import world1 from './world-1.json';
 import world2 from './world-2.json';
 import world3 from './world-3.json';
+import world4 from './world-4.json';
+import world5 from './world-5.json';
 
 // Kuis dunia yang sudah tersedia. Pulau tanpa kuis tidak menampilkan tombol kuis.
-export const quizzes = { 1: world1, 2: world2, 3: world3 };
+export const quizzes = { 1: world1, 2: world2, 3: world3, 4: world4, 5: world5 };
 
 // Teks umum halaman kuis (bukan soal).
 export const quizCopy = {

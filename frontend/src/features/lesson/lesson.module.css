@@ -241,3 +241,44 @@
   justify-content: space-between;
   gap: var(--space-2);
 }
+
+/* Pemberitahuan "melanjutkan dari langkah N" */
+.resume {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-card);
+  background: var(--butter-200);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+.resume button {
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  border: 2px solid var(--butter-300);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Label tahap: lantai menara / misi literasi */
+.stageBadge {
+  justify-self: start;
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--lilac-100);
+  color: var(--lilac-700);
+  font-size: var(--fs-small);
+  font-weight: 800;
+}
+
+/* Ilustrasi dunia di layar "Pelajaran selesai" */
+.finishArt {
+  max-width: 280px;
+  box-shadow: var(--shadow-card);
+}

@@ -3,22 +3,14 @@
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { loadEnv, configFrom } from './env.js';
+import { loadEnv, configFrom, keyWarning } from './env.js';
 import { providerFromConfig, ProviderError } from './ai/provider.js';
 import { buildSystemPrompt } from './ai/prompt.js';
 import { validateChatBody, createRateLimiter } from './ai/guard.js';
+import { FRIENDLY, statusFor } from './ai/messages.js';
 
 const MAX_BODY = 16 * 1024;
 
-// Pesan ramah untuk siswa; detail teknis hanya untuk pengembang (field code).
-const FRIENDLY = {
-  auth: 'TATA AI belum bisa dipakai: konfigurasi server perlu diperiksa guru.',
-  quota: 'TATA AI sedang istirahat (kuota habis). Pakai tombol petunjuk 💡 dulu, ya.',
-  rate: 'TATA AI sedang ramai. Coba lagi sebentar lagi.',
-  timeout: 'TATA AI terlalu lama berpikir. Coba tanyakan lagi dengan kalimat lebih singkat.',
-  unavailable: 'TATA AI sedang tidak tersedia. Pakai tombol petunjuk 💡 dulu, ya.',
-  bad_response: 'Jawaban TATA AI tidak terbaca. Coba lagi.',
-};
 
 function send(res, status, data, headers = {}) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...headers });
@@ -91,7 +83,7 @@ export function createApp({ config, provider }) {
         const code = err instanceof ProviderError ? err.code : 'unavailable';
         // Log tanpa isi pesan siswa dan tanpa API key.
         console.warn(`[ai] gagal: ${code}`);
-        const status = code === 'timeout' ? 504 : code === 'rate' ? 429 : 502;
+        const status = statusFor(code);
         return send(res, status, { error: FRIENDLY[code] ?? FRIENDLY.unavailable, code }, cors);
       } finally {
         clearTimeout(timer);
@@ -110,5 +102,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   createServer(createApp({ config, provider })).listen(config.port, () => {
     console.log(`Proxy AI Algebra Adventure: http://localhost:${config.port}`);
     console.log(provider ? `AI aktif (${provider.name}, model ${provider.model}).` : 'AI NONAKTIF: AI_API_KEY belum diisi di backend/.env.');
+    const warn = keyWarning(config);
+    if (warn) console.warn(`PERINGATAN: ${warn}`);
   });
 }

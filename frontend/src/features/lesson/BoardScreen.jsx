@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import MathText from '../../components/ui/MathText.jsx';
-import MathKeypad from '../../components/ui/MathKeypad.jsx';
+import MathKeypad, { varsOf } from '../../components/ui/MathKeypad.jsx';
 import TataCoach from './TataCoach.jsx';
 import { toPoly, Poly, checkFactorization, MathInputError } from '../../math/index.js';
 import { feedbackFor } from '../../content/feedback.js';
@@ -67,6 +67,7 @@ export default function BoardScreen({ screen, onDone }) {
         </button>
       </div>
       <MathKeypad
+        vars={varsOf({ target: screen.target })}
         label={active === 'outer' ? 'Faktor luar' : 'Isi kurung'}
         value={active === 'outer' ? outer : inner}
         onChange={active === 'outer' ? setOuter : setInner}

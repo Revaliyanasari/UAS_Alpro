@@ -21,7 +21,7 @@ export async function setProfile(page, progress, student = E2E_STUDENT) {
         const tx = db.transaction('keyval', 'readwrite');
         const store = tx.objectStore('keyval');
         store.put(JSON.stringify({ state: { students: { [student.id]: student }, activeId: student.id }, version: 1 }), 'aa-students');
-        store.put(JSON.stringify({ state: { quizHistory: [], ...progress }, version: 1 }), `aa-profile:${student.id}`);
+        store.put(JSON.stringify({ state: { quizHistory: [], tourDone: true, ...progress }, version: 1 }), `aa-profile:${student.id}`);
         tx.oncomplete = res;
       });
     },

@@ -40,3 +40,16 @@ export function configFrom(env) {
     maxTokens: num(env.AI_MAX_TOKENS, 400),
   };
 }
+
+/**
+ * Pemeriksaan bentuk API key (tanpa pernah menampilkan isinya).
+ * Kunci DeepSeek berawalan "sk-" dan panjangnya sekitar 35 karakter.
+ * @returns {string|null} pesan peringatan, atau null bila bentuknya wajar
+ */
+export function keyWarning(config) {
+  const k = config.apiKey;
+  if (!k || config.provider !== 'deepseek') return null;
+  if (!k.startsWith('sk-')) return 'AI_API_KEY tidak berawalan "sk-". Kemungkinan yang tertempel bukan API key DeepSeek (salin ulang dari platform.deepseek.com → API keys).';
+  if (k.length < 30) return 'AI_API_KEY terlalu pendek. Kemungkinan kunci terpotong saat disalin.';
+  return null;
+}

@@ -15,7 +15,7 @@ export default function WelcomePage() {
   const hasStudents = useStudents((s) => Object.keys(s.students).length > 0);
   const onboardingDone = useProfile((s) => s.onboardingDone);
   const greeting = student ? copy.welcome.greetingReturning.replace('{name}', student.nickname) : copy.welcome.greeting;
-  const startTo = student ? (onboardingDone ? '/peta' : '/mulai') : hasStudents ? '/siswa' : '/identitas';
+  const startTo = student ? (onboardingDone ? '/beranda' : '/mulai') : hasStudents ? '/siswa' : '/identitas';
 
   return (
     <div className={styles.screen}>

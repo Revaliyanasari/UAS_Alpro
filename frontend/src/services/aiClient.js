@@ -1,6 +1,10 @@
 // Klien AI Learning Assistant. Hanya memanggil proxy /api/ai/* (backend/src/server.js);
 // frontend tidak pernah memegang API key. Data siswa (nama panggilan, progres) tidak dikirim.
 
+// Alamat proxy AI. Kosong = server yang sama (lokal lewat proxy Vite, atau Netlify Functions).
+// Bisa diisi saat build bila proxy di-hosting terpisah: VITE_AI_BASE_URL=https://contoh-proxy.example
+const AI_BASE = (import.meta.env.VITE_AI_BASE_URL || '').replace(/\/$/, '');
+
 export const CLIENT_LIMIT = 15; // pertanyaan per sesi pelajaran (cadangan; server juga membatasi per IP)
 
 async function fetchWithTimeout(url, options = {}, ms = 25_000) {
@@ -17,7 +21,7 @@ async function fetchWithTimeout(url, options = {}, ms = 25_000) {
 export async function getAiStatus() {
   if (typeof navigator !== 'undefined' && navigator.onLine === false) return { enabled: false, reason: 'offline' };
   try {
-    const res = await fetchWithTimeout('/api/ai/status', {}, 4_000);
+    const res = await fetchWithTimeout(`${AI_BASE}/api/ai/status`, {}, 4_000);
     if (!res.ok) return { enabled: false, reason: 'offline' };
     const data = await res.json();
     return data.enabled ? { enabled: true, reason: 'ok' } : { enabled: false, reason: 'not_configured' };
@@ -34,7 +38,7 @@ export async function getAiStatus() {
  */
 export async function askTata(messages, context) {
   try {
-    const res = await fetchWithTimeout('/api/ai/chat', {
+    const res = await fetchWithTimeout(`${AI_BASE}/api/ai/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages, context }),

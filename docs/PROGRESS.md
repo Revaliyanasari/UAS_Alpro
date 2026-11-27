@@ -1,6 +1,6 @@
 # Progres Proyek — Algebra Adventure (MVP)
 
-> Diperbarui: 22 November 2026 (Fase 7: musik & efek suara) · Status: **World 1–3 lengkap dengan desain RMT, Galeri Ekspresi TATA, AI Assistant (siap, belum diberi API key), Modul Guru; dapat dijalankan secara lokal** · Belum di-deploy online.
+> Diperbarui: 27 November 2026 (Fase 8: perombakan UI/UX) · **Online: https://revaliyanasari.github.io/UAS_Alpro/** (GitHub Pages, tanpa AI; panduan Netlify + AI: docs/DEPLOYMENT.md) · Status: **World 1–3 lengkap dengan desain RMT, Galeri Ekspresi TATA, AI Assistant (siap, belum diberi API key), Modul Guru; dapat dijalankan secara lokal** 
 
 ## 1. Cara menjalankan
 
@@ -61,9 +61,9 @@ AI Assistant (opsional): isi `backend/.env` (salin dari `.env.example`), jalanka
 | 6 | Tanya TATA menyapa dengan nama panggilan **di perangkat**; nama & identitas lain tidak dikirim ke AI | Uji UI (isi permintaan diperiksa) |
 | 5 | **World 3 Kepulauan Kuadrat (23 layar)**: bilangan kuadrat (16 ubin), aktivitas **Potong & Geser** a² − b² (ketuk potong, ketuk potongan untuk memutar-menggeser, siswa menentukan panjang & lebar), sortir selisih dua kuadrat, contoh rumpang, 4 latihan, B/S, siapa benar (M4), hitung cepat 51² − 49², soal cerita + kewajaran, refleksi. **Kuis Dunia 3** (5 soal × 2 varian) | Uji kunci (sortir diperiksa `isDifferenceOfSquares`) + komponen + e2e (geometri posisi akhir) |
 
-Ukuran: muatan awal ±161 KB JS + 9,5 KB CSS (gzip; batas 250 KB; audio menambah ±4 KB kode, 0 KB file audio); Modul Guru ±8 KB dan TATA 3D ±252 KB dimuat terpisah.
+Ukuran: muatan awal ±178 KB JS + ±11 KB CSS (gzip; batas 250 KB). Modul Guru ±7 KB dan TATA 3D ±252 KB dimuat terpisah.
 
-Hasil uji terakhir (22 Nov 2026, Fase 7): lint bersih · 202 uji mesin & kunci konten lulus · 102 uji komponen lulus · 10 uji proxy AI lulus · 44 uji e2e (Edge, 360 & 1440 px) lulus.
+Hasil uji terakhir (Fase 8, profil dilengkapi): lint bersih · 205 uji mesin & kunci konten (termasuk 740 soal game acak) lulus · 119 uji komponen lulus · 16 uji proxy AI lulus · 54 uji e2e (Edge, 360 & 1440 px) lulus.
 
 ## 3. Belum selesai
 
@@ -143,3 +143,49 @@ Siswa yang kembali langsung disapa di halaman pembuka ("Selamat datang kembali, 
 - **Aturan:** tidak berbunyi sebelum ketukan/tombol pertama; hanya satu lagu (lagu lama berhenti menjadwalkan nada, lalu memudar 0,8 dtk; lagu baru muncul 1,2 dtk); lagu kemenangan menurunkan musik sementara; tab tersembunyi → audio dijeda; jika Web Audio tidak didukung, semua suara diam dan aplikasi tetap berjalan.
 - **Pengaturan** (`aa-settings`): `musicOn`, `sfxOn`, `musicVolume`, `sfxVolume`, `focusMusic`.
 - **Batasan:** musik sintetis terdengar sederhana dibanding rekaman studio; belum ada narasi suara.
+
+## 10. Perombakan UI/UX (Fase 8)
+
+Menu ⋮ (drawer di HP, sidebar di laptop) dengan 5 kategori berwarna; Beranda (dashboard) sebagai halaman utama; halaman baru: Materi, Asisten Belajar, Riwayat & Progres + statistik, Game Belajar (Cepat Tepat, Pasangkan Ekspresi, Latihan Soal), Pencapaian (10 lencana), Peringkat (jujur: hanya siswa di perangkat ini); Profil Siswa lengkap (identitas, ringkasan, progres pulau, lencana, riwayat aktivitas & kuis); Pengaturan terstruktur dengan ikon gear berlabel; audio lebih jelas dengan limiter (diukur, tidak pecah); peta lebih hidup. Rincian: `docs/UI_REVAMP.md`.
+
+## 11. Status API key DeepSeek (27 Nov 2026)
+
+- API key di `backend/.env` sudah **benar dan diterima DeepSeek**; sempat tertulis `AI_API_KEY=AI_API_KEY=sk-…` dan telah dirapikan. **Saldo DeepSeek masih kosong** (HTTP 402), jadi Tanya TATA belum menjawab sampai saldo diisi.
+- Pemeriksa baru: `cd backend && npm run cek-kunci` (satu permintaan ±20 token; kunci tidak pernah ditampilkan). Server juga memberi peringatan saat dijalankan bila bentuk kunci tidak wajar.
+- Langkah perbaikan: `docs/AI_SETUP.md` §2a.
+
+## 12. Pelapisan, tur, audio & suara TATA, World 4–5 (27 Nov 2026 — belum di-commit, menunggu persetujuan)
+
+**Pelapisan & tur**
+- Skala z-index tunggal di `styles/tokens.css` (`--z-header` 20 < sheet 60 < drawer 70 < modal 80 < tur 90 < toast 100). Menu ⋮, panel Suara, Tanya TATA dirender lewat portal → selalu di atas. Semua modal bisa ditutup dengan ✕, Esc, dan klik di luar.
+- Garis lurus vertikal di peta diganti **jalan setapak berkelok** (`map/MapTrail.jsx`) yang diukur dari posisi pulau dan berada di lapisan paling bawah; bagian yang sudah dilalui berwarna kuning.
+- **Tur Beranda** (`components/tour/`): muncul sekali per siswa (`tourDone` di profil), bisa Lanjut/Kembali/Lewati/✕/Esc, diulang dari tombol "Lihat tur aplikasi" (Beranda) atau "Ulangi tur aplikasi" (Pengaturan). Kartu selalu di dalam layar (lembar bawah di HP) dan **bersembunyi otomatis bila ada modal lain terbuka**.
+
+**Audio**
+- Penyebab "suara kadang hilang": pendengar ketukan dilepas setelah ketukan pertama, sehingga audio yang ditahan browser/HP (pindah aplikasi, telepon, layar terkunci) tidak pernah dibangunkan lagi. Kini setiap ketukan membangunkan audio; iPhone memakai `audioSession = playback` (tidak dibisukan saklar senyap); tombol speaker memberi titik berdenyut bila suara perlu diaktifkan.
+- **Suara TATA** (`audio/voice.js`, Web Speech API bawaan browser, tanpa biaya): memilih suara bahasa Indonesia paling natural, tidak memakai logat bahasa lain, menangani daftar suara yang dimuat belakangan, menghentikan kalimat sebelumnya, jeda per situasi, musik diredam saat TATA berbicara. Kalimat situasional di `content/tata-voice.json` (sapaan pertama, beranda, awal pelajaran/kuis, benar, salah, kesulitan, XP, pulau terbuka, selesai). Tanpa nama siswa (suara "online" diproses server penyedia browser). Tombol 🔊 Dengar di balon TATA.
+- Pengaturan suara: tiga kelompok (Musik, Efek suara, Suara TATA) masing-masing dengan sakelar, volume, dan tombol Tes; tombol "Kembalikan pengaturan suara bawaan".
+
+**Materi World 4 & 5 (sebelumnya kosong, tampil "Segera hadir")**
+- **World 4 Menara Tantangan** (29 layar): 4 lantai bertingkat (pemahaman dasar → penerapan konsep → pemecahan masalah → kontekstual), masing-masing diawali pengingat materi. Bentuk tantangan beragam: memilah suku sejenis, menyederhanakan, menentukan nilai, memfaktorkan (FPB, selisih dua kuadrat, gabungan keduanya), contoh rumpang, siapa yang benar, menyusun strategi, analisis cerita, belanja alat tulis, menata kursi, menilai kewajaran, puncak "pasangkan bentuk ↔ faktor" dengan keranjang pengecoh, refleksi. Kuis 5 soal × 2 varian.
+- **World 5 Petualangan Literasi** (28 layar): 4 misi per indikator literasi — Menalar (stiker untuk kelompok), Merumuskan (halaman & pos satpam), Menerapkan (dua papan pengumuman + uang kas), Menafsirkan (lahan parkir sepeda). Setiap misi: cerita → pilah diketahui/ditanya/tidak diperlukan → manipulatif (ubin aljabar, potong & geser, papan matematika) → model → hitung → simpulkan & nilai kewajaran; ditutup langkah literasi & refleksi. Kuis 5 soal × 2 varian bertema sehari-hari.
+- Konteks World 5 **berbeda dari instrumen** pretest/posttest (diuji otomatis: tanpa buku tulis/kantong, taman/kolam, pita/meja pameran, karpet/pojok baca). Draf misi 5.4 di `CONTENT_PLAN.md` (kolam) diganti lahan parkir sepeda karena terlalu dekat dengan konteks instrumen Soal 2.
+- Semua kunci diuji mesin aljabar (`lesson-keys.test.js`, `world45.test.js`); lencana baru "Penakluk Menara" & "Petualang Literasi".
+- **Lanjutkan pelajaran**: posisi & hasil tiap langkah tersimpan per siswa per pulau (`lessonSaves`); saat dibuka lagi muncul "Melanjutkan dari langkah N" + "Mulai dari awal".
+- **Papan ketik**: tombol variabel kini mengikuti soal (a, k, m, p, t, …). Sebelumnya hanya x dan y, sehingga di HP soal ber-variabel lain tidak bisa dijawab. Diuji untuk semua 88 soal isian World 1–5.
+
+**Pengujian (27 Nov 2026):** lint bersih · uji matematika & kunci 283/283 · uji UI 234/234 · e2e Edge 64/64 (HP 360 px & laptop 1440 px), termasuk World 4 & 5 dimainkan penuh (jawaban salah ditolak, keluar-masuk di tengah pelajaran, kuis 5/5 → ★★★, XP, pulau berikutnya terbuka, lencana).
+
+## 13. Tanya TATA: riwayat & Coba lagi · ilustrasi dunia & animasi penghargaan (27 Nov 2026 — belum di-commit)
+
+**Tanya TATA** (backend, provider DeepSeek, dan API key tidak diubah)
+- Riwayat percakapan selama sesi browser (`features/ai/chatHistory.js`, `sessionStorage`): tetap ada saat jendela ditutup/dibuka, berpindah halaman, atau memuat ulang; hilang saat tab ditutup. Kunci `aa-chat:<idSiswa>:<topik>` → **tidak tercampur antarsiswa** dan antartopik (pelajaran per dunia, Asisten Belajar per topik). Batas 15 pertanyaan ikut tersimpan (tidak "terisi ulang" dengan membuka ulang jendela). Tombol "Hapus percakapan".
+- Bila AI gagal (kuota habis, server, jaringan, waktu habis): pesan galat yang jujur + tombol **Coba lagi** yang mengirim ulang pertanyaan yang sama (tidak terduplikasi). Pertanyaan yang belum terjawab tetap bisa dicoba lagi setelah jendela dibuka ulang. **Tidak pernah ada jawaban buatan** — riwayat hanya berisi jawaban yang benar-benar diterima dari server.
+- Indikator memuat (tiga titik berdenyut); topik Asisten Belajar untuk World 4 & 5.
+- Perbaikan tata letak: di HP, baris pertanyaan cepat yang bisa digeser melebarkan kartu chat melewati layar (kolom grid kini `minmax(0, 1fr)`).
+
+**Visual**
+- `components/art/WorldArt.jsx`: 5 ilustrasi SVG orisinal (Lembah Aljabar, Gua Rahasia, Kepulauan Kuadrat, Menara Tantangan, Petualangan Literasi), hanya token warna, tanpa file gambar. Tampil di kartu Materi (pudar bila terkunci), lembar pulau di peta, dan layar "Pelajaran selesai". Gerak halus & lambat (ubin melayang, bendera berkibar).
+- `components/reward/RewardBurst.jsx`: bintang muncul satu per satu + "+N XP" melayang + percikan, di hasil kuis, akhir pelajaran, dan hasil game. Hanya `transform`/`opacity`, berjalan sekali (±1,5 dtk), `pointer-events: none` (tidak menghalangi tombol), dekoratif untuk pembaca layar (nilai tetap tertulis sebagai teks). Pengaturan "Kurangi animasi" dan preferensi sistem dihormati.
+
+**Pengujian (27 Nov 2026):** lint bersih · matematika & kunci 283/283 · UI 251/251 (baru: `chat-history.test.jsx`, `visuals.test.jsx`) · e2e Edge 68/68 di HP 360 px & laptop 1440 px (baru: `fase11.spec.js` — server AI ditiru, tanpa memakai saldo DeepSeek; `fase10` kini juga memeriksa ilustrasi & animasi penghargaan selesai sendiri dan tidak menutupi tombol). Catatan: pada satu putaran penuh, uji World 5 di HP sekali gagal saat 2 browser berjalan bersamaan; lulus 3× berturut-turut saat diulang sendiri dan lulus pada putaran penuh berikutnya.

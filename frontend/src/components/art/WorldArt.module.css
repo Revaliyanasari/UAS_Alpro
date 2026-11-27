@@ -1,0 +1,93 @@
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+}
+.var,
+.num,
+.floor,
+.formula {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-anchor: middle;
+  fill: var(--ink-900);
+}
+.var {
+  font-size: 11px;
+  font-style: italic;
+}
+.num,
+.floor {
+  font-size: 9px;
+}
+.formula {
+  font-size: 13px;
+  fill: var(--butter-300);
+}
+
+/* Gerak halus & lambat (hanya transform/opacity — ringan untuk HP). Dimatikan oleh "Kurangi animasi". */
+.float,
+.floatSlow,
+.flag,
+.pencil {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.float {
+  animation: bob 4s ease-in-out infinite;
+}
+.floatSlow {
+  animation: bob 5.5s ease-in-out infinite 0.6s;
+}
+.glow {
+  animation: glow 3.5s ease-in-out infinite;
+}
+.twinkle {
+  animation: glow 2.5s ease-in-out infinite;
+}
+.twinkleSlow {
+  animation: glow 3.2s ease-in-out infinite 1s;
+}
+.wave {
+  animation: wave 6s ease-in-out infinite;
+}
+.flag {
+  transform-origin: left center;
+  animation: flag 2.4s ease-in-out infinite;
+}
+.pencil {
+  animation: bob 4.5s ease-in-out infinite;
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes glow {
+  50% {
+    opacity: 0.15;
+  }
+}
+@keyframes wave {
+  50% {
+    transform: translateX(-6px);
+  }
+}
+@keyframes flag {
+  50% {
+    transform: scaleX(0.8);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float,
+  .floatSlow,
+  .glow,
+  .twinkle,
+  .twinkleSlow,
+  .wave,
+  .flag,
+  .pencil {
+    animation: none;
+  }
+}

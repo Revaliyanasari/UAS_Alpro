@@ -50,8 +50,9 @@ test('alur lengkap: welcome → identitas → onboarding → seret ubin → peta
   await page.locator('[data-frame="one"]').click();
   await expect(page.getByText(/Nama ubin adalah luasnya/)).toBeVisible();
 
-  await page.getByRole('button', { name: 'Ke Peta Petualangan' }).click();
-  await expect(page.getByText('Halo, Rani!')).toBeVisible();
+  await page.getByRole('button', { name: 'Mulai Berpetualang' }).click();
+  await expect(page.getByText('Halo, Rani!')).toBeVisible(); // Beranda menyapa
+  await page.getByRole('link', { name: /Buka peta petualangan/ }).click(); // Beranda → peta
 
   // peta: buka kartu World 1, tutup
   await page.getByRole('button', { name: /World 1/ }).click();

@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { moodFor } from '../../components/tata/tataMood.js';
 import AudioButton from '../../audio/AudioButton.jsx';
+import MenuButton from '../../components/layout/MenuButton.jsx';
+import Icon from '../../components/ui/Icon.jsx';
 import { Link } from 'react-router-dom';
 import Tata from '../../components/tata/Tata.jsx';
 import SpeechBubble from '../../components/ui/SpeechBubble.jsx';
 import WorldBackground from '../welcome/WorldBackground.jsx';
 import IslandButton from './IslandButton.jsx';
 import WorldSheet from './WorldSheet.jsx';
+import MapTrail from './MapTrail.jsx';
 import { useProfile } from '../../store/profileStore.js';
 import content from '../../content/worlds.json';
 import { lessons } from '../../content/lessons/index.js';
@@ -41,6 +44,7 @@ export function useIdle(ms) {
 export default function MapPage() {
   const { nickname, xp, isUnlocked, totalStars, worlds: progress, quizHistory } = useProfile();
   const [openId, setOpenId] = useState(null);
+  const listRef = useRef(null);
   const sleepy = useIdle(IDLE_MS);
   const worlds = content.worlds;
   const current = worlds.find((w) => isUnlocked(w.id) && !progress[w.id]?.completed) ?? worlds[0];
@@ -50,6 +54,7 @@ export default function MapPage() {
     <div className={styles.screen}>
       <WorldBackground variant="map" />
       <header className={styles.bar}>
+        <MenuButton compact className={styles.settings} />
         <div className={styles.hello}>
           <strong>{nickname ? copy.map.hello.replace('{name}', nickname) : copy.map.helloAnon}</strong>
           <span className={styles.stats}>
@@ -58,25 +63,18 @@ export default function MapPage() {
           </span>
         </div>
         <AudioButton className={styles.settings} />
-        <Link to="/profil" className={styles.settings} aria-label="Profil belajarku">
+        <Link to="/profil" className={[styles.settings, styles.profileLink].join(' ')} aria-label="Profil belajarku">
           <span aria-hidden="true">👤</span>
         </Link>
         <Link to="/pengaturan" className={styles.settings} aria-label="Pengaturan">
-          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-            <path
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.4-2.1.9.7-1.8 3.1-1.1-.4a7 7 0 0 1-1.7 1l-.2 1.2h-3.6l-.2-1.2a7 7 0 0 1-1.7-1l-1.1.4-1.8-3.1.9-.7a7 7 0 0 1 0-2l-.9-.7 1.8-3.1 1.1.4a7 7 0 0 1 1.7-1L10.2 3h3.6l.2 1.2a7 7 0 0 1 1.7 1l1.1-.4 1.8 3.1-.9.7a7 7 0 0 1 0 2Z"
-            />
-          </svg>
+          <Icon name="gear" size={22} />
         </Link>
       </header>
 
       <main className={styles.map}>
         <h1 className="visually-hidden">Peta Petualangan</h1>
-        <ol className={styles.path}>
+        <div className={styles.trailWrap}>
+          <ol className={styles.path} ref={listRef}>
           {worlds.map((w, i) => (
             <li key={w.id} className={i % 2 === 0 ? styles.left : styles.right}>
               <IslandButton
@@ -89,7 +87,10 @@ export default function MapPage() {
               />
             </li>
           ))}
-        </ol>
+          </ol>
+          {/* Setelah <ol>: ref daftar pulau sudah terpasang saat jalan diukur. Lapisan diatur z-index (jalan di bawah). */}
+          <MapTrail listRef={listRef} completed={worlds.filter((w) => progress[w.id]?.completed).length} />
+        </div>
       </main>
 
       <aside className={styles.guide}>
