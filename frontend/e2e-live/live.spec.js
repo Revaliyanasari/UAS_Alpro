@@ -12,7 +12,7 @@ test('situs live: alur siswa, tautan langsung, galeri, guru, suara, PWA', async 
   await expect(page.getByRole('heading', { name: 'Algebra Adventure' })).toBeVisible();
   await page.screenshot({ path: `e2e/.results/live/${testInfo.project.name}-pembuka.png` });
 
-  // 2) identitas → sapaan → perkenalan → peta
+  // 2) identitas → sapaan → perkenalan → Beranda (tur muncul sekali untuk siswa baru)
   await page.getByRole('link', { name: 'Mulai Petualangan' }).click();
   await page.getByLabel(/Nama lengkap/).fill('Uji Situs Online');
   await page.getByLabel(/Nama panggilan/).fill('Uji');
@@ -22,11 +22,19 @@ test('situs live: alur siswa, tautan langsung, galeri, guru, suara, PWA', async 
   await expect(page.getByText('Halo, Uji! Siap memulai petualangan matematika hari ini?')).toBeVisible();
   await page.getByRole('button', { name: 'Ayo berangkat!' }).click();
   await page.getByRole('button', { name: 'Lewati' }).click();
-  await expect(page.getByText('Halo, Uji!')).toBeVisible();
-  expect(page.url()).toContain('/peta');
+  await expect(page.getByRole('heading', { name: 'Halo, Uji!' })).toBeVisible();
+  expect(page.url()).toContain('/beranda');
+  await expect(page.locator('[data-tour-card]')).toBeVisible();
+  await page.getByRole('button', { name: 'Lewati tur' }).click();
+  await expect(page.locator('[data-tour-card]')).toBeHidden();
 
   // 3) audio aktif setelah interaksi (Web Audio asli)
   await expect.poll(() => page.evaluate(() => window.__algebraAudio?.().track)).toBe('map');
+
+  // 3b) materi lengkap World 1–5 dengan ilustrasi
+  await page.getByRole('link', { name: /Buka peta petualangan/ }).click();
+  await expect(page.getByRole('button', { name: /World 4: Menara Tantangan/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /World 5: Petualangan Literasi/ })).toBeVisible();
 
   // 4) pelajaran World 1: layar soal berfungsi
   await page.getByRole('button', { name: /World 1/ }).click();
@@ -41,6 +49,8 @@ test('situs live: alur siswa, tautan langsung, galeri, guru, suara, PWA', async 
   // 5) tautan langsung + muat ulang (404.html → aplikasi), progres & identitas tetap ada
   await page.goto('./peta');
   await expect(page.getByText('Halo, Uji!')).toBeVisible();
+  await page.goto('./materi');
+  for (let id = 1; id <= 5; id++) await expect(page.locator(`svg[data-world-art="${id}"]`)).toBeVisible();
   await page.goto('./profil');
   await expect(page.getByText('Uji Situs Online')).toBeVisible();
 
