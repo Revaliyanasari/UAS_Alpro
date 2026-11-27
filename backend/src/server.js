@@ -1,4 +1,4 @@
-// Proxy AI Learning Assistant. Frontend → /api/ai/* → server ini → DeepSeek.
+// Proxy AI Learning Assistant. Frontend → /api/ai/* → server ini → penyedia AI (Google Gemini / DeepSeek, lihat backend/.env).
 // API key hanya dibaca dari backend/.env dan tidak pernah dikirim ke browser atau ditulis ke log.
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';

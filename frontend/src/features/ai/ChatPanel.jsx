@@ -5,6 +5,7 @@ import { askTata, CLIENT_LIMIT } from '../../services/aiClient.js';
 import { useProfile } from '../../store/profileStore.js';
 import { useStudents } from '../../store/studentStore.js';
 import { chatKey, loadChat, saveChat, clearChat } from './chatHistory.js';
+import FormattedReply from './formatReply.jsx';
 import copy from '../../content/ai.json';
 import styles from './AskTata.module.css';
 
@@ -107,7 +108,7 @@ function Conversation({ storageKey, context, quick = copy.quick, autoFocus = fal
         {messages.length === 0 && <p className={styles.bubbleTata}>{nickname ? `${copy.hello.replace('{name}', nickname)} ${copy.intro}` : copy.intro}</p>}
         {messages.map((m, i) => (
           <p key={i} className={m.role === 'user' ? styles.bubbleUser : styles.bubbleTata}>
-            {pretty(m.content)}
+            {m.role === 'assistant' ? <FormattedReply text={m.content} /> : pretty(m.content)}
           </p>
         ))}
         {loading && (

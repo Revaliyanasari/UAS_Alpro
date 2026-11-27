@@ -4,6 +4,16 @@
 
 **Status:** versi awal (MVP) berjalan secara lokal — lihat [docs/PROGRESS.md](docs/PROGRESS.md) untuk cara menjalankan, fitur, dan roadmap.
 
+## Cara menjalankan (lengkap dengan Tanya TATA/AI)
+
+1. Klik dua kali **`Jalankan Algebra Adventure.bat`** di folder proyek (atau: `cd frontend` lalu `npm run mulai`).
+2. Browser terbuka otomatis di http://localhost:5173. Dari HP di Wi-Fi yang sama, buka alamat "HP (Wi-Fi sama)" yang tampil di jendela.
+3. Biarkan jendela itu terbuka selama aplikasi dipakai; tutup jendela untuk berhenti.
+
+Syarat: Node.js terpasang dan `backend/.env` berisi `AI_PROVIDER` + `AI_API_KEY` (lihat `backend/.env.example` dan `docs/AI_SETUP.md`). Tanpa kunci, aplikasi tetap berjalan dan Tanya TATA disembunyikan.
+
+**Versi online:** https://revaliyanasari.github.io/UAS_Alpro/ (semua fitur kecuali Tanya TATA, karena GitHub Pages tidak menjalankan server AI). Agar AI juga online: `docs/DEPLOYMENT.md` bagian B (Netlify).
+
 ## Dokumentasi
 
 | Dokumen | Isi |

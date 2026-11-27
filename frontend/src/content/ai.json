@@ -24,7 +24,7 @@
     "title": "Asisten AI TATA",
     "toggle": "Aktifkan tombol Tanya TATA di pelajaran",
     "statusOk": "Server AI aktif.",
-    "statusNotConfigured": "Belum aktif: API key DeepSeek belum diisi di server (backend/.env). Lihat docs/AI_SETUP.md.",
+    "statusNotConfigured": "Belum aktif: API key AI belum diisi di server (backend/.env). Lihat docs/AI_SETUP.md.",
     "statusOffline": "Server AI tidak berjalan atau perangkat sedang offline. Pelajaran tetap bisa dipakai.",
     "checking": "Memeriksa server AI…",
     "quizNote": "Tanya TATA tidak tersedia saat kuis, agar kuis tetap mengukur kemampuanmu sendiri."

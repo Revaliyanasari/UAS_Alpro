@@ -67,3 +67,14 @@ Prompt sistem ada di `backend/src/ai/prompt.js` dan diturunkan dari MLE & Learni
 ## 6. Catatan teknis
 
 Rancangan awal memakai FastAPI (Python). Di laptop pengembangan, Python hanya tersedia sebagai *stub* Microsoft Store (tidak bisa dijalankan), sehingga proxy dibuat dengan **Node.js bawaan tanpa dependensi**. Dengan begitu proxy bisa diuji dan dijalankan dengan satu perintah. Antarmuka penyedia (`backend/src/ai/provider.js`) tetap bisa diganti dengan penyedia lain lewat `AI_PROVIDER`.
+
+## 2b. Beralih ke Google Gemini (27 Nov 2026)
+
+Kunci baru dari pemilik ternyata **kunci Google Gemini** (AI Studio, berawalan `AQ.`), bukan DeepSeek — DeepSeek menolaknya (401), Gemini menerimanya. Karena saldo DeepSeek kosong, backend kini memakai Gemini:
+
+- `backend/.env`: `AI_PROVIDER=gemini`, `AI_API_KEY=<kunci Gemini>`. Kunci DeepSeek lama disimpan sebagai baris komentar (`# DEEPSEEK_API_KEY_LAMA=…`) — untuk kembali, ubah `AI_PROVIDER=deepseek` dan pindahkan kunci lama ke `AI_API_KEY`.
+- Endpoint Gemini yang kompatibel OpenAI (`generativelanguage.googleapis.com/v1beta/openai`), jadi kode backend hanya ditambah pilihan penyedia — tidak dirombak.
+- Model: `gemini-flash-lite-latest` (±1 detik saat diuji) dengan cadangan otomatis `gemini-3-flash-preview` bila model utama sibuk/tidak tersedia. `gemini-2.5-flash` tidak tersedia untuk kunci baru; `gemini-3.8-flash` sangat lambat/sibuk saat diuji. Bisa diubah lewat `AI_MODEL` / `AI_FALLBACK_MODELS`.
+- Cek kunci: `cd backend && npm run cek-kunci` → "✔ API key Google Gemini BERFUNGSI".
+- Tampilan chat membersihkan penanda LaTeX (`$…$`) dan Markdown (`**…**`) yang kadang dipakai Gemini.
+- **Catatan:** GitHub Pages hanya menyajikan file statis, jadi Tanya TATA tetap tidak tersedia di situs GitHub Pages. AI berjalan bila backend dijalankan (`npm run ai` + `npm run dev`) atau setelah situs dipasang di Netlify dengan `AI_PROVIDER` & `AI_API_KEY` diisi di Environment variables Netlify (bukan di GitHub).

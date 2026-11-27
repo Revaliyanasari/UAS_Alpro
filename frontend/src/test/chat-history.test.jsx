@@ -155,3 +155,15 @@ describe('Coba lagi', () => {
     expect(bodies[1].messages).toEqual([{ role: 'user', content: 'Pertanyaan kedua' }]);
   });
 });
+
+describe('tampilan jawaban AI', () => {
+  it('penanda LaTeX ($) dibuang dan **tebal** ditampilkan sebagai huruf tebal', async () => {
+    mockFetch(['Untuk $x^2 - 16$, berapa **akar** dari $16$? Tentukan *a* dan *b*.']);
+    const user = userEvent.setup();
+    render(<AskTata context={ctx} />);
+    await openAndAsk(user, 'Bantu aku');
+    const bubble = await screen.findByText((_, el) => el?.tagName === 'P' && /Untuk x² − 16, berapa akar dari 16\?/.test(el.textContent));
+    expect(bubble.textContent).not.toMatch(/[$*]/);
+    expect(bubble.querySelector('strong')).toHaveTextContent('akar');
+  });
+});

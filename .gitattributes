@@ -1,0 +1,2 @@
+# File batch Windows harus memakai CRLF agar berjalan benar saat diklik dua kali
+*.bat text eol=crlf

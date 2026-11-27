@@ -114,6 +114,6 @@ describe('Tanya TATA', () => {
         <App />
       </MemoryRouter>,
     );
-    expect(await screen.findByText(/API key DeepSeek belum diisi/)).toBeInTheDocument();
+    expect(await screen.findByText(/API key AI belum diisi/)).toBeInTheDocument();
   });
 });

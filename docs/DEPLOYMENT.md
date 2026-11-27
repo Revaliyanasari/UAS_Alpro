@@ -32,7 +32,8 @@ Netlify dipilih karena menjalankan aplikasi **dan** proxy AI di satu alamat (tan
 3. **Add new site → Import an existing project → GitHub** → izinkan akses → pilih repo **UAS_Alpro**.
 4. Pengaturan build terbaca otomatis dari `netlify.toml` (biarkan apa adanya) → **Deploy**.
 5. Setelah situs dibuat: **Site configuration → Environment variables → Add a variable**
-   - Key: `AI_API_KEY` · Value: *API key DeepSeek Anda* · centang **Contains secret values** (bila tersedia).
+   - Key: `AI_PROVIDER` · Value: `gemini`
+   - Key: `AI_API_KEY` · Value: *API key Google Gemini Anda (sama dengan di backend/.env)* · centang **Contains secret values** (bila tersedia).
    - (Opsional) `RATE_LIMIT_MAX`, `AI_MAX_TOKENS` — lihat `backend/.env.example`.
 6. **Deploys → Trigger deploy → Deploy site** (agar variabel terbaca).
 7. Buka `https://<nama-situs>.netlify.app/api/ai/status` → harus tampil `{"enabled":true,...}` (kunci TIDAK ikut tampil).
@@ -40,7 +41,7 @@ Netlify dipilih karena menjalankan aplikasi **dan** proxy AI di satu alamat (tan
 9. (Opsional) Ganti nama situs: **Site configuration → Change site name** → mis. `algebra-adventure-uas`.
 
 ⚠ **Jangan** menempel API key di chat, di kode, atau di GitHub. Isi hanya di dasbor Netlify.
-⚠ DeepSeek berbayar per token. Batas bawaan: 20 pertanyaan / 10 menit per perangkat (per instans fungsi) dan 15 per sesi pelajaran.
+⚠ Kunci Gemini gratis memiliki kuota harian; bila habis, siswa melihat pesan kuota + tombol Coba lagi (tanpa jawaban buatan). Batas bawaan aplikasi: 20 pertanyaan / 10 menit per perangkat (per instans fungsi) dan 15 per sesi pelajaran.
 
 ## C. Keamanan
 

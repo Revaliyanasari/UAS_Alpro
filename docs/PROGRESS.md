@@ -193,3 +193,11 @@ Menu ⋮ (drawer di HP, sidebar di laptop) dengan 5 kategori berwarna; Beranda (
 ## 14. Perbaikan pembaruan PWA setelah deploy (27 Nov 2026)
 
 Gejala: situs GitHub Pages sudah berisi build baru (`gh-pages` dari `ffaa1b3`, file live identik dengan build lokal), tetapi perangkat yang pernah membuka aplikasi tetap melihat versi lama. Penyebab & perbaikan: lihat `docs/DEPLOYMENT.md` §F (service worker mode *prompt* menunggu tombol yang tertutup latar halaman → kini *autoUpdate* + `skipWaiting`/`clientsClaim`, penundaan saat pelajaran/kuis/game, pemberitahuan di lapisan teratas). Data siswa tidak disentuh. Uji: `src/test/update.test.jsx` + reproduksi browser (versi lama persis → versi perbaikan → versi berikutnya).
+
+## 15. Tanya TATA memakai Google Gemini (27 Nov 2026 — belum di-commit)
+
+Kunci baru pemilik adalah kunci Google Gemini; backend ditambah penyedia `gemini` (endpoint kompatibel OpenAI, model `gemini-flash-lite-latest` + cadangan otomatis), pemeriksa kunci & pesan galat netral-penyedia, pembersih tampilan LaTeX/Markdown di chat. Diuji dengan AI sungguhan dari browser (HP & laptop, jawaban ±1–2 detik). Rincian: `docs/AI_SETUP.md` §2b. Uji: backend 22/22, UI 258/258, matematika 283/283, e2e 68/68.
+
+## 16. Peluncur satu klik (27 Nov 2026)
+
+`Jalankan Algebra Adventure.bat` (folder proyek) / `npm run mulai` (folder frontend) → `frontend/scripts/start-all.mjs`: memasang dependensi bila belum ada, menyalakan server AI (8787) + aplikasi (5173, juga untuk HP di Wi-Fi yang sama), menampilkan status Tanya TATA (tanpa menampilkan kunci), membuka browser; bila sudah berjalan, hanya membuka browser. Diuji: dijalankan lewat .bat → AI aktif (Gemini) dan Tanya TATA menjawab dari browser (HP & laptop).
