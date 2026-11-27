@@ -115,6 +115,8 @@ async function solve(page, s, tryWrong) {
 async function answerQuiz(page, quiz) {
   const answered = [];
   for (let i = 0; i < quiz.slots.length; i++) {
+    // Tunggu soal ke-(i+1) benar-benar tampil, baru kenali variannya (count() tidak menunggu).
+    await expect(page.getByRole('heading', { level: 1, name: new RegExp(`Soal ${i + 1} dari ${quiz.slots.length}`) })).toBeVisible();
     // Varian soal dipilih acak: kenali dari teks pertanyaannya.
     let q = null;
     for (const v of quiz.slots[i].variants) {

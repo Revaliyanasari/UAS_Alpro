@@ -19,7 +19,11 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt', // siswa memilih kapan memuat versi baru (tidak memotong tes)
+      // autoUpdate + skipWaiting/clientsClaim: versi baru langsung aktif setelah deploy.
+      // Sebelumnya 'prompt': service worker baru MENUNGGU sampai tombol 'Muat ulang' ditekan (tombolnya
+      // tertutup latar halaman), sehingga siswa terus melihat versi lama walau situs sudah diperbarui.
+      // Muat ulang otomatis ditunda selama pelajaran/kuis/game (src/pwa/UpdatePrompt.jsx).
+      registerType: 'autoUpdate',
       includeAssets: ['icons/favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
         name: 'Algebra Adventure',
@@ -41,6 +45,9 @@ export default defineConfig({
       workbox: {
         // .woff (format lama) tidak di-cache; browser modern memakai .woff2.
         globPatterns: ['**/*.{js,css,html,svg,png,woff2,json}'],
+        skipWaiting: true, // juga menyelamatkan perangkat yang masih memakai service worker versi lama
+        clientsClaim: true,
+        cleanupOutdatedCaches: true, // hanya cache file aplikasi; localStorage/IndexedDB (data siswa) tidak disentuh
         navigateFallback: 'index.html',
         navigateFallbackDenylist: [new RegExp('^/api/')], // panggilan AI selalu ke jaringan
       },

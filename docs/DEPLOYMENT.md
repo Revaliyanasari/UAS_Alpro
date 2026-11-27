@@ -62,3 +62,21 @@ Netlify dipilih karena menjalankan aplikasi **dan** proxy AI di satu alamat (tan
 - Data siswa per perangkat/browser: siswa yang pindah HP mulai dari awal (belum ada sinkronisasi server).
 - Pembatas laju di Netlify bersifat per instans fungsi (perlindungan dasar).
 - TATA 3D di halaman pembuka butuh beberapa detik untuk muncul pada koneksi lambat saat kunjungan pertama.
+
+## F. Pembaruan aplikasi setelah deploy (service worker) — diperbaiki 27 Nov 2026
+
+**Masalah:** setelah deploy `ffaa1b3`, situs GitHub Pages sudah menyajikan file baru, tetapi perangkat yang pernah membuka aplikasi tetap menampilkan versi lama.
+
+**Penyebab (dibuktikan dengan reproduksi di Edge memakai file `gh-pages` lama persis):**
+1. `registerType: 'prompt'`: service worker baru hanya *menunggu* (waiting); versi lama terus disajikan dari Cache Storage walau halaman dimuat ulang atau tab baru dibuka, sampai tombol "Muat ulang" ditekan atau SEMUA tab/PWA ditutup.
+2. Spanduk "Versi baru tersedia" berada di aliran halaman dan tertutup latar halaman pembuka → tombolnya tidak pernah terlihat.
+
+**Perbaikan:**
+- `vite.config.js`: `registerType: 'autoUpdate'` + `skipWaiting`, `clientsClaim`, `cleanupOutdatedCaches`. Service worker baru langsung aktif — termasuk di perangkat yang masih memakai service worker lama (browser mengunduh `sw.js` baru saat situs dibuka).
+- `src/pwa/UpdatePrompt.jsx`: di halaman biasa langsung memuat ulang ke versi baru; saat pelajaran/kuis/game pembaruan ditunda (pemberitahuan "Perbarui sekarang"/"Nanti") dan dipasang begitu siswa keluar; pembaruan juga diperiksa saat aplikasi dibuka lagi dari latar belakang dan tiap 30 menit.
+- Pemberitahuan melayang di lapisan teratas (`--z-toast`).
+- Hanya cache file aplikasi yang dibersihkan; **localStorage & IndexedDB (data dan progres siswa) tidak disentuh** (diverifikasi).
+
+**Yang dialami pengguna:**
+- Perangkat yang masih memakai versi lama: buka situs/aplikasi sekali (service worker baru terpasang di latar belakang), lalu buka/muat ulang sekali lagi → versi terbaru. Tidak perlu menghapus data browser.
+- Deploy berikutnya: versi baru tampil pada pembukaan pertama setelah deploy.
